@@ -39,7 +39,7 @@ class Dashboard(QWidget):
         scroll_area.setWidgetResizable(True)
         scroll_content = QWidget()
         scroll_layout = QVBoxLayout(scroll_content)
-
+        '''
         with open("CombinedResult.csv","r") as file:
             creader = csv.reader(file, delimiter='|')
 
@@ -61,7 +61,7 @@ class Dashboard(QWidget):
                 group_layout.addWidget(description_label)
                 group_box.setLayout(group_layout)
                 scroll_layout.addWidget(group_box)
-
+        '''
         scroll_area.setWidget(scroll_content)
         grid_layout.addWidget(scroll_area, 1, 0, 2, 5)  
 
