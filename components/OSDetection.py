@@ -85,6 +85,7 @@ class OSVersionWindow(QWidget):
 
     def run_script(self):
         selected_os = self.dropdown.currentText()
+        self.close()
         subprocess.run(["python", "components/customScript.py",selected_os])
 
 
