@@ -1,5 +1,5 @@
 # Define the path for the JSON and CSV files
-$jsonFile = "$PSScriptRoot\CombinedOutput\Updated_CombinedFormattedOutput.json"
+$jsonFile = "$PSScriptRoot\CombinedOutput\CombinedResult.json"
 $csvFilePath = "$PSScriptRoot\CombinedOutput\CombinedResult.csv"
 
 # Read the JSON content

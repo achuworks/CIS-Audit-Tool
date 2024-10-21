@@ -60,4 +60,4 @@ $checkJson.PSObject.Properties | ForEach-Object {
 }
 
 # Save the updated combined formatted output JSON file
-$checkJson | ConvertTo-Json -Depth 4 | Set-Content -Path "$PSScriptRoot\CombinedOutput\Updated_CombinedFormattedOutput.json"
+$checkJson | ConvertTo-Json -Depth 4 | Set-Content -Path "$PSScriptRoot\CombinedOutput\CombinedResult.json"
