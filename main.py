@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from PySide6.QtWidgets import *
 from PySide6.QtCore import Slot
-from dashboard import Dashboard
+from GUI.dashboard import Dashboard
 
 class MainWindow(QMainWindow):
     def __init__(self):
