@@ -38,35 +38,22 @@ class OSVersionWindow(QWidget):
             details = p1.stdout
             os_version = details.split("=")[1].split("|")[0].strip()
 
-        self.version_label.setText(f"OS Version: {os_version}")
-        self.ask_for_confirmation(os_version)
+        self.version_label.setText(f"Your Current OS Version: \t{os_version} \n\n\n\n\nChoose OS")
+        self.osList(os_version)
 
-    def ask_for_confirmation(self, os_version):
-        reply = QMessageBox.question(
-            self,
-            "Confirm OS Version",
-            f"Do you want to keep the displayed OS version?\n\n{os_version}",
-            QMessageBox.Yes | QMessageBox.No,
-            QMessageBox.No
-        )
-
-        if reply == QMessageBox.Yes:
-            self.version_label.setText(f"OS Version confirmed: {os_version}")
-            self.dropdown.hide()
-            self.confirm_button.hide()
-        else:
-            self.show_dropdown()
-
-    def show_dropdown(self):
+    def osList(self, os_version):
         self.dropdown.addItems(["Windows 11", "Ubuntu"])
         self.dropdown.show()
         self.confirm_button.show()
-
+        
     def confirm_selection(self):
         selected_os = self.dropdown.currentText()
         self.version_label.setText(f"Selected OS Version: {selected_os}")
         self.dropdown.hide()
         self.confirm_button.hide()
+        
+        self.close()
+        subprocess.run(["python", "Scripts/customScript.py"])
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
