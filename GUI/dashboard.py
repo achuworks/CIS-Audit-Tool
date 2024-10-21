@@ -40,8 +40,8 @@ class Dashboard(QWidget):
         scroll_content = QWidget()
         scroll_layout = QVBoxLayout(scroll_content)
 
-        with open("output.txt","r") as file:
-            creader = csv.reader(file)
+        with open("CombinedResult.csv","r") as file:
+            creader = csv.reader(file, delimiter='|')
 
             for i in creader:
                 group_box = QGroupBox(i[0])

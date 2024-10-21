@@ -1,1 +1,1291 @@
-{}
+{
+  "AccountLockoutPolicy": [
+    {
+      "Name": "AccountLockoutDuration",
+      "Value": "10"
+    },
+    {
+      "Name": "AccountLockoutThreshold",
+      "Value": "10"
+    },
+    {
+      "Name": "AllowAdministratorLockout",
+      "Value": "1"
+    },
+    {
+      "Name": "ResetLockoutCount",
+      "Value": "10"
+    }
+  ],
+  "AccountLogon": [
+    {
+      "Name": "Audit Credential Validation",
+      "Value": "Not Configured"
+    }
+  ],
+  "AccountManagement": [
+    {
+      "Name": "Audit Application Group Management",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Audit Security Group Management",
+      "Value": "Success"
+    },
+    {
+      "Name": "Audit User Account Management",
+      "Value": "Success"
+    }
+  ],
+  "Accounts": [
+    {
+      "Name": "Accounts_Block_Microsoft_Accounts",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Accounts_Guest_Account_Status",
+      "Value": "1"
+    },
+    {
+      "Name": "Accounts_Limit_Local_Account_Use_Of_Blank_Passwords",
+      "Value": "1"
+    },
+    {
+      "Name": "Accounts_Rename_Administrator_Account",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Accounts_Rename_Guest_Account",
+      "Value": "Not Configured"
+    }
+  ],
+  "Audit": [
+    {
+      "Name": "Audit: Force audit policy subcategory settings (Windows or later) to override audit policy category settings",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Audit: Shut down system immediately if unable to log security audits",
+      "Value": "0"
+    }
+  ],
+  "AuditProcessCreation": [
+    {
+      "Name": "Include command line in process creation events",
+      "Value": "Not Configured"
+    }
+  ],
+  "CredentialsDelegation": [
+    {
+      "Name": "Encryption Oracle Remediation",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Remote host allows delegation of non-exportable credentials",
+      "Value": "Not Configured"
+    }
+  ],
+  "DetailedTracking": [
+    {
+      "Name": "Audit Plug and Play Events",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Audit Process Creation",
+      "Value": "Not Configured"
+    }
+  ],
+  "DeviceInstallation": [
+    {
+      "Name": "Prevent device metadata retrieval from the Internet",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Prevent installation of devices that match any of these device IDs",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Prevent installation of devices that match any of these device IDs: Also apply to matching devices that are already installed",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Prevent installation of devices that match any of these device IDs: Prevent installation of devices that match any of these device IDs",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Prevent installation of devices using drivers that match these device setup classes",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Prevent installation of devices using drivers that match these device setup classes: Also apply to matching devices that are already installed",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Prevent installation of devices using drivers that match these device setup classes: Prevent installation of devices using drivers for these device setup",
+      "Value": "Not Configured"
+    }
+  ],
+  "Devices": [
+    {
+      "Name": "Devices: Prevent users from installing printer drivers",
+      "Value": "0"
+    }
+  ],
+  "DevviceGuard": [
+    {
+      "Name": "Turn On Virtualization Based Security",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Turn On Virtualization Based Security: Credential Guard Configuration",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Turn On Virtualization Based Security: Kernel-mode Hardware-enforced Stack Protection",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Turn On Virtualization Based Security: Require UEFI Memory Attributes Table",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Turn On Virtualization Based Security: Secure Launch Configuration",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Turn On Virtualization Based Security: Select Platform Security Level",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Turn On Virtualization Based Security: Virtualization Based Protection of Code Integrity",
+      "Value": "Not Configured"
+    }
+  ],
+  "EarlyLaunchAntimalware": [
+    {
+      "Name": "Boot-Start Driver Initialization Policy",
+      "Value": "Not Configured"
+    }
+  ],
+  "HandwritingPersonalization": [
+    {
+      "Name": "AllowOnlineTips",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "AllowUsersToEnableOnlineSpeechRecognitionServices",
+      "Value": "Not Configured"
+    }
+  ],
+  "InteractiveLogon": [
+    {
+      "Name": "Interactive logon: Do not require CTRL+ALT+DEL",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Interactive logon: Don't display last signed-in",
+      "Value": "0"
+    },
+    {
+      "Name": "Interactive logon: Machine account lockout threshold",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Interactive logon: Machine inactivity limit",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Interactive logon: Message text for users attempting to log on",
+      "Value": ""
+    },
+    {
+      "Name": "Interactive logon: Message title for users attempting to log on",
+      "Value": "\"\""
+    },
+    {
+      "Name": "Interactive logon: Prompt user to change password before expiration",
+      "Value": "5"
+    },
+    {
+      "Name": "Interactive logon: Smart card removal behavior",
+      "Value": "\"0\""
+    }
+  ],
+  "InternetCommunicationManagement": [
+    {
+      "Name": "Turn off access to the Store",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Turn off downloading of print drivers over HTTP",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Turn off handwriting personalization data sharing",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Turn off handwriting recognition error reporting",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Turn off Internet Connection Wizard if URL connection is referring to Microsoft.com",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Turn off Internet download for Web publishing and online ordering wizards",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Turn off printing over HTTP",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Turn off Registration if URL connection is referring to Microsoft.com",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Turn off Search Companion content file updates",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Turn off the 'Order Prints' picture task",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Turn off the 'Publish to Web' task for files and folders",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Turn off the Windows Messenger Customer Experience Improvement Program",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Turn off Windows Customer Experience Improvement Program",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Turn off Windows Error Reporting",
+      "Value": "Not Configured"
+    }
+  ],
+  "Kerberos": [
+    {
+      "Name": "Support device authentication using certificate",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Support device authentication using certificate: Device authentication behaviour using certificate",
+      "Value": "Not Configured"
+    }
+  ],
+  "KernelDMAProtection": [
+    {
+      "Name": "Enumeration policy for external devices incompatible with Kernel DMA Protection",
+      "Value": "Not Configured"
+    }
+  ],
+  "Locale_Services": [
+    {
+      "Name": "Disallow copying of user input methods to the system account for sign-in",
+      "Value": "Not Configured"
+    }
+  ],
+  "LocalSecurityAuthority": [
+    {
+      "Name": "Configures LSASS to run as a protected process",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Allow Custom SSPs and APs to be loaded into LSASS",
+      "Value": "Not Configured"
+    }
+  ],
+  "LoggingAndTracing": [
+    {
+      "Name": "Continue experiences on this device",
+      "Value": "Not Configured"
+    }
+  ],
+  "Logon": [
+    {
+      "Name": "Turn on convenience PIN sign-in",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Block user from showing account details on sign-in",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Turn off app notifications on the lock screen",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Do not display network selection UI",
+      "Value": "Not Configured"
+    }
+  ],
+  "LogonLogoff": [
+    {
+      "Name": "Audit Account Lockout",
+      "Value": "Success"
+    },
+    {
+      "Name": "Audit Group Membership",
+      "Value": "None"
+    },
+    {
+      "Name": "Audit Logoff",
+      "Value": "Success"
+    },
+    {
+      "Name": "Audit Logon",
+      "Value": "Success and Failure"
+    },
+    {
+      "Name": "Audit Other Logon/Logoff Events",
+      "Value": "None"
+    },
+    {
+      "Name": "Audit Special Logon",
+      "Value": "Success"
+    }
+  ],
+  "MicrosoftNetworkClient": [
+    {
+      "Name": "Microsoft network client: Digitally sign communications (always)",
+      "Value": "0"
+    },
+    {
+      "Name": "Microsoft network client: Digitally sign communications (if server agrees)",
+      "Value": "1"
+    },
+    {
+      "Name": "Microsoft network client: Send unencrypted password to third-party SMB servers",
+      "Value": "0"
+    }
+  ],
+  "MSS(Legacy)": [
+    {
+      "Name": "MSS: (AutoAdminLogon) Enable Automatic Logon",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "MSS: (DisableIPSourceRouting IPv6) IP source routing protection level",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "MSS: (DisableIPSourceRouting) IP source routing protection level",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "MSS: (DisableSavePassword) Prevent the dial-up password from being saved",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "MSS: (EnableICMPRedirect) Allow ICMP redirects to override OSPF generated routes",
+      "Value": "Enabled"
+    },
+    {
+      "Name": "MSS: (KeepAliveTime) How often keep-alive packets are sent in milliseconds",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "MSS: (NoNameReleaseOnDemand) Allow the computer to ignore NetBIOS name release requests",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "MSS: (PerformRouterDiscovery) Allow IRDP to detect and configure Default Gateway addresses",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "MSS: (SafeDllSearchMode) Enable Safe DLL search mode",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "MSS: (ScreenSaverGracePeriod) The time in seconds before the screen saver grace period expires",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "MSS: (TcpMaxDataRetransmissions IPv6) How many times unacknowledged data is retransmitted",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "MSS: (TcpMaxDataRetransmissions) How many times unacknowledged data is retransmitted",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "MSS: (WarningLevel) Percentage threshold for the security event log at which the system will generate a warning",
+      "Value": "Not Configured"
+    }
+  ],
+  "MSSecurityGuide": [
+    {
+      "Name": "ConfigureRPCPacketLevelPrivacy",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "ConfigureSMBv1Clientdrive",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "ConfigureSMBv1Server",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "EnableCertificatePadding",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "EnableSEHOP",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "NetBTNodeTypeConfiguration",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "WDigestAuthentication",
+      "Value": "Not Configured"
+    }
+  ],
+  "Network": [
+    {
+      "Name": "Allow Windows to automatically connect to suggested open hotspots, to networks shared by contacts, and to hotspots offering paid services",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Configuration of wireless settings using Windows Connect Now",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Configure DNS over HTTPS (DoH) name resolution",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Enable Font Providers",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Enable insecure guest logons",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Hardened UNC Paths",
+      "Value": "Disabled"
+    },
+    {
+      "Name": "Minimize the number of simultaneous connections to the Internet or a Windows Domain",
+      "Value": "Allow simultaneous connections"
+    },
+    {
+      "Name": "Prohibit access of the Windows Connect Now wizards",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Prohibit installation and configuration of Network Bridge on your DNS domain network",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Prohibit use of Internet Connection Sharing on your DNS domain network",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "TCPIP6 Parameter DisabledComponents",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Turn on Mapper I/O (LLTDIO) driver",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Turn on Responder (RSPNDR) driver",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "TurnOffPeerToPeerNetworkingServices",
+      "Value": "Disabled"
+    }
+  ],
+  "NetworkAccess": [
+    {
+      "Name": "Network access: Allow anonymous SID/Name translation",
+      "Value": "0"
+    },
+    {
+      "Name": "Network access: Do not allow anonymous enumeration of SAM accounts",
+      "Value": "1"
+    },
+    {
+      "Name": "Network access: Do not allow anonymous enumeration of SAM accounts and shares",
+      "Value": "0"
+    },
+    {
+      "Name": "Network access: Do not allow storage of passwords and credentials for network authentication",
+      "Value": "0"
+    },
+    {
+      "Name": "Network access: Let Everyone permissions apply to anonymous users",
+      "Value": "0"
+    },
+    {
+      "Name": "Network access: Named Pipes that can be accessed anonymously",
+      "Value": ""
+    },
+    {
+      "Name": "Network access: Remotely accessible registry paths",
+      "Value": "System\\CurrentControlSet\\Control\\ProductOptions,System\\CurrentControlSet\\Control\\ServerApplications,Software\\Microsoft\\WindowsNT\\CurrentVersion"
+    },
+    {
+      "Name": "Network access: Remotely accessible registry paths and sub-paths",
+      "Value": "System\\CurrentControlSet\\Control\\Print\\Printers,System\\CurrentControlSet\\Services\\Eventlog,Software\\Microsoft\\OLAPServer,Software\\Microsoft\\WindowsNT\\CurrentVersion\\Print,Software\\Microsoft\\WindowsNT\\CurrentVersion\\Windows,System\\CurrentControlSet\\Control\\ContentIndex,System\\CurrentControlSet\\Control\\TerminalServer,System\\CurrentControlSet\\Control\\TerminalServer\\UserConfig,System\\CurrentControlSet\\Control\\TerminalServer\\DefaultUserConfiguration,Software\\Microsoft\\WindowsNT\\CurrentVersion\\Perflib,System\\CurrentControlSet\\Services\\SysmonLog"
+    },
+    {
+      "Name": "Network access: Restrict anonymous access to Named Pipes and Shares",
+      "Value": "1"
+    },
+    {
+      "Name": "Network access: Restrict clients allowed to make remote calls to SAM",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Network access: Shares that can be accessed anonymously",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Network access: Sharing and security model for local accounts",
+      "Value": "0"
+    }
+  ],
+  "NetworkSecurity": [
+    {
+      "Name": "Network security: Allow Local System to use computer identity for NTLM",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Network security: Allow LocalSystem NULL session fallback",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Network Security: Allow PKU2U authentication requests to this computer to use online identities",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Network security: Configure encryption types allowed for Kerberos",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Network security: Do not store LAN Manager hash value on next password change",
+      "Value": "1"
+    },
+    {
+      "Name": "Network security: Force logoff when logon hours expire",
+      "Value": "0"
+    },
+    {
+      "Name": "Network security: LAN Manager authentication level",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Network security: LDAP client signing requirements",
+      "Value": "1"
+    },
+    {
+      "Name": "Network security: Minimum session security for NTLM SSP based (including secure RPC) clients",
+      "Value": "536870912"
+    },
+    {
+      "Name": "Network security: Minimum session security for NTLM SSP based (including secure RPC) servers",
+      "Value": "536870912"
+    },
+    {
+      "Name": "Network security: Restrict NTLM: Audit Incoming NTLM Traffic",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Network security: Restrict NTLM: Outgoing NTLM traffic to remote servers",
+      "Value": "Not Configured"
+    }
+  ],
+  "Notifications": [
+    {
+      "Name": "Remove Personalized Website Recommendations from the Recommended section in the Start Menu",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Turn off notifications network usage",
+      "Value": "Not Configured"
+    }
+  ],
+  "ObjectAccess": [
+    {
+      "Name": "Audit Detailed File Share",
+      "Value": "None"
+    },
+    {
+      "Name": "Audit File Share",
+      "Value": "None"
+    },
+    {
+      "Name": "Audit Other Object Access Events",
+      "Value": "None"
+    },
+    {
+      "Name": "Audit Removable Storage",
+      "Value": "None"
+    }
+  ],
+  "PasswordPolicies": [
+    {
+      "Name": "EnforcePasswordHistory",
+      "Value": "0"
+    },
+    {
+      "Name": "MaximumPasswordAge",
+      "Value": "42"
+    },
+    {
+      "Name": "MinimumPasswordLength",
+      "Value": "0"
+    },
+    {
+      "Name": "PasswordComplexity",
+      "Value": "0"
+    },
+    {
+      "Name": "RelaxMinimumPasswordLength",
+      "Value": null
+    },
+    {
+      "Name": "StorePasswordsReversibleEncryption",
+      "Value": "0"
+    }
+  ],
+  "Personalization": [
+    {
+      "Name": "PreventEnablingLockScreenCamera",
+      "Value": "Disabled"
+    },
+    {
+      "Name": "PreventEnablingLockScreenSlideShow",
+      "Value": "Disabled"
+    }
+  ],
+  "PolicyChange": [
+    {
+      "Name": "Audit Audit Policy Change",
+      "Value": "Success"
+    },
+    {
+      "Name": "Audit Authentication Policy Change",
+      "Value": "Success"
+    },
+    {
+      "Name": "Audit Authorization Policy Change",
+      "Value": "None"
+    },
+    {
+      "Name": "Audit MPSSVC Rule-Level Policy Change",
+      "Value": "None"
+    },
+    {
+      "Name": "Audit Other Policy Change Events",
+      "Value": "None"
+    }
+  ],
+  "Printers": [
+    {
+      "Name": "Allow Print Spooler to accept client connections",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Configure Redirection Guard",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Configure RPC connection settings: Protocol to use for outgoing RPC connections",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Configure RPC connection settings: Use authentication for outgoing RPC connections",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Configure RPC listener settings: Authentication protocol to use for incoming RPC connections",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Configure RPC listener settings: Protocols to allow for incoming RPC connections",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Configure RPC over TCP port",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Limits print driver installation to Administrators",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Manage processing of Queue-specific files",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Point and Print Restrictions: When installing drivers for a new connection",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Point and Print Restrictions: When updating drivers for an existing connection",
+      "Value": "Not Configured"
+    }
+  ],
+  "PrivateFirewallSettings": [
+    {
+      "Name": "DisplayNotification",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "FirewallState",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "InboundConnections",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "LogDroppedPackets",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "LogFileName",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "LogFileSize",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "LogSuccessfulConnections",
+      "Value": "Not Configured"
+    }
+  ],
+  "PrivilegeUse": [
+    {
+      "Name": "Audit Sensitive Privilege Use",
+      "Value": "None"
+    }
+  ],
+  "PublicFirewallSettings": [
+    {
+      "Name": "DisplayNotification",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "FirewallState",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "InboundConnections",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "LocalConnectionSecurityRules",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "LocalFirewallRules",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "LogDroppedPackets",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "LogFileName",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "LogFileSize",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "LogSuccessfulConnections",
+      "Value": "Not Configured"
+    }
+  ],
+  "System": [
+    {
+      "Name": "Audit IPsec Driver",
+      "Value": "None"
+    },
+    {
+      "Name": "Audit Other System Events",
+      "Value": "Success and Failure"
+    },
+    {
+      "Name": "Audit Security State Change",
+      "Value": "Success"
+    },
+    {
+      "Name": "Audit Security System Extension",
+      "Value": "None"
+    },
+    {
+      "Name": "Audit System Integrity",
+      "Value": "Success and Failure"
+    }
+  ],
+  "SystemCryptography": [
+    {
+      "Name": "System cryptography: Force strong key protection for user keys stored on the computer",
+      "Value": "Not Configured"
+    }
+  ],
+  "SystemObjects": [
+    {
+      "Name": "System objects: Require case insensitivity for non-Windows subsystems",
+      "Value": "1"
+    },
+    {
+      "Name": "System objects: Strengthen default permissions of internal system objects (e.g. Symbolic Links)",
+      "Value": "1"
+    }
+  ],
+  "SystemServices": [
+    {
+      "Name": "Bluetooth Audio Gateway Service (BTAGService)",
+      "Value": "Manual"
+    },
+    {
+      "Name": "Bluetooth Support Service (bthserv)",
+      "Value": "Manual"
+    },
+    {
+      "Name": "Computer Browser (Browser)",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Downloaded Maps Manager (MapsBroker)",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Geolocation Service (lfsvc)",
+      "Value": "Manual"
+    },
+    {
+      "Name": "IIS Admin Service (IISADMIN)",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Infrared monitor service (irmon)",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Link-Layer Topology Discovery Mapper (lltdsvc)",
+      "Value": "Manual"
+    },
+    {
+      "Name": "LxssManager (LxssManager)",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Microsoft FTP Service (FTPSVC)",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Microsoft iSCSI Initiator Service (MSiSCSI)",
+      "Value": "Manual"
+    },
+    {
+      "Name": "OpenSSH SSH Server (sshd)",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Peer Name Resolution Protocol (PNRPsvc)",
+      "Value": "Manual"
+    },
+    {
+      "Name": "Peer Networking Grouping (p2psvc)",
+      "Value": "Manual"
+    },
+    {
+      "Name": "Peer Networking Identity Manager (p2pimsvc)",
+      "Value": "Manual"
+    },
+    {
+      "Name": "PNRP Machine Name Publication Service (PNRPAutoReg)",
+      "Value": "Manual"
+    },
+    {
+      "Name": "Print Spooler (Spooler)",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Problem Reports and Solutions Control Panel Support (wercplsupport)",
+      "Value": "Manual"
+    },
+    {
+      "Name": "Remote Access Auto Connection Manager (RasAuto)",
+      "Value": "Manual"
+    },
+    {
+      "Name": "Remote Desktop Configuration (SessionEnv)",
+      "Value": "Manual"
+    },
+    {
+      "Name": "Remote Desktop Services (TermService)",
+      "Value": "Manual"
+    },
+    {
+      "Name": "Remote Desktop Services UserMode Port Redirector (UmRdpService)",
+      "Value": "Manual"
+    },
+    {
+      "Name": "Remote Procedure Call (RPC) Locator (RpcLocator)",
+      "Value": "Manual"
+    },
+    {
+      "Name": "Remote Registry (RemoteRegistry)",
+      "Value": "Disabled"
+    },
+    {
+      "Name": "Routing and Remote Access (RemoteAccess)",
+      "Value": "Disabled"
+    },
+    {
+      "Name": "Server (LanmanServer)",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Simple TCP/IP Services (simptcp)",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "SNMP Service (SNMP)",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Special Administration Console Helper (sacsvr)",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "SSDP Discovery (SSDPSRV)",
+      "Value": "Manual"
+    },
+    {
+      "Name": "UPnP Device Host (upnphost)",
+      "Value": "Manual"
+    },
+    {
+      "Name": "Web Management Service (WMSvc)",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Windows Error Reporting Service (WerSvc)",
+      "Value": "Manual"
+    },
+    {
+      "Name": "Windows Event Collector (Wecsvc)",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Windows Media Player Network Sharing Service (WMPNetworkSvc)",
+      "Value": "Manual"
+    },
+    {
+      "Name": "Windows Mobile Hotspot Service (icssvc)",
+      "Value": "Manual"
+    },
+    {
+      "Name": "Windows Push Notifications System Service (WpnService)",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Windows PushToInstall Service (PushToInstall)",
+      "Value": "Manual"
+    },
+    {
+      "Name": "Windows Remote Management (WS-Management) (WinRM)",
+      "Value": "Manual"
+    },
+    {
+      "Name": "World Wide Web Publishing Service (W3SVC)",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "Xbox Accessory Management Service (XboxGipSvc)",
+      "Value": "Manual"
+    },
+    {
+      "Name": "Xbox Live Auth Manager (XblAuthManager)",
+      "Value": "Manual"
+    },
+    {
+      "Name": "Xbox Live Game Save (XblGameSave)",
+      "Value": "Manual"
+    },
+    {
+      "Name": "Xbox Live Networking Service (XboxNetApiSvc)",
+      "Value": "Manual"
+    }
+  ],
+  "UserAccountControl": [
+    {
+      "Name": "User Account Control: Admin Approval Mode for the Built-in Administrator account",
+      "Value": "Not Configured"
+    },
+    {
+      "Name": "User Account Control: Behavior of the elevation prompt for administrators in Admin Approval Mode",
+      "Value": "5"
+    },
+    {
+      "Name": "User Account Control: Behavior of the elevation prompt for standard users",
+      "Value": "3"
+    },
+    {
+      "Name": "User Account Control: Detect application installations and prompt for elevation",
+      "Value": "1"
+    },
+    {
+      "Name": "User Account Control: Only elevate UIAccess applications that are installed in secure locations",
+      "Value": "1"
+    },
+    {
+      "Name": "User Account Control: Run all administrators in Admin Approval Mode",
+      "Value": "1"
+    },
+    {
+      "Name": "User Account Control: Switch to the secure desktop when prompting for elevation",
+      "Value": "1"
+    },
+    {
+      "Name": "User Account Control: Virtualize file and registry write failures to per-user locations",
+      "Value": "1"
+    }
+  ],
+  "UserRightAssignment": [
+    {
+      "Name": "Access Credential Manager as a trusted caller",
+      "Value": "Not configured"
+    },
+    {
+      "Name": "Access this computer from the network",
+      "Value": [
+        "Everyone",
+        "BUILTIN\\Administrators",
+        "BUILTIN\\Users",
+        "BUILTIN\\Backup Operators"
+      ]
+    },
+    {
+      "Name": "Act as part of the operating system",
+      "Value": "Not configured"
+    },
+    {
+      "Name": "Adjust memory quotas for a process",
+      "Value": [
+        "NT AUTHORITY\\LOCAL SERVICE",
+        "NT AUTHORITY\\NETWORK SERVICE",
+        "BUILTIN\\Administrators"
+      ]
+    },
+    {
+      "Name": "Allow log in through Remote desktop services",
+      "Value": [
+        "BUILTIN\\Administrators",
+        "BUILTIN\\Remote Desktop Users"
+      ]
+    },
+    {
+      "Name": "Allow log on locally",
+      "Value": [
+        "Guest",
+        "BUILTIN\\Administrators",
+        "BUILTIN\\Users",
+        "BUILTIN\\Backup Operators"
+      ]
+    },
+    {
+      "Name": "Back up files and directories",
+      "Value": [
+        "BUILTIN\\Administrators",
+        "BUILTIN\\Backup Operators"
+      ]
+    },
+    {
+      "Name": "Change the system time",
+      "Value": [
+        "NT AUTHORITY\\LOCAL SERVICE",
+        "BUILTIN\\Administrators"
+      ]
+    },
+    {
+      "Name": "Change the time zone",
+      "Value": [
+        "NT AUTHORITY\\LOCAL SERVICE",
+        "BUILTIN\\Administrators",
+        "BUILTIN\\Users"
+      ]
+    },
+    {
+      "Name": "Create a pagefile",
+      "Value": "BUILTIN\\Administrators"
+    },
+    {
+      "Name": "Create a token object",
+      "Value": "Not configured"
+    },
+    {
+      "Name": "Create global objects",
+      "Value": [
+        "NT AUTHORITY\\LOCAL SERVICE",
+        "NT AUTHORITY\\NETWORK SERVICE",
+        "BUILTIN\\Administrators",
+        "NT AUTHORITY\\SERVICE"
+      ]
+    },
+    {
+      "Name": "Create permanent shared objects",
+      "Value": "Not configured"
+    },
+    {
+      "Name": "Create symbolic links",
+      "Value": [
+        "BUILTIN\\Administrators",
+        "NT VIRTUAL MACHINE\\Virtual Machines"
+      ]
+    },
+    {
+      "Name": "Debug programs",
+      "Value": "BUILTIN\\Administrators"
+    },
+    {
+      "Name": "Deny access to this computer from the network",
+      "Value": "Not configured"
+    },
+    {
+      "Name": "Deny log on as a batch job",
+      "Value": "Not configured"
+    },
+    {
+      "Name": "Deny log on as a service",
+      "Value": "Not configured"
+    },
+    {
+      "Name": "Deny log on locally",
+      "Value": "Guest"
+    },
+    {
+      "Name": "Deny log on through Remote Desktop Services",
+      "Value": "Not configured"
+    },
+    {
+      "Name": "Enable computer and user accounts to be trusted for delegation",
+      "Value": "Not configured"
+    },
+    {
+      "Name": "Force shutdown from a remote system",
+      "Value": "BUILTIN\\Administrators"
+    },
+    {
+      "Name": "Generate security audits",
+      "Value": [
+        "NT AUTHORITY\\LOCAL SERVICE",
+        "NT AUTHORITY\\NETWORK SERVICE"
+      ]
+    },
+    {
+      "Name": "Impersonate a client after authentication",
+      "Value": [
+        "NT AUTHORITY\\LOCAL SERVICE",
+        "NT AUTHORITY\\NETWORK SERVICE",
+        "BUILTIN\\Administrators",
+        "NT AUTHORITY\\SERVICE"
+      ]
+    },
+    {
+      "Name": "Increase scheduling priority",
+      "Value": [
+        "BUILTIN\\Administrators",
+        "Window Manager\\Window Manager Group"
+      ]
+    },
+    {
+      "Name": "Load and unload device drivers",
+      "Value": "BUILTIN\\Administrators"
+    },
+    {
+      "Name": "Lock pages in memory",
+      "Value": "Not configured"
+    },
+    {
+      "Name": "Log on as a batch job",
+      "Value": [
+        "BUILTIN\\Administrators",
+        "BUILTIN\\Backup Operators",
+        "BUILTIN\\Performance Log Users"
+      ]
+    },
+    {
+      "Name": "Log on as a service",
+      "Value": [
+        "NT SERVICE\\ALL SERVICES",
+        "NT VIRTUAL MACHINE\\Virtual Machines"
+      ]
+    },
+    {
+      "Name": "Manage auditing and security log",
+      "Value": "BUILTIN\\Administrators"
+    },
+    {
+      "Name": "Modify an object label",
+      "Value": "Not configured"
+    },
+    {
+      "Name": "Modify firmware environment values",
+      "Value": "BUILTIN\\Administrators"
+    },
+    {
+      "Name": "Perform volume maintenance tasks",
+      "Value": "BUILTIN\\Administrators"
+    },
+    {
+      "Name": "Profile single process",
+      "Value": "BUILTIN\\Administrators"
+    },
+    {
+      "Name": "Profile system performance",
+      "Value": [
+        "BUILTIN\\Administrators",
+        "NT SERVICE\\WdiServiceHost"
+      ]
+    },
+    {
+      "Name": "Replace a process level token",
+      "Value": [
+        "NT AUTHORITY\\LOCAL SERVICE",
+        "NT AUTHORITY\\NETWORK SERVICE",
+        "NT AUTHORITY\\NETWORK SERVICE"
+      ]
+    },
+    {
+      "Name": "Restore files and directories",
+      "Value": [
+        "BUILTIN\\Administrators",
+        "BUILTIN\\Backup Operators"
+      ]
+    },
+    {
+      "Name": "Shut down the system",
+      "Value": [
+        "BUILTIN\\Administrators",
+        "BUILTIN\\Users",
+        "BUILTIN\\Backup Operators"
+      ]
+    },
+    {
+      "Name": "Take ownership of files or other objects",
+      "Value": "BUILTIN\\Administrators"
+    }
+  ]
+}

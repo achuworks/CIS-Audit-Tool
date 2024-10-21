@@ -5,6 +5,8 @@ from PySide6.QtWidgets import (
 from PySide6.QtCore import Qt
 import sys
 
+os_name = sys.argv[1]
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -41,12 +43,13 @@ class MainWindow(QMainWindow):
         self.scroll_area.setWidget(self.scroll_content)
         self.scroll_area.setFixedHeight(400)
         
-        json_data = {
-            "Network Security": [
-                "IPv6", "Bluetooth", "IP Forwarding", "Packet redirection", "Bogus ICMP response", 
-                "Broadcast ICMP requests", "ICMP Redirects", "Secure ICMP Redirects", "Reverse Path finding"
-            ]
-        }
+        if("Windows" in os_name):
+            with open('C:/Users/kavin/OneDrive/Desktop/solid-umbrella/Scripts/windows_configuration.json') as file:
+                file_content = file.read()
+        elif("Linux" in os_name):
+            with open('Scripts/linux_configuration.json') as file:
+                file_content = file.read()
+        json_data = json.loads(file_content)
 
         self.tree = SettingsTree(json_data)
         self.scroll_layout.addWidget(self.tree)
@@ -90,7 +93,7 @@ class MainWindow(QMainWindow):
         self.chosen_settings_list.clear()
         self.collect_checked_items(self.tree.invisibleRootItem())
 
-    def collect_checked_items(self,parent):
+    def collect_checked_items(self,parent): 
         for i in range(parent.childCount()):
             child = parent.child(i)
             if(child.checkState(0) == Qt.Checked):
