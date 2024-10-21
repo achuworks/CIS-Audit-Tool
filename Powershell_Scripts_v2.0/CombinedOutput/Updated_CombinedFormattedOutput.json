@@ -1,0 +1,1557 @@
+{
+    "AccountLockoutPolicy":  [
+                                 {
+                                     "Value":  "14",
+                                     "Name":  "AccountLockoutDuration",
+                                     "Priority":  "Critical",
+                                     "Config":  "Pass"
+                                 },
+                                 {
+                                     "Value":  "10",
+                                     "Name":  "AccountLockoutThreshold",
+                                     "Priority":  "Medium",
+                                     "Config":  "Pass"
+                                 },
+                                 {
+                                     "Value":  "0",
+                                     "Name":  "AllowAdministratorLockout",
+                                     "Priority":  "Low",
+                                     "Config":  "Fail"
+                                 },
+                                 {
+                                     "Value":  "1",
+                                     "Name":  "ResetLockoutCount",
+                                     "Priority":  "High",
+                                     "Config":  "Fail"
+                                 }
+                             ],
+    "AccountLogon":  [
+                         {
+                             "Value":  "Failure",
+                             "Name":  "Audit Credential Validation",
+                             "Priority":  "Undefined",
+                             "Config":  "Unknown"
+                         }
+                     ],
+    "AccountManagement":  [
+                              {
+                                  "Value":  "Success",
+                                  "Name":  "Audit Application Group Management",
+                                  "Priority":  "Undefined",
+                                  "Config":  "Unknown"
+                              },
+                              {
+                                  "Value":  "Failure",
+                                  "Name":  "Audit Security Group Management",
+                                  "Priority":  "Undefined",
+                                  "Config":  "Unknown"
+                              },
+                              {
+                                  "Value":  "Success and Failure",
+                                  "Name":  "Audit User Account Management",
+                                  "Priority":  "Undefined",
+                                  "Config":  "Unknown"
+                              }
+                          ],
+    "Accounts":  [
+                     {
+                         "Value":  "0",
+                         "Name":  "Accounts_Block_Microsoft_Accounts",
+                         "Priority":  "Medium",
+                         "Config":  "Pass"
+                     },
+                     {
+                         "Value":  "0",
+                         "Name":  "Accounts_Guest_Account_Status",
+                         "Priority":  "High",
+                         "Config":  "Pass"
+                     },
+                     {
+                         "Value":  "1",
+                         "Name":  "Accounts_Limit_Local_Account_Use_Of_Blank_Passwords",
+                         "Priority":  "High",
+                         "Config":  "Fail"
+                     },
+                     {
+                         "Value":  "Not Configured",
+                         "Name":  "Accounts_Rename_Administrator_Account",
+                         "Priority":  "Critical",
+                         "Config":  "Fail"
+                     },
+                     {
+                         "Value":  "Not Configured",
+                         "Name":  "Accounts_Rename_Guest_Account",
+                         "Priority":  "Low",
+                         "Config":  "Pass"
+                     }
+                 ],
+    "Audit":  [
+                  {
+                      "Value":  "0",
+                      "Name":  "Audit: Shut down system immediately if unable to log security audits",
+                      "Priority":  "Undefined",
+                      "Config":  "Unknown"
+                  },
+                  {
+                      "Value":  "1",
+                      "Name":  "Audit: Force audit policy subcategory settings (Windows or later) to override audit policy category settings",
+                      "Priority":  "Undefined",
+                      "Config":  "Unknown"
+                  }
+              ],
+    "DetailedTracking":  [
+                             {
+                                 "Value":  "Success and Failure",
+                                 "Name":  "Audit Plug and Play Events",
+                                 "Priority":  "Undefined",
+                                 "Config":  "Unknown"
+                             },
+                             {
+                                 "Value":  "Failure",
+                                 "Name":  "Audit Process Creation",
+                                 "Priority":  "Undefined",
+                                 "Config":  "Unknown"
+                             }
+                         ],
+    "Devices":  [
+                    {
+                        "Value":  "0",
+                        "Name":  "Devices: Prevent users from installing printer drivers",
+                        "Priority":  "Undefined",
+                        "Config":  "Unknown"
+                    }
+                ],
+    "HandwritingPersonalization":  [
+                                       {
+                                           "Value":  "Not Configured",
+                                           "Name":  "AllowOnlineTips",
+                                           "Priority":  "Undefined",
+                                           "Config":  "Unknown"
+                                       },
+                                       {
+                                           "Value":  "Enabled",
+                                           "Name":  "AllowUsersToEnableOnlineSpeechRecognitionServices",
+                                           "Priority":  "Undefined",
+                                           "Config":  "Unknown"
+                                       }
+                                   ],
+    "InteractiveLogon":  [
+                             {
+                                 "Value":  "1",
+                                 "Name":  "Interactive logon: Do not require CTRL+ALT+DEL",
+                                 "Priority":  "Undefined",
+                                 "Config":  "Unknown"
+                             },
+                             {
+                                 "Value":  "0",
+                                 "Name":  "Interactive logon: Don\u0027t display last signed-in",
+                                 "Priority":  "Undefined",
+                                 "Config":  "Unknown"
+                             },
+                             {
+                                 "Value":  "0",
+                                 "Name":  "Interactive logon: Machine account lockout threshold",
+                                 "Priority":  "Undefined",
+                                 "Config":  "Unknown"
+                             },
+                             {
+                                 "Value":  "0",
+                                 "Name":  "Interactive logon: Machine inactivity limit",
+                                 "Priority":  "Undefined",
+                                 "Config":  "Unknown"
+                             },
+                             {
+                                 "Value":  "",
+                                 "Name":  "Interactive logon: Message text for users attempting to log on",
+                                 "Priority":  "Undefined",
+                                 "Config":  "Unknown"
+                             },
+                             {
+                                 "Value":  "\"\"",
+                                 "Name":  "Interactive logon: Message title for users attempting to log on",
+                                 "Priority":  "Undefined",
+                                 "Config":  "Unknown"
+                             },
+                             {
+                                 "Value":  "6",
+                                 "Name":  "Interactive logon: Prompt user to change password before expiration",
+                                 "Priority":  "Undefined",
+                                 "Config":  "Unknown"
+                             },
+                             {
+                                 "Value":  "\"0\"",
+                                 "Name":  "Interactive logon: Smart card removal behavior",
+                                 "Priority":  "Undefined",
+                                 "Config":  "Unknown"
+                             }
+                         ],
+    "LogonLogoff":  [
+                        {
+                            "Value":  "Success",
+                            "Name":  "Audit Account Lockout",
+                            "Priority":  "Undefined",
+                            "Config":  "Unknown"
+                        },
+                        {
+                            "Value":  "Failure",
+                            "Name":  "Audit Group Membership",
+                            "Priority":  "Undefined",
+                            "Config":  "Unknown"
+                        },
+                        {
+                            "Value":  "Success and Failure",
+                            "Name":  "Audit Logoff",
+                            "Priority":  "Undefined",
+                            "Config":  "Unknown"
+                        },
+                        {
+                            "Value":  "Success",
+                            "Name":  "Audit Logon",
+                            "Priority":  "Undefined",
+                            "Config":  "Unknown"
+                        },
+                        {
+                            "Value":  "Failure",
+                            "Name":  "Audit Other Logon/Logoff Events",
+                            "Priority":  "Undefined",
+                            "Config":  "Unknown"
+                        },
+                        {
+                            "Value":  "Success and Failure",
+                            "Name":  "Audit Special Logon",
+                            "Priority":  "Undefined",
+                            "Config":  "Unknown"
+                        }
+                    ],
+    "MicrosoftNetworkClient":  [
+                                   {
+                                       "Value":  "0",
+                                       "Name":  "Microsoft network client: Digitally sign communications (always)",
+                                       "Priority":  "Undefined",
+                                       "Config":  "Unknown"
+                                   },
+                                   {
+                                       "Value":  "1",
+                                       "Name":  "Microsoft network client: Digitally sign communications (if server agrees)",
+                                       "Priority":  "Undefined",
+                                       "Config":  "Unknown"
+                                   },
+                                   {
+                                       "Value":  "0",
+                                       "Name":  "Microsoft network client: Send unencrypted password to third-party SMB servers",
+                                       "Priority":  "Undefined",
+                                       "Config":  "Unknown"
+                                   }
+                               ],
+    "MicrosoftNetworkServer":  [
+                                   {
+                                       "Value":  "15",
+                                       "Name":  "Microsoft network server: Amount of idle time required before suspending session",
+                                       "Priority":  "Undefined",
+                                       "Config":  "Unknown"
+                                   },
+                                   {
+                                       "Value":  "0",
+                                       "Name":  "Microsoft network server: Digitally sign communications (always)",
+                                       "Priority":  "Undefined",
+                                       "Config":  "Unknown"
+                                   },
+                                   {
+                                       "Value":  "0",
+                                       "Name":  "Microsoft network server: Digitally sign communications (if client agrees)",
+                                       "Priority":  "Undefined",
+                                       "Config":  "Unknown"
+                                   },
+                                   {
+                                       "Value":  "1",
+                                       "Name":  "Microsoft network server: Disconnect clients when logon hours expire",
+                                       "Priority":  "Undefined",
+                                       "Config":  "Unknown"
+                                   },
+                                   {
+                                       "Value":  "0",
+                                       "Name":  "Microsoft network server: Server SPN target name validation level",
+                                       "Priority":  "Undefined",
+                                       "Config":  "Unknown"
+                                   }
+                               ],
+    "MSS(Legacy)":  [
+                        {
+                            "Value":  "Enabled",
+                            "Name":  "MSS: (AutoAdminLogon) Enable Automatic Logon",
+                            "Priority":  "Undefined",
+                            "Config":  "Unknown"
+                        },
+                        {
+                            "Value":  "No additional protection, source routed packets are allowed",
+                            "Name":  "MSS: (DisableIPSourceRouting IPv6) IP source routing protection level",
+                            "Priority":  "Undefined",
+                            "Config":  "Unknown"
+                        },
+                        {
+                            "Value":  "Not Configured",
+                            "Name":  "MSS: (DisableIPSourceRouting) IP source routing protection level",
+                            "Priority":  "Undefined",
+                            "Config":  "Unknown"
+                        },
+                        {
+                            "Value":  "Disabled",
+                            "Name":  "MSS: (DisableSavePassword) Prevent the dial-up password from being saved",
+                            "Priority":  "Undefined",
+                            "Config":  "Unknown"
+                        },
+                        {
+                            "Value":  "Enabled",
+                            "Name":  "MSS: (EnableICMPRedirect) Allow ICMP redirects to override OSPF generated routes",
+                            "Priority":  "Undefined",
+                            "Config":  "Unknown"
+                        },
+                        {
+                            "Value":  "300000",
+                            "Name":  "MSS: (KeepAliveTime) How often keep-alive packets are sent in milliseconds",
+                            "Priority":  "Undefined",
+                            "Config":  "Unknown"
+                        },
+                        {
+                            "Value":  "Enabled",
+                            "Name":  "MSS: (NoNameReleaseOnDemand) Allow the computer to ignore NetBIOS name release requests",
+                            "Priority":  "Undefined",
+                            "Config":  "Unknown"
+                        },
+                        {
+                            "Value":  "Enabled",
+                            "Name":  "MSS: (PerformRouterDiscovery) Allow IRDP to detect and configure Default Gateway addresses",
+                            "Priority":  "Undefined",
+                            "Config":  "Unknown"
+                        },
+                        {
+                            "Value":  "Enabled",
+                            "Name":  "MSS: (SafeDllSearchMode) Enable Safe DLL search mode",
+                            "Priority":  "Undefined",
+                            "Config":  "Unknown"
+                        },
+                        {
+                            "Value":  "5",
+                            "Name":  "MSS: (ScreenSaverGracePeriod) The time in seconds before the screen saver grace period expires",
+                            "Priority":  "Undefined",
+                            "Config":  "Unknown"
+                        },
+                        {
+                            "Value":  "10",
+                            "Name":  "MSS: (TcpMaxDataRetransmissions IPv6) How many times unacknowledged data is retransmitted",
+                            "Priority":  "Undefined",
+                            "Config":  "Unknown"
+                        },
+                        {
+                            "Value":  "5",
+                            "Name":  "MSS: (TcpMaxDataRetransmissions) How many times unacknowledged data is retransmitted",
+                            "Priority":  "Undefined",
+                            "Config":  "Unknown"
+                        },
+                        {
+                            "Value":  "60",
+                            "Name":  "MSS: (WarningLevel) Percentage threshold for the security event log at which the system will generate a warning",
+                            "Priority":  "Undefined",
+                            "Config":  "Unknown"
+                        }
+                    ],
+    "MSSecurityGuide":  [
+                            {
+                                "Value":  "Disabled",
+                                "Name":  "ConfigureRPCPacketLevelPrivacy",
+                                "Priority":  "Undefined",
+                                "Config":  "Unknown"
+                            },
+                            {
+                                "Value":  "Not Configured",
+                                "Name":  "ConfigureSMBv1Clientdrive",
+                                "Priority":  "Undefined",
+                                "Config":  "Unknown"
+                            },
+                            {
+                                "Value":  "Enabled",
+                                "Name":  "ConfigureSMBv1Server",
+                                "Priority":  "Undefined",
+                                "Config":  "Unknown"
+                            },
+                            {
+                                "Value":  "Not Configured",
+                                "Name":  "EnableCertificatePadding",
+                                "Priority":  "Undefined",
+                                "Config":  "Unknown"
+                            },
+                            {
+                                "Value":  "Enabled",
+                                "Name":  "EnableSEHOP",
+                                "Priority":  "Undefined",
+                                "Config":  "Unknown"
+                            },
+                            {
+                                "Value":  "H-node",
+                                "Name":  "NetBTNodeTypeConfiguration",
+                                "Priority":  "Undefined",
+                                "Config":  "Unknown"
+                            },
+                            {
+                                "Value":  "Enabled",
+                                "Name":  "WDigestAuthentication",
+                                "Priority":  "Undefined",
+                                "Config":  "Unknown"
+                            }
+                        ],
+    "Network":  [
+                    {
+                        "Value":  "Enabled",
+                        "Name":  "Allow Windows to automatically connect to suggested open hotspots, to networks shared by contacts, and to hotspots offering paid services",
+                        "Priority":  "Undefined",
+                        "Config":  "Unknown"
+                    },
+                    {
+                        "Value":  [
+                                      "Turn off ability to configure using WCN over Ethernet (UPnP) = Enabled",
+                                      "Turn off ability to configure using WCN over In-band 802.11 WLAN = Disabled",
+                                      "Turn off ability to configure using a USB Flash Drive = Enabled",
+                                      "Turn off ability to configure Windows Portable device (WPD) = Disabled",
+                                      "Maximum number of WCN devices allowed = 500",
+                                      "Higher precedence medium for devices discovered by multiple media = WCN over In-band 802.11 WLAN"
+                                  ],
+                        "Name":  "Configuration of wireless settings using Windows Connect Now",
+                        "Priority":  "Undefined",
+                        "Config":  "Unknown"
+                    },
+                    {
+                        "Value":  "Not Configured",
+                        "Name":  "Configure DNS over HTTPS (DoH) name resolution",
+                        "Priority":  "Undefined",
+                        "Config":  "Unknown"
+                    },
+                    {
+                        "Value":  "Not Configured",
+                        "Name":  "Enable Font Providers",
+                        "Priority":  "Undefined",
+                        "Config":  "Unknown"
+                    },
+                    {
+                        "Value":  "Not Configured",
+                        "Name":  "Enable insecure guest logons",
+                        "Priority":  "Undefined",
+                        "Config":  "Unknown"
+                    },
+                    {
+                        "Value":  [
+                                      "RequireMutualAuthentication=1, RequireIntegrity=1, RequirePrivacy=1",
+                                      "RequireMutualAuthentication=1, RequireIntegrity=1, RequirePrivacy=1"
+                                  ],
+                        "Name":  "Hardened UNC Paths",
+                        "Priority":  "Undefined",
+                        "Config":  "Unknown"
+                    },
+                    {
+                        "Value":  "Prevent Wi-Fi when on Ethernet",
+                        "Name":  "Minimize the number of simultaneous connections to the Internet or a Windows Domain",
+                        "Priority":  "Undefined",
+                        "Config":  "Unknown"
+                    },
+                    {
+                        "Value":  "Disabled",
+                        "Name":  "Prohibit access of the Windows Connect Now wizards",
+                        "Priority":  "Undefined",
+                        "Config":  "Unknown"
+                    },
+                    {
+                        "Value":  "Disabled",
+                        "Name":  "Prohibit installation and configuration of Network Bridge on your DNS domain network",
+                        "Priority":  "Undefined",
+                        "Config":  "Unknown"
+                    },
+                    {
+                        "Value":  "Disabled",
+                        "Name":  "Prohibit use of Internet Connection Sharing on your DNS domain network",
+                        "Priority":  "Undefined",
+                        "Config":  "Unknown"
+                    },
+                    {
+                        "Value":  "IPv6 Disabled",
+                        "Name":  "TCPIP6 Parameter DisabledComponents",
+                        "Priority":  "Undefined",
+                        "Config":  "Unknown"
+                    },
+                    {
+                        "Value":  "Allow operation while in domain, Allow operation while in public network",
+                        "Name":  "Turn on Mapper I/O (LLTDIO) driver",
+                        "Priority":  "Undefined",
+                        "Config":  "Unknown"
+                    },
+                    {
+                        "Value":  "Allow operation while in domain, Prohibit operation while in private network",
+                        "Name":  "Turn on Responder (RSPNDR) driver",
+                        "Priority":  "Undefined",
+                        "Config":  "Unknown"
+                    },
+                    {
+                        "Value":  "Disabled",
+                        "Name":  "TurnOffPeerToPeerNetworkingServices",
+                        "Priority":  "Undefined",
+                        "Config":  "Unknown"
+                    }
+                ],
+    "NetworkAccess":  [
+                          {
+                              "Value":  "0",
+                              "Name":  "Network access: Allow anonymous SID/Name translation",
+                              "Priority":  "Undefined",
+                              "Config":  "Unknown"
+                          },
+                          {
+                              "Value":  "0",
+                              "Name":  "Network access: Do not allow anonymous enumeration of SAM accounts",
+                              "Priority":  "Undefined",
+                              "Config":  "Unknown"
+                          },
+                          {
+                              "Value":  "1",
+                              "Name":  "Network access: Do not allow anonymous enumeration of SAM accounts and shares",
+                              "Priority":  "Undefined",
+                              "Config":  "Unknown"
+                          },
+                          {
+                              "Value":  "0",
+                              "Name":  "Network access: Do not allow storage of passwords and credentials for network authentication",
+                              "Priority":  "Undefined",
+                              "Config":  "Unknown"
+                          },
+                          {
+                              "Value":  "0",
+                              "Name":  "Network access: Let Everyone permissions apply to anonymous users",
+                              "Priority":  "Undefined",
+                              "Config":  "Unknown"
+                          },
+                          {
+                              "Value":  "",
+                              "Name":  "Network access: Named Pipes that can be accessed anonymously",
+                              "Priority":  "Undefined",
+                              "Config":  "Unknown"
+                          },
+                          {
+                              "Value":  "System\\CurrentControlSet\\Control\\ProductOptions,System\\CurrentControlSet\\Control\\ServerApplications,Software\\Microsoft\\WindowsNT\\CurrentVersion",
+                              "Name":  "Network access: Remotely accessible registry paths",
+                              "Priority":  "Undefined",
+                              "Config":  "Unknown"
+                          },
+                          {
+                              "Value":  "System\\CurrentControlSet\\Control\\Print\\Printers,System\\CurrentControlSet\\Services\\Eventlog,Software\\Microsoft\\OLAPServer,Software\\Microsoft\\WindowsNT\\CurrentVersion\\Print,Software\\Microsoft\\WindowsNT\\CurrentVersion\\Windows,System\\CurrentControlSet\\Control\\ContentIndex,System\\CurrentControlSet\\Control\\TerminalServer,System\\CurrentControlSet\\Control\\TerminalServer\\UserConfig,System\\CurrentControlSet\\Control\\TerminalServer\\DefaultUserConfiguration,Software\\Microsoft\\WindowsNT\\CurrentVersion\\Perflib,System\\CurrentControlSet\\Services\\SysmonLog",
+                              "Name":  "Network access: Remotely accessible registry paths and sub-paths",
+                              "Priority":  "Undefined",
+                              "Config":  "Unknown"
+                          },
+                          {
+                              "Value":  "1",
+                              "Name":  "Network access: Restrict anonymous access to Named Pipes and Shares",
+                              "Priority":  "Undefined",
+                              "Config":  "Unknown"
+                          },
+                          {
+                              "Value":  "\"O:BAG:BAD:\"",
+                              "Name":  "Network access: Restrict clients allowed to make remote calls to SAM",
+                              "Priority":  "Undefined",
+                              "Config":  "Unknown"
+                          },
+                          {
+                              "Value":  "",
+                              "Name":  "Network access: Shares that can be accessed anonymously",
+                              "Priority":  "Undefined",
+                              "Config":  "Unknown"
+                          },
+                          {
+                              "Value":  "0",
+                              "Name":  "Network access: Sharing and security model for local accounts",
+                              "Priority":  "Undefined",
+                              "Config":  "Unknown"
+                          }
+                      ],
+    "NetworkSecurity":  [
+                            {
+                                "Value":  "1",
+                                "Name":  "Network security: Allow Local System to use computer identity for NTLM",
+                                "Priority":  "Undefined",
+                                "Config":  "Unknown"
+                            },
+                            {
+                                "Value":  "1",
+                                "Name":  "Network security: Allow LocalSystem NULL session fallback",
+                                "Priority":  "Undefined",
+                                "Config":  "Unknown"
+                            },
+                            {
+                                "Value":  "1",
+                                "Name":  "Network Security: Allow PKU2U authentication requests to this computer to use online identities",
+                                "Priority":  "Undefined",
+                                "Config":  "Unknown"
+                            },
+                            {
+                                "Value":  "0",
+                                "Name":  "Network security: Configure encryption types allowed for Kerberos",
+                                "Priority":  "Undefined",
+                                "Config":  "Unknown"
+                            },
+                            {
+                                "Value":  "1",
+                                "Name":  "Network security: Do not store LAN Manager hash value on next password change",
+                                "Priority":  "Undefined",
+                                "Config":  "Unknown"
+                            },
+                            {
+                                "Value":  "0",
+                                "Name":  "Network security: Force logoff when logon hours expire",
+                                "Priority":  "Undefined",
+                                "Config":  "Unknown"
+                            },
+                            {
+                                "Value":  "0",
+                                "Name":  "Network security: LAN Manager authentication level",
+                                "Priority":  "Undefined",
+                                "Config":  "Unknown"
+                            },
+                            {
+                                "Value":  "1",
+                                "Name":  "Network security: LDAP client signing requirements",
+                                "Priority":  "Undefined",
+                                "Config":  "Unknown"
+                            },
+                            {
+                                "Value":  "536870912",
+                                "Name":  "Network security: Minimum session security for NTLM SSP based (including secure RPC) clients",
+                                "Priority":  "Undefined",
+                                "Config":  "Unknown"
+                            },
+                            {
+                                "Value":  "536870912",
+                                "Name":  "Network security: Minimum session security for NTLM SSP based (including secure RPC) servers",
+                                "Priority":  "Undefined",
+                                "Config":  "Unknown"
+                            },
+                            {
+                                "Value":  "2",
+                                "Name":  "Network security: Restrict NTLM: Audit Incoming NTLM Traffic",
+                                "Priority":  "Undefined",
+                                "Config":  "Unknown"
+                            },
+                            {
+                                "Value":  "0",
+                                "Name":  "Network security: Restrict NTLM: Outgoing NTLM traffic to remote servers",
+                                "Priority":  "Undefined",
+                                "Config":  "Unknown"
+                            }
+                        ],
+    "ObjectAccess":  [
+                         {
+                             "Value":  "Success",
+                             "Name":  "Audit Detailed File Share",
+                             "Priority":  "Undefined",
+                             "Config":  "Unknown"
+                         },
+                         {
+                             "Value":  "Failure",
+                             "Name":  "Audit File Share",
+                             "Priority":  "Undefined",
+                             "Config":  "Unknown"
+                         },
+                         {
+                             "Value":  "Success and Failure",
+                             "Name":  "Audit Other Object Access Events",
+                             "Priority":  "Undefined",
+                             "Config":  "Unknown"
+                         },
+                         {
+                             "Value":  "Success",
+                             "Name":  "Audit Removable Storage",
+                             "Priority":  "Undefined",
+                             "Config":  "Unknown"
+                         }
+                     ],
+    "PasswordPolicies":  [
+                             {
+                                 "Value":  "1",
+                                 "Name":  "EnforcePasswordHistory",
+                                 "Priority":  "Undefined",
+                                 "Config":  "Unknown"
+                             },
+                             {
+                                 "Value":  "5",
+                                 "Name":  "MaximumPasswordAge",
+                                 "Priority":  "Undefined",
+                                 "Config":  "Unknown"
+                             },
+                             {
+                                 "Value":  "5",
+                                 "Name":  "MinimumPasswordLength",
+                                 "Priority":  "Undefined",
+                                 "Config":  "Unknown"
+                             },
+                             {
+                                 "Value":  "1",
+                                 "Name":  "PasswordComplexity",
+                                 "Priority":  "Undefined",
+                                 "Config":  "Unknown"
+                             },
+                             {
+                                 "Value":  "1",
+                                 "Name":  "RelaxMinimumPasswordLength",
+                                 "Priority":  "Undefined",
+                                 "Config":  "Unknown"
+                             },
+                             {
+                                 "Value":  "1",
+                                 "Name":  "StorePasswordsReversibleEncryption",
+                                 "Priority":  "Undefined",
+                                 "Config":  "Unknown"
+                             }
+                         ],
+    "Personalization":  [
+                            {
+                                "Value":  "Disabled",
+                                "Name":  "PreventEnablingLockScreenCamera",
+                                "Priority":  "Undefined",
+                                "Config":  "Unknown"
+                            },
+                            {
+                                "Value":  "Disabled",
+                                "Name":  "PreventEnablingLockScreenSlideShow",
+                                "Priority":  "Undefined",
+                                "Config":  "Unknown"
+                            }
+                        ],
+    "PolicyChange":  [
+                         {
+                             "Value":  "Success",
+                             "Name":  "Audit Audit Policy Change",
+                             "Priority":  "Undefined",
+                             "Config":  "Unknown"
+                         },
+                         {
+                             "Value":  "Failure",
+                             "Name":  "Audit Authentication Policy Change",
+                             "Priority":  "Undefined",
+                             "Config":  "Unknown"
+                         },
+                         {
+                             "Value":  "Success and Failure",
+                             "Name":  "Audit Authorization Policy Change",
+                             "Priority":  "Undefined",
+                             "Config":  "Unknown"
+                         },
+                         {
+                             "Value":  "Success",
+                             "Name":  "Audit MPSSVC Rule-Level Policy Change",
+                             "Priority":  "Undefined",
+                             "Config":  "Unknown"
+                         },
+                         {
+                             "Value":  "Failure",
+                             "Name":  "Audit Other Policy Change Events",
+                             "Priority":  "Undefined",
+                             "Config":  "Unknown"
+                         }
+                     ],
+    "PrivateFirewallSettings":  [
+                                    {
+                                        "Value":  "Enabled",
+                                        "Name":  "DisplayNotification",
+                                        "Priority":  "Undefined",
+                                        "Config":  "Unknown"
+                                    },
+                                    {
+                                        "Value":  "Enabled",
+                                        "Name":  "FirewallState",
+                                        "Priority":  "Undefined",
+                                        "Config":  "Unknown"
+                                    },
+                                    {
+                                        "Value":  "Allow",
+                                        "Name":  "InboundConnections",
+                                        "Priority":  "Undefined",
+                                        "Config":  "Unknown"
+                                    },
+                                    {
+                                        "Value":  "Enabled",
+                                        "Name":  "LogDroppedPackets",
+                                        "Priority":  "Undefined",
+                                        "Config":  "Unknown"
+                                    },
+                                    {
+                                        "Value":  "%systemroot%\\system32\\logfiles\\firewall\\pfirewall.log",
+                                        "Name":  "LogFileName",
+                                        "Priority":  "Undefined",
+                                        "Config":  "Unknown"
+                                    },
+                                    {
+                                        "Value":  4096,
+                                        "Name":  "LogFileSize",
+                                        "Priority":  "Undefined",
+                                        "Config":  "Unknown"
+                                    },
+                                    {
+                                        "Value":  "Enabled",
+                                        "Name":  "LogSuccessfulConnections",
+                                        "Priority":  "Undefined",
+                                        "Config":  "Unknown"
+                                    }
+                                ],
+    "PrivilegeUse":  [
+                         {
+                             "Value":  "Success",
+                             "Name":  "Audit Sensitive Privilege Use",
+                             "Priority":  "Undefined",
+                             "Config":  "Unknown"
+                         }
+                     ],
+    "PublicFirewallSettings":  [
+                                   {
+                                       "Value":  "Not Configured",
+                                       "Name":  "DisplayNotification",
+                                       "Priority":  "Undefined",
+                                       "Config":  "Unknown"
+                                   },
+                                   {
+                                       "Value":  "Not Configured",
+                                       "Name":  "FirewallState",
+                                       "Priority":  "Undefined",
+                                       "Config":  "Unknown"
+                                   },
+                                   {
+                                       "Value":  "Not Configured",
+                                       "Name":  "InboundConnections",
+                                       "Priority":  "Undefined",
+                                       "Config":  "Unknown"
+                                   },
+                                   {
+                                       "Value":  "Not Configured",
+                                       "Name":  "LocalConnectionSecurityRules",
+                                       "Priority":  "Undefined",
+                                       "Config":  "Unknown"
+                                   },
+                                   {
+                                       "Value":  "Not Configured",
+                                       "Name":  "LocalFirewallRules",
+                                       "Priority":  "Undefined",
+                                       "Config":  "Unknown"
+                                   },
+                                   {
+                                       "Value":  "Not Configured",
+                                       "Name":  "LogDroppedPackets",
+                                       "Priority":  "Undefined",
+                                       "Config":  "Unknown"
+                                   },
+                                   {
+                                       "Value":  "Not Configured",
+                                       "Name":  "LogFileName",
+                                       "Priority":  "Undefined",
+                                       "Config":  "Unknown"
+                                   },
+                                   {
+                                       "Value":  "Not Configured",
+                                       "Name":  "LogFileSize",
+                                       "Priority":  "Undefined",
+                                       "Config":  "Unknown"
+                                   },
+                                   {
+                                       "Value":  "Not Configured",
+                                       "Name":  "LogSuccessfulConnections",
+                                       "Priority":  "Undefined",
+                                       "Config":  "Unknown"
+                                   }
+                               ],
+    "System":  [
+                   {
+                       "Value":  "Success",
+                       "Name":  "Audit IPsec Driver",
+                       "Priority":  "Undefined",
+                       "Config":  "Unknown"
+                   },
+                   {
+                       "Value":  "Success",
+                       "Name":  "Audit Other System Events",
+                       "Priority":  "Undefined",
+                       "Config":  "Unknown"
+                   },
+                   {
+                       "Value":  "Failure",
+                       "Name":  "Audit Security State Change",
+                       "Priority":  "Undefined",
+                       "Config":  "Unknown"
+                   },
+                   {
+                       "Value":  "Success and Failure",
+                       "Name":  "Audit Security System Extension",
+                       "Priority":  "Undefined",
+                       "Config":  "Unknown"
+                   },
+                   {
+                       "Value":  "Success",
+                       "Name":  "Audit System Integrity",
+                       "Priority":  "Undefined",
+                       "Config":  "Unknown"
+                   }
+               ],
+    "SystemCryptography":  [
+                               {
+                                   "Value":  "0",
+                                   "Name":  "System cryptography: Force strong key protection for user keys stored on the computer",
+                                   "Priority":  "Undefined",
+                                   "Config":  "Unknown"
+                               }
+                           ],
+    "SystemObjects":  [
+                          {
+                              "Value":  "1",
+                              "Name":  "System objects: Require case insensitivity for non-Windows subsystems",
+                              "Priority":  "Undefined",
+                              "Config":  "Unknown"
+                          },
+                          {
+                              "Value":  "1",
+                              "Name":  "System objects: Strengthen default permissions of internal system objects (e.g. Symbolic Links)",
+                              "Priority":  "Undefined",
+                              "Config":  "Unknown"
+                          }
+                      ],
+    "SystemServices":  [
+                           {
+                               "Value":  "Not Configured",
+                               "Name":  "Bluetooth Audio Gateway Service (BTAGService)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Manual",
+                               "Name":  "Bluetooth Support Service (bthserv)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Manual",
+                               "Name":  "Computer Browser (Browser)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Not Configured",
+                               "Name":  "Downloaded Maps Manager (MapsBroker)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Manual",
+                               "Name":  "Geolocation Service (lfsvc)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Not Configured",
+                               "Name":  "IIS Admin Service (IISADMIN)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Manual",
+                               "Name":  "Infrared monitor service (irmon)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Manual",
+                               "Name":  "Link-Layer Topology Discovery Mapper (lltdsvc)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Manual",
+                               "Name":  "LxssManager (LxssManager)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Not Configured",
+                               "Name":  "Microsoft FTP Service (FTPSVC)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Manual",
+                               "Name":  "Microsoft iSCSI Initiator Service (MSiSCSI)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Manual",
+                               "Name":  "OpenSSH SSH Server (sshd)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Manual",
+                               "Name":  "Peer Name Resolution Protocol (PNRPsvc)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Manual",
+                               "Name":  "Peer Networking Grouping (p2psvc)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Manual",
+                               "Name":  "Peer Networking Identity Manager (p2pimsvc)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Manual",
+                               "Name":  "PNRP Machine Name Publication Service (PNRPAutoReg)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Not Configured",
+                               "Name":  "Print Spooler (Spooler)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Manual",
+                               "Name":  "Problem Reports and Solutions Control Panel Support (wercplsupport)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Manual",
+                               "Name":  "Remote Access Auto Connection Manager (RasAuto)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Manual",
+                               "Name":  "Remote Desktop Configuration (SessionEnv)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Manual",
+                               "Name":  "Remote Desktop Services (TermService)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Manual",
+                               "Name":  "Remote Desktop Services UserMode Port Redirector (UmRdpService)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Manual",
+                               "Name":  "Remote Procedure Call (RPC) Locator (RpcLocator)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Disabled",
+                               "Name":  "Remote Registry (RemoteRegistry)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Disabled",
+                               "Name":  "Routing and Remote Access (RemoteAccess)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Not Configured",
+                               "Name":  "Server (LanmanServer)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Not Configured",
+                               "Name":  "Simple TCP/IP Services (simptcp)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Not Configured",
+                               "Name":  "SNMP Service (SNMP)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Manual",
+                               "Name":  "Special Administration Console Helper (sacsvr)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Manual",
+                               "Name":  "SSDP Discovery (SSDPSRV)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Manual",
+                               "Name":  "UPnP Device Host (upnphost)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Manual",
+                               "Name":  "Web Management Service (WMSvc)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Manual",
+                               "Name":  "Windows Error Reporting Service (WerSvc)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Manual",
+                               "Name":  "Windows Event Collector (Wecsvc)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Manual",
+                               "Name":  "Windows Media Player Network Sharing Service (WMPNetworkSvc)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Manual",
+                               "Name":  "Windows Mobile Hotspot Service (icssvc)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Not Configured",
+                               "Name":  "Windows Push Notifications System Service (WpnService)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Manual",
+                               "Name":  "Windows PushToInstall Service (PushToInstall)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Not Configured",
+                               "Name":  "Windows Remote Management (WS-Management) (WinRM)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Not Configured",
+                               "Name":  "World Wide Web Publishing Service (W3SVC)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Disabled",
+                               "Name":  "Xbox Accessory Management Service (XboxGipSvc)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Manual",
+                               "Name":  "Xbox Live Auth Manager (XblAuthManager)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Manual",
+                               "Name":  "Xbox Live Game Save (XblGameSave)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           },
+                           {
+                               "Value":  "Manual",
+                               "Name":  "Xbox Live Networking Service (XboxNetApiSvc)",
+                               "Priority":  "Undefined",
+                               "Config":  "Unknown"
+                           }
+                       ],
+    "UserAccountControl":  [
+                               {
+                                   "Value":  "0",
+                                   "Name":  "User Account Control: Admin Approval Mode for the Built-in Administrator account",
+                                   "Priority":  "Undefined",
+                                   "Config":  "Unknown"
+                               },
+                               {
+                                   "Value":  "5",
+                                   "Name":  "User Account Control: Behavior of the elevation prompt for administrators in Admin Approval Mode",
+                                   "Priority":  "Undefined",
+                                   "Config":  "Unknown"
+                               },
+                               {
+                                   "Value":  "3",
+                                   "Name":  "User Account Control: Behavior of the elevation prompt for standard users",
+                                   "Priority":  "Undefined",
+                                   "Config":  "Unknown"
+                               },
+                               {
+                                   "Value":  "1",
+                                   "Name":  "User Account Control: Detect application installations and prompt for elevation",
+                                   "Priority":  "Undefined",
+                                   "Config":  "Unknown"
+                               },
+                               {
+                                   "Value":  "1",
+                                   "Name":  "User Account Control: Only elevate UIAccess applications that are installed in secure locations",
+                                   "Priority":  "Undefined",
+                                   "Config":  "Unknown"
+                               },
+                               {
+                                   "Value":  "1",
+                                   "Name":  "User Account Control: Run all administrators in Admin Approval Mode",
+                                   "Priority":  "Undefined",
+                                   "Config":  "Unknown"
+                               },
+                               {
+                                   "Value":  "1",
+                                   "Name":  "User Account Control: Switch to the secure desktop when prompting for elevation",
+                                   "Priority":  "Undefined",
+                                   "Config":  "Unknown"
+                               },
+                               {
+                                   "Value":  "1",
+                                   "Name":  "User Account Control: Virtualize file and registry write failures to per-user locations",
+                                   "Priority":  "Undefined",
+                                   "Config":  "Unknown"
+                               }
+                           ],
+    "UserRightAssignment":  [
+                                {
+                                    "Value":  "Not configured",
+                                    "Name":  "Access Credential Manager as a trusted caller",
+                                    "Priority":  "Undefined",
+                                    "Config":  "Unknown"
+                                },
+                                {
+                                    "Value":  [
+                                                  "BUILTIN\\Administrators",
+                                                  "BUILTIN\\Remote Desktop Users"
+                                              ],
+                                    "Name":  "Access this computer from the network",
+                                    "Priority":  "Undefined",
+                                    "Config":  "Unknown"
+                                },
+                                {
+                                    "Value":  "Not configured",
+                                    "Name":  "Act as part of the operating system",
+                                    "Priority":  "Undefined",
+                                    "Config":  "Unknown"
+                                },
+                                {
+                                    "Value":  [
+                                                  "NT AUTHORITY\\LOCAL SERVICE",
+                                                  "NT AUTHORITY\\NETWORK SERVICE",
+                                                  "BUILTIN\\Administrators",
+                                                  "IIS APPPOOL\\Classic .NET AppPool",
+                                                  "IIS APPPOOL\\.NET v4.5",
+                                                  "IIS APPPOOL\\.NET v2.0",
+                                                  "IIS APPPOOL\\.NET v4.5 Classic",
+                                                  "IIS APPPOOL\\.NET v2.0 Classic"
+                                              ],
+                                    "Name":  "Adjust memory quotas for a process",
+                                    "Priority":  "Undefined",
+                                    "Config":  "Unknown"
+                                },
+                                {
+                                    "Value":  [
+                                                  "BUILTIN\\Administrators",
+                                                  "BUILTIN\\Remote Desktop Users"
+                                              ],
+                                    "Name":  "Allow log in through Remote desktop services",
+                                    "Priority":  "Undefined",
+                                    "Config":  "Unknown"
+                                },
+                                {
+                                    "Value":  [
+                                                  "Guest",
+                                                  "BUILTIN\\Administrators",
+                                                  "BUILTIN\\Users",
+                                                  "BUILTIN\\Backup Operators"
+                                              ],
+                                    "Name":  "Allow log on locally",
+                                    "Priority":  "Undefined",
+                                    "Config":  "Unknown"
+                                },
+                                {
+                                    "Value":  [
+                                                  "BUILTIN\\Administrators",
+                                                  "BUILTIN\\Backup Operators"
+                                              ],
+                                    "Name":  "Back up files and directories",
+                                    "Priority":  "Undefined",
+                                    "Config":  "Unknown"
+                                },
+                                {
+                                    "Value":  [
+                                                  "NT AUTHORITY\\LOCAL SERVICE",
+                                                  "BUILTIN\\Administrators"
+                                              ],
+                                    "Name":  "Change the system time",
+                                    "Priority":  "Undefined",
+                                    "Config":  "Unknown"
+                                },
+                                {
+                                    "Value":  [
+                                                  "NT AUTHORITY\\LOCAL SERVICE",
+                                                  "BUILTIN\\Administrators",
+                                                  "BUILTIN\\Users"
+                                              ],
+                                    "Name":  "Change the time zone",
+                                    "Priority":  "Undefined",
+                                    "Config":  "Unknown"
+                                },
+                                {
+                                    "Value":  "BUILTIN\\Administrators",
+                                    "Name":  "Create a pagefile",
+                                    "Priority":  "Undefined",
+                                    "Config":  "Unknown"
+                                },
+                                {
+                                    "Value":  "Not configured",
+                                    "Name":  "Create a token object",
+                                    "Priority":  "Undefined",
+                                    "Config":  "Unknown"
+                                },
+                                {
+                                    "Value":  [
+                                                  "NT AUTHORITY\\LOCAL SERVICE",
+                                                  "NT AUTHORITY\\NETWORK SERVICE",
+                                                  "BUILTIN\\Administrators",
+                                                  "NT AUTHORITY\\SERVICE"
+                                              ],
+                                    "Name":  "Create global objects",
+                                    "Priority":  "Undefined",
+                                    "Config":  "Unknown"
+                                },
+                                {
+                                    "Value":  "Not configured",
+                                    "Name":  "Create permanent shared objects",
+                                    "Priority":  "Undefined",
+                                    "Config":  "Unknown"
+                                },
+                                {
+                                    "Value":  [
+                                                  "BUILTIN\\Administrators",
+                                                  "NT VIRTUAL MACHINE\\Virtual Machines"
+                                              ],
+                                    "Name":  "Create symbolic links",
+                                    "Priority":  "Undefined",
+                                    "Config":  "Unknown"
+                                },
+                                {
+                                    "Value":  "BUILTIN\\Administrators",
+                                    "Name":  "Debug programs",
+                                    "Priority":  "Undefined",
+                                    "Config":  "Unknown"
+                                },
+                                {
+                                    "Value":  "Guest",
+                                    "Name":  "Deny access to this computer from the network",
+                                    "Priority":  "Undefined",
+                                    "Config":  "Unknown"
+                                },
+                                {
+                                    "Value":  "Not configured",
+                                    "Name":  "Deny log on as a batch job",
+                                    "Priority":  "Undefined",
+                                    "Config":  "Unknown"
+                                },
+                                {
+                                    "Value":  "Not configured",
+                                    "Name":  "Deny log on as a service",
+                                    "Priority":  "Undefined",
+                                    "Config":  "Unknown"
+                                },
+                                {
+                                    "Value":  "Guest",
+                                    "Name":  "Deny log on locally",
+                                    "Priority":  "Undefined",
+                                    "Config":  "Unknown"
+                                },
+                                {
+                                    "Value":  "Not configured",
+                                    "Name":  "Deny log on through Remote Desktop Services",
+                                    "Priority":  "Undefined",
+                                    "Config":  "Unknown"
+                                },
+                                {
+                                    "Value":  "Not configured",
+                                    "Name":  "Enable computer and user accounts to be trusted for delegation",
+                                    "Priority":  "Undefined",
+                                    "Config":  "Unknown"
+                                },
+                                {
+                                    "Value":  "BUILTIN\\Administrators",
+                                    "Name":  "Force shutdown from a remote system",
+                                    "Priority":  "Undefined",
+                                    "Config":  "Unknown"
+                                },
+                                {
+                                    "Value":  [
+                                                  "NT AUTHORITY\\LOCAL SERVICE",
+                                                  "NT AUTHORITY\\NETWORK SERVICE",
+                                                  "IIS APPPOOL\\Classic .NET AppPool",
+                                                  "IIS APPPOOL\\.NET v4.5",
+                                                  "IIS APPPOOL\\.NET v2.0",
+                                                  "IIS APPPOOL\\.NET v4.5 Classic",
+                                                  "IIS APPPOOL\\.NET v2.0 Classic"
+                                              ],
+                                    "Name":  "Generate security audits",
+                                    "Priority":  "Undefined",
+                                    "Config":  "Unknown"
+                                },
+                                {
+                                    "Value":  [
+                                                  "NT AUTHORITY\\LOCAL SERVICE",
+                                                  "NT AUTHORITY\\NETWORK SERVICE",
+                                                  "BUILTIN\\Administrators",
+                                                  "BUILTIN\\IIS_IUSRS",
+                                                  "NT AUTHORITY\\SERVICE"
+                                              ],
+                                    "Name":  "Impersonate a client after authentication",
+                                    "Priority":  "Undefined",
+                                    "Config":  "Unknown"
+                                },
+                                {
+                                    "Value":  [
+                                                  "BUILTIN\\Administrators",
+                                                  "Window Manager\\Window Manager Group"
+                                              ],
+                                    "Name":  "Increase scheduling priority",
+                                    "Priority":  "Undefined",
+                                    "Config":  "Unknown"
+                                },
+                                {
+                                    "Value":  "BUILTIN\\Administrators",
+                                    "Name":  "Load and unload device drivers",
+                                    "Priority":  "Undefined",
+                                    "Config":  "Unknown"
+                                },
+                                {
+                                    "Value":  "Not configured",
+                                    "Name":  "Lock pages in memory",
+                                    "Priority":  "Undefined",
+                                    "Config":  "Unknown"
+                                },
+                                {
+                                    "Value":  [
+                                                  "BUILTIN\\Administrators",
+                                                  "BUILTIN\\Backup Operators",
+                                                  "BUILTIN\\Performance Log Users",
+                                                  "BUILTIN\\IIS_IUSRS"
+                                              ],
+                                    "Name":  "Log on as a batch job",
+                                    "Priority":  "Undefined",
+                                    "Config":  "Unknown"
+                                },
+                                {
+                                    "Value":  [
+                                                  "NT SERVICE\\ALL SERVICES",
+                                                  "IIS APPPOOL\\Classic .NET AppPool",
+                                                  "IIS APPPOOL\\.NET v4.5",
+                                                  "IIS APPPOOL\\.NET v2.0",
+                                                  "IIS APPPOOL\\.NET v4.5 Classic",
+                                                  "IIS APPPOOL\\.NET v2.0 Classic",
+                                                  "NT VIRTUAL MACHINE\\Virtual Machines"
+                                              ],
+                                    "Name":  "Log on as a service",
+                                    "Priority":  "Undefined",
+                                    "Config":  "Unknown"
+                                },
+                                {
+                                    "Value":  "BUILTIN\\Administrators",
+                                    "Name":  "Manage auditing and security log",
+                                    "Priority":  "Undefined",
+                                    "Config":  "Unknown"
+                                },
+                                {
+                                    "Value":  "Not configured",
+                                    "Name":  "Modify an object label",
+                                    "Priority":  "Undefined",
+                                    "Config":  "Unknown"
+                                },
+                                {
+                                    "Value":  "BUILTIN\\Administrators",
+                                    "Name":  "Modify firmware environment values",
+                                    "Priority":  "Undefined",
+                                    "Config":  "Unknown"
+                                },
+                                {
+                                    "Value":  "BUILTIN\\Administrators",
+                                    "Name":  "Perform volume maintenance tasks",
+                                    "Priority":  "Undefined",
+                                    "Config":  "Unknown"
+                                },
+                                {
+                                    "Value":  "BUILTIN\\Administrators",
+                                    "Name":  "Profile single process",
+                                    "Priority":  "Undefined",
+                                    "Config":  "Unknown"
+                                },
+                                {
+                                    "Value":  [
+                                                  "BUILTIN\\Administrators",
+                                                  "NT SERVICE\\WdiServiceHost"
+                                              ],
+                                    "Name":  "Profile system performance",
+                                    "Priority":  "Undefined",
+                                    "Config":  "Unknown"
+                                },
+                                {
+                                    "Value":  [
+                                                  "NT AUTHORITY\\LOCAL SERVICE",
+                                                  "NT AUTHORITY\\NETWORK SERVICE",
+                                                  "IIS APPPOOL\\Classic .NET AppPool",
+                                                  "IIS APPPOOL\\.NET v4.5",
+                                                  "IIS APPPOOL\\.NET v2.0",
+                                                  "IIS APPPOOL\\.NET v4.5 Classic",
+                                                  "IIS APPPOOL\\.NET v2.0 Classic"
+                                              ],
+                                    "Name":  "Replace a process level token",
+                                    "Priority":  "Undefined",
+                                    "Config":  "Unknown"
+                                },
+                                {
+                                    "Value":  [
+                                                  "BUILTIN\\Administrators",
+                                                  "BUILTIN\\Backup Operators"
+                                              ],
+                                    "Name":  "Restore files and directories",
+                                    "Priority":  "Undefined",
+                                    "Config":  "Unknown"
+                                },
+                                {
+                                    "Value":  [
+                                                  "WmsOperators",
+                                                  "BUILTIN\\Administrators",
+                                                  "BUILTIN\\Users",
+                                                  "BUILTIN\\Backup Operators"
+                                              ],
+                                    "Name":  "Shut down the system",
+                                    "Priority":  "Undefined",
+                                    "Config":  "Unknown"
+                                },
+                                {
+                                    "Value":  "BUILTIN\\Administrators",
+                                    "Name":  "Take ownership of files or other objects",
+                                    "Priority":  "Undefined",
+                                    "Config":  "Unknown"
+                                }
+                            ]
+}

@@ -1,0 +1,51 @@
+{
+    "AccountLockoutPolicy":  [
+                                 {
+                                     "value":  "14",
+                                     "name":  "AccountLockoutDuration",
+                                     "Priority" : "Critical"
+                                 },
+                                 {
+                                     "value":  "10",
+                                     "name":  "AccountLockoutThreshold",
+				     "Priority" : "Medium"
+                                 },
+                                 {
+                                     "value":  "20",
+                                     "name":  "AllowAdministratorLockout",
+				     "Priority" : "Low"
+                                 },
+                                 {
+                                     "value":  "20",
+                                     "name":  "ResetLockoutCount",
+				     "Priority" : "High"
+                                 }
+                             ],
+    "Accounts":  [
+                     {
+                         "value":  "0",
+                         "name":  "Accounts_Block_Microsoft_Accounts",
+			 "Priority" : "Medium"
+                     },
+                     {
+                         "value":  "0",
+                         "name":  "Accounts_Guest_Account_Status",
+			 "Priority" : "High"
+                     },
+                     {
+                         "value": "0",
+                         "name":  "Accounts_Limit_Local_Account_Use_Of_Blank_Passwords",
+			 "Priority" : "High"
+                     },
+                     {
+                         "value":  "Admin",
+                         "name":  "Accounts_Rename_Administrator_Account",
+			 "Priority" : "Critical"
+                     },
+                     {
+                         "value":  "Not Configured",
+                         "name":  "Accounts_Rename_Guest_Account",
+			 "Priority" : "Low"
+                     }
+                 ]
+}
