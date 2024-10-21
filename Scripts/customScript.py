@@ -1,23 +1,20 @@
+import json
 from PySide6.QtWidgets import (
-    QApplication, QWidget, QVBoxLayout, QLabel, QMainWindow, QCheckBox, QScrollArea, QPushButton, QGridLayout, QListWidget, QHBoxLayout, QTreeWidget, QTreeWidgetItem
+    QApplication, QWidget, QVBoxLayout, QLabel, QMainWindow, QScrollArea, QPushButton, QGridLayout, QListWidget, QHBoxLayout, QTreeWidget, QTreeWidgetItem, QFileDialog
 )
 from PySide6.QtCore import Qt
 import sys
-import csv
-import os
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
         self.setWindowTitle("Customizable Settings Application")
-        self.setGeometry(100, 100, 800, 600)  
-
+        self.setGeometry(100, 100, 800, 600)
         self.setStyleSheet("background-color: white;")
 
         self.central_widget = QWidget()
         self.setCentralWidget(self.central_widget)
-        
         self.central_widget.setStyleSheet("background-color: white; color: black;")
 
         self.main_layout = QGridLayout(self.central_widget)
@@ -38,11 +35,23 @@ class MainWindow(QMainWindow):
         self.scroll_area.setWidgetResizable(True)
         self.scroll_content = QWidget()
         self.scroll_layout = QVBoxLayout(self.scroll_content)
-        self.scroll_content.setStyleSheet("background-color: white;")  
+        self.scroll_content.setStyleSheet("background-color: white;")
         self.scroll_layout.setContentsMargins(0, 0, 0, 0)
         self.scroll_layout.setSpacing(10)
         self.scroll_area.setWidget(self.scroll_content)
-        self.scroll_area.setFixedHeight(400)  
+        self.scroll_area.setFixedHeight(400)
+        
+        json_data = {
+            "Network Security": [
+                "IPv6", "Bluetooth", "IP Forwarding", "Packet redirection", "Bogus ICMP response", 
+                "Broadcast ICMP requests", "ICMP Redirects", "Secure ICMP Redirects", "Reverse Path finding"
+            ]
+        }
+
+        self.tree = SettingsTree(json_data)
+        self.scroll_layout.addWidget(self.tree)
+        self.tree.itemChanged.connect(self.update_chosen_settings)
+
 
         self.main_layout.addWidget(self.scroll_area, 2, 0)
 
@@ -56,20 +65,14 @@ class MainWindow(QMainWindow):
         self.main_layout.addWidget(self.chosen_settings_list, 2, 1)
 
         self.apply_button = QPushButton("Next")
-        self.apply_button.setCheckable(True)
-        self.apply_button.setAutoExclusive(True)
         self.apply_button.setStyleSheet("font-size: 16px; padding: 10px; background-color: #e0e0e0;")
         self.apply_button.clicked.connect(self.run_script)
 
         self.import_button = QPushButton("Import")
-        self.import_button.setCheckable(True)
-        self.import_button.setAutoExclusive(True)
         self.import_button.setStyleSheet("font-size: 16px; padding: 10px; background-color: #e0e0e0;")
-        #self.import_button.clicked.connect(self.import_settings)
-        
+        self.import_button.clicked.connect(self.import_settings)
+
         self.export_button = QPushButton("Export")
-        self.export_button.setCheckable(True)
-        self.export_button.setAutoExclusive(True)
         self.export_button.setStyleSheet("font-size: 16px; padding: 10px; background-color: #e0e0e0;")
         self.export_button.clicked.connect(self.export_settings)
 
@@ -77,24 +80,11 @@ class MainWindow(QMainWindow):
         self.button_layout.addWidget(self.import_button)
         self.button_layout.addWidget(self.export_button)
         self.button_layout.addWidget(self.apply_button)
-        
-        self.main_layout.addLayout(self.button_layout, 3, 0, 1, 2)
 
-        #self.load_buttons_from_txt("available_scripts.txt")
-        #self.load_chosen_settings("custom_scripts.txt")
-        data = {"Network Security":["IPv6","Bluetooth","IP Forwarding","Packet redirection","Bogus ICMP response","Broadcast ICMP requests","ICMP Redirects","Secure ICMP Redirects","Reverse Path finding"]}
-        self.tree  = QTreeWidget()
-        self.tree.setHeaderHidden(True)
-        self.tree.itemChanged.connect(self.update_chosen_settings)
-        self.scroll_layout.addWidget(self.tree)
-        for category, items in data.items():
-            category_item = QTreeWidgetItem(self.tree)
-            category_item.setText(0, category)
-            for item in items:
-                child = QTreeWidgetItem(category_item)
-                child.setFlags(child.flags() | Qt.ItemIsUserCheckable)
-                child.setText(0, item)
-                child.setCheckState(0, Qt.Unchecked)
+        self.main_layout.addLayout(self.button_layout, 3, 0, 1, 2)
+       
+    def run_script(self):
+        pass
 
     def update_chosen_settings(self):
         self.chosen_settings_list.clear()
@@ -103,46 +93,118 @@ class MainWindow(QMainWindow):
     def collect_checked_items(self,parent):
         for i in range(parent.childCount()):
             child = parent.child(i)
-            if child.checkState(0) == Qt.Checked:
+            if(child.checkState(0) == Qt.Checked):
                 self.chosen_settings_list.addItem(child.text(0))
-            if child.childCount() > 0:
+            if(child.childCount() > 0):
                 self.collect_checked_items(child)
 
-    def run_script(self):
-        pass
 
     def export_settings(self):
-        self.settings = []
-        self.collectsettings(self.tree.invisibleRootItem())
-        print(self.settings)
-    def collectsettings(self,parent):
+        settings = {}
+        self.collect_settings(self.tree.invisibleRootItem(), settings)
+        file_name, _ = QFileDialog.getSaveFileName(self, "Save Settings", "", "JSON Files (*.json)")
+        if file_name:
+            with open(file_name, 'w') as f:
+                json.dump(settings, f, indent=2)
+
+    def import_settings(self):
+        file_name, _ = QFileDialog.getOpenFileName(self, "Load Settings", "", "JSON Files (*.json)")
+        if file_name:
+            with open(file_name, 'r') as f:
+                settings = json.load(f)
+            self.apply_imported_settings(settings)
+
+    def collect_settings(self, parent, settings):
         for i in range(parent.childCount()):
             child = parent.child(i)
-            if child.checkState(0) == Qt.Checked:
-                self.settings.append(child.text(0))
             if child.childCount() > 0:
-                self.collectsettings(child)
+                category = child.text(0)
+                settings[category] = []
+                for j in range(child.childCount()):
+                    grandchild = child.child(j)
+                    if grandchild.checkState(0) == Qt.Checked:
+                        settings[category].append(grandchild.text(0))
+            elif child.checkState(0) == Qt.Checked:
+                category = parent.text(0)
+                if category not in settings:
+                    settings[category] = []
+                settings[category].append(child.text(0))
 
-'''
-    def load_chosen_settings(self, file_path):
-        if os.path.exists(file_path):
-            with open(file_path, 'r') as file:
-                chosen_settings = [line.strip() for line in file.readlines()]
+    def apply_imported_settings(self, settings):
+        for i in range(self.tree.topLevelItemCount()):
+            category_item = self.tree.topLevelItem(i)
+            category = category_item.text(0)
+            if category in settings:
+                for j in range(category_item.childCount()):
+                    child = category_item.child(j)
+                    if child.text(0) in settings[category]:
+                        child.setCheckState(0, Qt.Checked)
+                    else:
+                        child.setCheckState(0, Qt.Unchecked)
+            else:
+                for j in range(category_item.childCount()):
+                    category_item.child(j).setCheckState(0, Qt.Unchecked)
+        self.update_chosen_settings()
 
-            for checkbox in self.scroll_content.findChildren(QCheckBox):
-                if checkbox.text() in chosen_settings:
-                    checkbox.setChecked(True)
+class SettingsTree(QTreeWidget):
+    def __init__(self,data):
+        super().__init__()
+        self.setHeaderHidden(True)  # Hide header
+        
+        # Load JSON data into tree widget
+        self.load_json_data(data)
 
-    def apply_settings(self):
-        print("Settings applied:")
-        for checkbox in self.scroll_content.findChildren(QCheckBox):
-        print(f"{checkbox.text()}: {'Checked' if checkbox.isChecked() else 'Unchecked'}")
-'''
-    
-    
+        # Handle clicks on items
+        self.itemClicked.connect(self.handle_item_click)
+
+    def load_json_data(self, data):
+        # Iterate through the JSON data and populate the tree
+        for parent, children in data.items():
+            parent_item = QTreeWidgetItem([parent])
+            parent_item.setCheckState(0, Qt.Unchecked)  # Initialize the parent checkbox to unchecked
+            self.addTopLevelItem(parent_item)
+
+            for child in children:
+                child_item = QTreeWidgetItem([child])
+                child_item.setCheckState(0, Qt.Unchecked)  # Initialize the child checkbox to unchecked
+                parent_item.addChild(child_item)
+
+    def handle_item_click(self, item, column):
+        if item.childCount() > 0:  # If the clicked item is a parent
+            if item.checkState(0) == Qt.Checked:  # Checked
+                self.set_children_check_state(item, Qt.Checked)
+            else:  # Unchecked
+                self.set_children_check_state(item, Qt.Unchecked)
+        else:  # If the clicked item is a child
+            self.update_parent_state(item)
+
+    def set_children_check_state(self, parent_item, state):
+        for i in range(parent_item.childCount()):
+            child_item = parent_item.child(i)
+            child_item.setCheckState(0, state)
+
+    def update_parent_state(self, child_item):
+        parent_item = child_item.parent()
+        if parent_item:
+            all_checked = True
+            all_unchecked = True
+            for i in range(parent_item.childCount()):
+                sibling_item = parent_item.child(i)
+                if sibling_item.checkState(0) == Qt.Checked:
+                    all_unchecked = False
+                else:
+                    all_checked = False
+
+            if all_checked:
+                parent_item.setCheckState(0, Qt.Checked)  # Check parent
+            elif all_unchecked:
+                parent_item.setCheckState(0, Qt.Unchecked)  # Uncheck parent
+            else:
+                parent_item.setCheckState(0, Qt.PartiallyChecked)  # Partially checked
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = MainWindow()
     window.show()
     sys.exit(app.exec())
+
