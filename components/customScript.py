@@ -44,10 +44,10 @@ class MainWindow(QMainWindow):
         self.scroll_area.setFixedHeight(400)
         
         if("Windows" in os_name):
-            with open('config/windows_configuration.json') as file:
+            with open('../config/windows_configuration.json') as file:
                 file_content = file.read()
         elif("Ubuntu" in os_name):
-            with open('config/linux_configuration.json') as file:
+            with open('../config/linux_configuration.json') as file:
                 file_content = file.read()
         json_data = json.loads(file_content)
 
