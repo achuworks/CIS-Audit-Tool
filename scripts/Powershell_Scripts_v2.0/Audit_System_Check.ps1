@@ -4225,6 +4225,11 @@ function Locale_Services {
 }
 
 function Logon {
+
+    param (
+        [string[]]$settingNames 
+    )
+
     # Define the output directory and file path
     $outputDirectory = "$PSScriptRoot\Output"
     $outputPath = Join-Path -Path $outputDirectory -ChildPath "Logon.json"
@@ -4297,12 +4302,16 @@ function Logon {
         }
     }
 
-    # Iterate through each setting and get the value based on its conditions
-    foreach ($setting in $registrySettings.Keys) {
-        $path = $registrySettings[$setting]["Path"]
-        $name = $registrySettings[$setting]["Name"]
-        $conditions = $registrySettings[$setting]["Conditions"]
-        $settings[$setting] = Get-RegistryValue -path $path -name $name -conditions $conditions
+    foreach ($settingName in $settingNames) {
+        if ($registrySettings.ContainsKey($settingName)) {
+            $setting = $registrySettings[$settingName]
+            $result = Get-RegistryValue -path $setting.Path -name $setting.Name -conditions $setting.Conditions
+            $settings[$settingName] = $result
+            Write-Output "Setting: $settingName - Result: $result"
+        }
+        else {
+            Write-Output "The specified setting '$settingName' does not exist."
+        }
     }
 
     # Output the results as JSON
@@ -4317,7 +4326,7 @@ function OS_Policies {
 }
 
 
-
+<#
 Password_Policies
 Account_Lockout_Policy
 User_Right_Assignment
@@ -4359,8 +4368,7 @@ Internet_Communication_Management
 Kerberos
 Kernal_DMA_Protection
 Local_Security_Authority
-Locale_Services
-Logon
-
+Locale_Services #>
+Logon -settingNames "Do not display network selection UI"
 
 OS_Policies

@@ -44,14 +44,15 @@ class MainWindow(QMainWindow):
         self.scroll_area.setFixedHeight(400)
         
         if("Windows" in os_name):
-            with open('C:/Users/kavin/OneDrive/Desktop/solid-umbrella/Scripts/windows_configuration.json') as file:
+            with open('config/windows_configuration.json') as file:
                 file_content = file.read()
-        elif("Linux" in os_name):
-            with open('Scripts/linux_configuration.json') as file:
+        elif("Ubuntu" in os_name):
+            with open('config/linux_configuration.json') as file:
                 file_content = file.read()
         json_data = json.loads(file_content)
 
         self.tree = SettingsTree(json_data)
+        
         self.scroll_layout.addWidget(self.tree)
         self.tree.itemChanged.connect(self.update_chosen_settings)
 
@@ -153,7 +154,9 @@ class SettingsTree(QTreeWidget):
     def __init__(self,data):
         super().__init__()
         self.setHeaderHidden(True)  # Hide header
-        
+        self.setStyleSheet("""QTreeWidget::indicator:unchecked { 
+                           border: 1px solid black; background-color: white; border-radius: 5px;
+                            }    """)
         # Load JSON data into tree widget
         self.load_json_data(data)
 

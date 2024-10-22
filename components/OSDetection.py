@@ -50,22 +50,25 @@ class OSVersionWindow(QWidget):
     def osList(self, os_version):
         # Add items to the dropdown
         self.dropdown.addItems([
-            "Windows 11 Enterprise Standalone", 
-            "Windows 11 Enterprise Domain-Joined", 
+            "Microsoft Windows 11 Enterprise Standalone", 
+            "Microsoft Windows 11 Enterprise Domain-Joined", 
             "Microsoft Windows 11 Pro Standalone", 
             "Ubuntu"
         ])
         self.dropdown.show()
         self.confirm_button.show()
-        if "Windows 11" in os_version:
-            if "Enterprise" in os_version and "Domain" not in os_version:
-                self.dropdown.setCurrentText("Windows 11 Enterprise Standalone")
-            elif "Enterprise" in os_version and "Domain" in os_version:
-                self.dropdown.setCurrentText("Windows 11 Enterprise Domain-Joined")
-            elif "Pro" in os_version:
-                self.dropdown.setCurrentText("Microsoft Windows 11 Pro Standalone")
-        elif "Ubuntu" in os_version:
+        if os_version == "Microsoft Windows 11 Pro Standalone":
+            self.dropdown.setCurrentText("Microsoft Windows 11 Pro Standalone")
+            
+        elif os_version == "Microsoft Windows 11 Enterprise Domain-Joined":
+            self.dropdown.setCurrentText("Microsoft Windows 11 Enterprise Domain-Joined")
+            
+        elif os_version == "Microsoft Windows 11 Enterprise Domain-Joined":
+            self.dropdown.setCurrentText("Microsoft Windows 11 Enterprise Domain-Joined")
+            
+        elif os_version == "Ubuntu":
             self.dropdown.setCurrentText("Ubuntu")
+
             
     def confirm_selection(self):
         selected_os = self.dropdown.currentText()
@@ -76,17 +79,14 @@ class OSVersionWindow(QWidget):
                                           QMessageBox.No)
     
         if confirm_dialog == QMessageBox.Yes:
-            if selected_os == "Microsoft Windows 11 Pro Standalone":
-                self.run_script()
-            elif selected_os == "Ubuntu":
-                self.run_linux_script()
-            else:
-                QMessageBox.warning(self, "Unknown OS", "No script available for the selected OS.")
-            self.close()
+            
+            self.run_script()
+           
 
     def run_script(self):
         selected_os = self.dropdown.currentText()
-        subprocess.run(["python", "customScript.py",selected_os])
+        self.close()
+        subprocess.run(["python", "components/customScript.py",selected_os])
 
 
 if __name__ == "__main__":
