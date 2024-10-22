@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<category name="network">
+		<script name="ipv6" file=""/>
+		<script name="bluez package"/>
+		<script name="bluetooth"/>
+		<script name="IP forwarding"/>
+		<script name="Packet redirection"/>
+		<script name="Bogus ICMP responses"/>
+	</category>
+</config>

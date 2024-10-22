@@ -1,0 +1,14 @@
+IPv6 status,Enabled,high,NA,10
+Bluez package,Not Installed,low,NA,5
+Bluetooth Service,Disabled,low,NA,3
+IP forwarding,Disabled,medium,NA,7
+Packet redirection,Enabled,medium,NA,6
+Bogus ICMP Response are ignored,Enabled,low,NA,3
+Broadcast ICMP requests are ignored,Enabled,low,3
+ICMP redirects are not accepted for IPv4,Enabled,low,3
+ICMP redirects are not accepted for IPv6,Enabled,low,3
+Secure ICMP redirects are not accepted,Disabled,low,3
+Reverse path filtering is enabled,Disabled,low,3
+Suspicious packets are logged,Disabled,low,7
+tcp syn cookies,Enabled,high,8
+ipv6 router advertisements are not accepted,Disabled,medium,6
