@@ -68,8 +68,8 @@ $valueName22="NoBackgroundPolicy"
 $regPath23="HKLM:\SOFTWARE\Policies\Microsoft\Windows\Group Policy\{827D319E-6EAC-11D2-A4EA-00C04F79F83A}"
 $valueName23="NoGPOListChanges"
 #18.9.19.7 (6 Already available in Standalone) Updates on Group Policy even if computer is on
-<#$regPath24="HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
-$valueName24="DisableBkGndGroupPolicy"#>
+$regPath24="HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
+$valueName24="DisableBkGndGroupPolicy"
 #18.9.25 goes from here 
 #18.9.25.1 LAPS AD
 $regPath25="HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\LAPS"
@@ -321,7 +321,7 @@ function NoGPOListChanges2 {
     }
     
 }
-<#function DisableBkGndGroupPolicy {
+function DisableBkGndGroupPolicy {
     $currentValue24=Get-ItemProperty -Path $regPath24 -Name $valueName24 -ErrorAction Stop
     if($currentValue24.$valueName24 -eq 0){
         Write-Host "Disable Background Group Policy ENABLED"
@@ -329,7 +329,7 @@ function NoGPOListChanges2 {
         Write-Host "Disable Background Group Policy NOT ENABLED"
     }
     
-}#>
+}
 function BackupDirectory {
     $currentValue25=Get-ItemProperty -Path $regPath25 -Name $valueName25 -ErrorAction Stop
     if($currentValue25.$valueName25 -eq 1 -or $currentValue25.$valueName25 -eq 2){
@@ -468,7 +468,7 @@ NoBackgroundPolicy
 NoGPOListChanges
 NoBackgroundPolicy2
 NoGPOListChanges2
-#DisableBkGndGroupPolicy 
+DisableBkGndGroupPolicy 
 BackupDirectory
 DontEnumerateConnectedUsers
 EnumerateLocalUsers
@@ -481,6 +481,7 @@ PasswordLength
 PasswordAgeDays
 PostAuthenticationResetDelay
 PostAuthenticationActions
+
 
 
 
