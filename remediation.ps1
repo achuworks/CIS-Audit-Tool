@@ -102,12 +102,14 @@ $valueName36="PostAuthenticationActions"
 function Add-Result {
     param (
         [string]$Name,
-        [string]$RemediationStatus
+        [string]$RemediationStatus,
+        [string]$Priority
 
     )
     $global:results += [pscustomobject]@{
         Name = $Name
         RemediationStatus = $RemediationStatus
+        Priority=$Priority
        
     }
 }

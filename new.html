@@ -1,0 +1,369 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Configuration Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .table-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        table {
+            width: 45%;
+            border-collapse: collapse;
+            margin: 15px;
+            font-size: 18px;
+            text-align: left;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #05b40b;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
+        td {
+            word-wrap: break-word;
+            max-width: 300px;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+        h1 {
+            margin-top: 15px;
+            font-size: 28px;
+            color: #750202;
+        }
+        h2 {
+            margin-bottom: 5px;
+            font-size: 24px;
+        }
+        img {
+            display: block;
+            margin: 0 auto;
+        }
+        .high {
+            color:black;
+            background-color: rgb(255, 0, 0);
+            font-weight: 700;
+        }
+        .medium {
+            color: black;
+            background-color: rgb(255, 166, 0);
+            font-weight: 700;
+        }
+        .low {
+            color: black;
+            background-color: rgb(27, 92, 233);
+            font-weight: 700;
+        }
+        .a {
+            color: green;
+        }
+        .b {
+            color: red;
+        }
+        .t1 {
+            background-color: #05b40b;
+        }
+        .t2 {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Security Configuration Compliance Report</h2>
+<h1>Umbrella Corporation</h1>
+<img src="logo.jpg" height="70px" width="100px">
+
+<div class="table-container">
+
+    <div>
+        <h2 class="a">Enabled Configurations</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th class="t1">Name</th>
+                    <th class="t1">Status</th>
+                    <th class="t1">Registry Value</th>
+                  
+                </tr>
+            </thead>
+            <tbody>
+
+    <tr>
+        <td>RequireSignOrSeal</td>
+        <td>ENABLED</td>
+        <td>1</td>
+    </tr>
+    
+    <tr>
+        <td>SealSecureChannel</td>
+        <td>ENABLED</td>
+        <td>1</td>
+    </tr>
+    
+    <tr>
+        <td>SignSecureChannel</td>
+        <td>ENABLED</td>
+        <td>1</td>
+    </tr>
+    
+    <tr>
+        <td>DisablePasswordChange</td>
+        <td>ENABLED</td>
+        <td>1</td>
+    </tr>
+    
+    <tr>
+        <td>MaximumPasswordAge</td>
+        <td>ENABLED</td>
+        <td>30</td>
+    </tr>
+    
+    <tr>
+        <td>RequireStrongKey</td>
+        <td>ENABLED</td>
+        <td>1</td>
+    </tr>
+    
+    <tr>
+        <td>Firewall state</td>
+        <td>ENABLED</td>
+        <td>1</td>
+    </tr>
+    
+    <tr>
+        <td>DisableNotifications</td>
+        <td>ENABLED</td>
+        <td>1</td>
+    </tr>
+    
+    <tr>
+        <td>Log Dropped Packets</td>
+        <td>ENABLED</td>
+        <td>1</td>
+    </tr>
+    
+    <tr>
+        <td>LocalAccountTokenFilterPolicy</td>
+        <td>ENABLED</td>
+        <td>0</td>
+    </tr>
+    
+    <tr>
+        <td>DoHPolicy</td>
+        <td>Enabled</td>
+        <td>3</td>
+    </tr>
+    
+    <tr>
+        <td>NetBIOS</td>
+        <td>Enabled</td>
+        <td>0</td>
+    </tr>
+    
+    <tr>
+        <td>EnableMulticast</td>
+        <td>ENABLED</td>
+        <td>0</td>
+    </tr>
+    
+    <tr>
+        <td>NC_StdDomainUserSetLocation</td>
+        <td>ENABLED</td>
+        <td>1</td>
+    </tr>
+    
+    <tr>
+        <td>fBlockNonDomain</td>
+        <td>ENABLED</td>
+        <td>1</td>
+    </tr>
+    
+    <tr>
+        <td>NoBackgroundPolicy</td>
+        <td>ENABLED</td>
+        <td>0</td>
+    </tr>
+    
+    <tr>
+        <td>NoBackgroundPolicy2</td>
+        <td>ENABLED</td>
+        <td>0</td>
+    </tr>
+    
+    <tr>
+        <td>LAPS BackupDirectory</td>
+        <td>ENABLED</td>
+        <td>2</td>
+    </tr>
+    
+    <tr>
+        <td>DontEnumerateConnectedUsers</td>
+        <td>ENABLED</td>
+        <td>1</td>
+    </tr>
+    
+    <tr>
+        <td>EnumerateLocalUsers</td>
+        <td>ENABLED</td>
+        <td>0</td>
+    </tr>
+    
+    <tr>
+        <td>BlockDomainPicturePassword</td>
+        <td>ENABLED</td>
+        <td>1</td>
+    </tr>
+    
+    <tr>
+        <td>NTPEnabled</td>
+        <td>ENABLED</td>
+        <td>0</td>
+    </tr>
+    
+    <tr>
+        <td>PwdExpirationProtection</td>
+        <td>ENABLED</td>
+        <td>1</td>
+    </tr>
+    
+    <tr>
+        <td>ADPasswordEncryptionEnabled</td>
+        <td>ENABLED</td>
+        <td>1</td>
+    </tr>
+    
+    <tr>
+        <td>PasswordComplexity</td>
+        <td>ENABLED</td>
+        <td>4</td>
+    </tr>
+    
+    <tr>
+        <td>PasswordLength</td>
+        <td>ENABLED</td>
+        <td>15</td>
+    </tr>
+    
+    <tr>
+        <td>PasswordAgeDays</td>
+        <td>ENABLED</td>
+        <td>30</td>
+    </tr>
+    
+    <tr>
+        <td>PostAuthenticationResetDelay</td>
+        <td>ENABLED</td>
+        <td>8</td>
+    </tr>
+    
+    <tr>
+        <td>PostAuthenticationActions</td>
+        <td>ENABLED</td>
+        <td>3</td>
+    </tr>
+    
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+        <h2 class="b">Not Enabled Configurations</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th class="t2">Name</th>
+                    <th class="t2">Status</th>
+                    <th class="t2">Priority</th>
+                    <th class="t2">Your Registry Value</th>
+                    <th class="t2">ValueToBe</th>
+                </tr>
+            </thead>
+            <tbody>
+
+    <tr>
+        <td>DefaultInbound</td>
+        <td>NOT ENABLED.</td>
+        <td class="medium">MEDIUM</td>
+        <td>0</td>
+        <td>1</td>
+    </tr>
+    
+    <tr>
+        <td>LogFilePath</td>
+        <td>NOT ENABLED.</td>
+        <td class="medium">MEDIUM</td>
+        <td>%systemroot%\system32\logfiles\firewall\pfirewall.log</td>
+        <td>%SystemRoot%\System32\logfiles\firewall\domainfw.log</td>
+    </tr>
+    
+    <tr>
+        <td>LogFileSize</td>
+        <td>not set to 16384</td>
+        <td class="medium">MEDIUM</td>
+        <td>4096</td>
+        <td>16384</td>
+    </tr>
+    
+    <tr>
+        <td>LogSuccessfulConnections</td>
+        <td>NOT ENABLED</td>
+        <td class="high">HIGH</td>
+        <td>0</td>
+        <td>1</td>
+    </tr>
+    
+    <tr>
+        <td>NoGPOListChanges</td>
+        <td>NOT ENABLED</td>
+        <td class="low">LOW</td>
+        <td>1</td>
+        <td>0</td>
+    </tr>
+    
+    <tr>
+        <td>NoGPOListChanges2</td>
+        <td>NOT ENABLED</td>
+        <td class="low">LOW</td>
+        <td>1</td>
+        <td>0</td>
+    </tr>
+    
+    <tr>
+        <td>Disable Background Group Policy</td>
+        <td>NOT ENABLED</td>
+        <td class="medium">MEDIUM</td>
+        <td>5</td>
+        <td>0</td>
+    </tr>
+    
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>

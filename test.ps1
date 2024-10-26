@@ -103,339 +103,379 @@ function Add-Result {
     param (
         [string]$Name,
         [string]$Status,
-        [string]$Priority
+        [string]$Priority,
+        [string]$RegistryValue,
+        [string]$ValueToBe
     )
     $global:results += [pscustomobject]@{
         Name = $Name
         Status = $Status
         Priority = $Priority
+        RegistryValue = $RegistryValue
+        ValueToBe = $ValueToBe
     }
 }
 function RequireSignorSeal {
        
         $currentValue = Get-ItemProperty -Path $regPath -Name $valueName -ErrorAction Stop
+        $currentValuee = (Get-ItemProperty -Path $regPath -Name $valueName -ErrorAction Stop).$valueName
         if ($currentValue.$valueName -eq 1) {
-            Add-Result "RequireSignOrSeal" "ENABLED."
+            Add-Result "RequireSignOrSeal" "ENABLED" "" $currentValuee 1
         }
-        elseif($currentValue.$valueName -eq 0){
-            Add-Result "RequireSignOrSeal" "NOT ENABLED" "MEDIUM"
+        else{
+            Add-Result "RequireSignOrSeal" "NOT ENABLED" "MEDIUM" $currentValuee 1
         }
         
 }
 function SealSecureChannel {
     $currentValue2 = Get-ItemProperty -Path $regPath2 -Name $valueName2 -ErrorAction Stop
+    $currentValuee2 = (Get-ItemProperty -Path $regPath2 -Name $valueName2 -ErrorAction Stop).$valueName2
     if($currentValue2.$valueName2 -eq 1){
-        Add-Result "SealSecureChannel" "ENABLED."
-    }elseif($currentValue2.$valueName2 -eq 0){
-        Add-Result "SealSecureChannel" "NOT ENABLED." "MEDIUM"
+        Add-Result "SealSecureChannel" "ENABLED" "" $currentValuee2 1
+    }else{
+        Add-Result "SealSecureChannel" "NOT ENABLED" "MEDIUM" $currentValuee2 1
     }
 }
 function SignSecureChannel {
     $currentValue3 = Get-ItemProperty -Path $regPath3 -Name $valueName3 -ErrorAction Stop
+    $currentValuee3 = (Get-ItemProperty -Path $regPath3 -Name $valueName3 -ErrorAction Stop).$valueName3
     if($currentValue3.$valueName3 -eq 1){
-        Add-Result "SignSecureChannel" "ENABLED."
-    }elseif($currentValue3.$valueName3 -eq 0){
-        Add-Result "SignSecureChannel" "NOT ENABLED." "MEDIUM"
+        Add-Result "SignSecureChannel" "ENABLED" "" $currentValuee3 1
+    }else{
+        Add-Result "SignSecureChannel" "NOT ENABLED." "MEDIUM" $currentValuee3 1
     }
 }
 function DisablePasswordChange {
     $currentValue4 = Get-ItemProperty -Path $regPath4 -Name $valueName4 -ErrorAction Stop
+    $currentValuee4 = (Get-ItemProperty -Path $regPath4 -Name $valueName4 -ErrorAction Stop).$valueName4
     if($currentValue4.$valueName4 -eq 1){
-        Add-Result "DisablePasswordChange" "ENABLED."
-    }elseif($currentValue4.$valueName4 -eq 0){
-        Add-Result "DisablePasswordChange" "NOT ENABLED." "MEDIUM"
+        Add-Result "DisablePasswordChange" "ENABLED" "" $currentValuee4 1
+    }else{
+        Add-Result "DisablePasswordChange" "NOT ENABLED." "MEDIUM" $currentValuee4 1
     }
 }
 function MaximumPasswordAge{
     $currentValue5 = Get-ItemProperty -Path $regPath5 -Name $valueName5 -ErrorAction Stop
+    $currentValuee5 = (Get-ItemProperty -Path $regPath5 -Name $valueName5 -ErrorAction Stop).$valueName5
     if($currentValue5.$valueName5 -eq 30){
-        Add-Result  "MaximumPasswordAge" "ENABLED"
-    }elseif($currentValue5.$valueName5 -eq 0){
-        Add-Result "MaximumPasswordAge" "NOT ENABLED." "HIGH"
+        Add-Result  "MaximumPasswordAge" "ENABLED" "" $currentValuee5 30
+    }else{
+        Add-Result "MaximumPasswordAge" "NOT ENABLED." "HIGH" $currentValuee5 30
     }
 }
 function RequireStrongKey{
     $currentValue6 = Get-ItemProperty -Path $regPath6 -Name $valueName6 -ErrorAction Stop
+    $currentValuee6 = (Get-ItemProperty -Path $regPath6 -Name $valueName6 -ErrorAction Stop).$valueName6
     if($currentValue6.$valueName6 -eq 1){
-        Add-Result  "RequireStrongKey" "ENABLED"
-    }elseif($currentValue6.$valueName6 -eq 0){
-        Add-Result "RequireStrongKey" "NOT ENABLED." "HIGH"
+        Add-Result  "RequireStrongKey" "ENABLED" "" $currentValuee6 1
+    }else{
+        Add-Result "RequireStrongKey" "NOT ENABLED." "HIGH" $currentValuee6 1
     }
 }
 function EnableFirewall {
     $currentValue7 = Get-ItemProperty -Path $regPath7 -Name $valueName7 -ErrorAction Stop
+    $currentValuee7 = (Get-ItemProperty -Path $regPath7 -Name $valueName7 -ErrorAction Stop).$valueName7
     if($currentValue7.$valueName7 -eq 1){
-        Add-Result  "Firewall state" "ENABLED"
-    }elseif($currentValue7.$valueName7 -eq 0){
-        Add-Result "Firewall state" "NOT ENABLED." "HIGH"
+        Add-Result  "Firewall state" "ENABLED" "" $currentValuee7 1
+    }else{
+        Add-Result "Firewall state" "NOT ENABLED." "HIGH" $currentValuee7 1
     } 
 }
 function DefaultInbound {
     $currentValue8 = Get-ItemProperty -Path $regPath8 -Name $valueName8 -ErrorAction Stop
+    $currentValuee8 = (Get-ItemProperty -Path $regPath8 -Name $valueName8 -ErrorAction Stop).$valueName8
     if($currentValue8.$valueName8 -eq 1){
-        Add-Result  "DefaultInbound" "ENABLED"
-    }elseif($currentValue8.$valueName8 -eq 0){
-        Add-Result "DefaultInbound" "NOT ENABLED." "MEDIUM"
+        Add-Result  "DefaultInbound" "ENABLED" "" $currentValuee8 1
+    }else{
+        Add-Result "DefaultInbound" "NOT ENABLED." "MEDIUM" $currentValuee8 1
     } 
 }
 function DisableNotifications {
     $currentValue9 = Get-ItemProperty -Path $regPath9 -Name $valueName9 -ErrorAction Stop
+    $currentValuee9 = (Get-ItemProperty -Path $regPath9 -Name $valueName9 -ErrorAction Stop).$valueName9
     if($currentValue9.$valueName9 -eq 1){
-        Add-Result  "DisableNotifications" "ENABLED"
-    }elseif($currentValue9.$valueName9 -eq 0){
-        Add-Result "DisableNotifications" "NOT ENABLED." "MEDIUM" 
+        Add-Result  "DisableNotifications" "ENABLED" "" $currentValuee9 1
+    }else{
+        Add-Result "DisableNotifications" "NOT ENABLED." "MEDIUM" $currentValuee9 1
     } 
 }
 function LogFilePath {
     $currentValue10 = Get-ItemProperty -Path $regPath10 -Name $valueName10 -ErrorAction Stop
+    $currentValuee10 = (Get-ItemProperty -Path $regPath10 -Name $valueName10 -ErrorAction Stop).$valueName10
     $expectedLogFilePath = "%SystemRoot%\System32\logfiles\firewall\domainfw.log"
     if($currentValue10.$valueName10 -eq $expectedLogFilePath){
-        Add-Result  "LogFilePath" "ENABLED"
+        Add-Result  "LogFilePath" "ENABLED" "" $expectedLogFilePath $expectedLogFilePath
     }else{
-        Add-Result "LogFilePath" "NOT ENABLED." "MEDIUM"
+        Add-Result "LogFilePath" "NOT ENABLED." "MEDIUM" $currentValuee10 $expectedLogFilePath
     } 
 }
 function LogFileSize
 {
     $currentValue11=Get-ItemProperty -Path $regPath11 -Name $valueName11 -ErrorAction Stop 
+    $currentValuee11 = (Get-ItemProperty -Path $regPath11 -Name $valueName11 -ErrorAction Stop).$valueName11
     if($currentValue11.$valueName11 -eq 16384){
-        Add-Result "LogFileSize" "set to 16384"
+        Add-Result "LogFileSize" "set to 16384" "" $currentValuee11 16384
     }else{
-        Add-Result "LogFileSize" "not set to 16384" "MEDIUM"
+        Add-Result "LogFileSize" "not set to 16384" "MEDIUM" $currentValuee11 16384
     }
     
 }
 function LogDroppedPackets
 {
     $currentValue12=Get-ItemProperty -Path $regPath12 -Name $valueName12 -ErrorAction Stop
+    $currentValuee12 = (Get-ItemProperty -Path $regPath12 -Name $valueName12 -ErrorAction Stop).$valueName12
     if($currentValue12.$valueName12 -eq 1){
-        Add-Result "Log Dropped Packets" "ENABLED"
+        Add-Result "Log Dropped Packets" "ENABLED" "" $currentValuee12 1
     }else{
-        Add-Result "Log Dropped Packets" "NOT ENABLED" "HIGH"
+        Add-Result "Log Dropped Packets" "NOT ENABLED" "HIGH" $currentValuee12 1
     }
     
 }
 function LogSuccessfulConnections
 {
     $currentValue13=Get-ItemProperty -Path $regPath13 -Name $valueName13 -ErrorAction Stop
+    $currentValuee13 = (Get-ItemProperty -Path $regPath13 -Name $valueName13 -ErrorAction Stop).$valueName13
     if($currentValue13.$valueName13 -eq 1){
-        Add-Result "LogSuccessfulConnections" "ENABLED"
+        Add-Result "LogSuccessfulConnections" "ENABLED" "" $currentValuee13 1
     }else{
-        Add-Result "LogSuccessfulConnections" "NOT ENABLED" "HIGH"
+        Add-Result "LogSuccessfulConnections" "NOT ENABLED" "HIGH" $currentValuee13 1
     }
     
 }
 function LocalAccountTokenFilterPolicy
 {
     $currentValue14=Get-ItemProperty -Path $regPath14 -Name $valueName14 -ErrorAction Stop
+    $currentValuee14 = (Get-ItemProperty -Path $regPath14 -Name $valueName14 -ErrorAction Stop).$valueName14
     if($currentValue14.$valueName14 -eq 0){
-        Add-Result "LocalAccountTokenFilterPolicy" "ENABLED"
+        Add-Result "LocalAccountTokenFilterPolicy" "ENABLED" "" $currentValuee14 0
     }else{
-        Add-Result "LocalAccountTokenFilterPolicy" "NOT ENABLED" "MEDIUM"
+        Add-Result "LocalAccountTokenFilterPolicy" "NOT ENABLED" "MEDIUM" $currentValuee14 0
     }
     
 }
 
 function DoHPolicy {
     $currentValue15=Get-ItemProperty -Path $regPath15 -Name $valueName15 -ErrorAction Stop 
+    $currentValuee15 = (Get-ItemProperty -Path $regPath15 -Name $valueName15 -ErrorAction Stop).$valueName15
     if($currentValue15.$valueName15 -eq 2 -or $currentValue15.$valueName15 -eq 3){
-        Add-Result "DoHPolicy" "Enabled"
+        Add-Result "DoHPolicy" "Enabled" "" $currentValuee15 "2 or 3"
     }
     else{
-        Add-Result "DoHPolicy" "not ENABLED" "MEDIUM"
+        Add-Result "DoHPolicy" "not ENABLED" "MEDIUM" $currentValuee15 "2 or 3"
     }
     
 }
 function EnableNetbios {
     $currentValue16=Get-ItemProperty -Path $regPath16 -Name $valueName16 -ErrorAction Stop
+    $currentValuee16 = (Get-ItemProperty -Path $regPath16 -Name $valueName16 -ErrorAction Stop).$valueName16
     if($currentValue16.$valueName16 -eq 0 -or $currentValue16.$valueName16 -eq 2){
-        Add-Result "NetBIOS" "Enabled"
+        Add-Result "NetBIOS" "Enabled" "" $currentValuee16 0
     }
     else{
-        Add-Result "NetBIOS" "NOT ENABLED" "LOW"
+        Add-Result "NetBIOS" "NOT ENABLED" "LOW" $currentValuee16 0
     }
     
 }
 function EnableMulticast {
     $currentValue17=Get-ItemProperty -Path $regPath17 -Name $valueName17 -ErrorAction Stop
+    $currentValuee17 = (Get-ItemProperty -Path $regPath17 -Name $valueName17 -ErrorAction Stop).$valueName17
     if($currentValue17.$valueName17 -eq 0){
-        Add-Result "EnableMulticast" "ENABLED"
+        Add-Result "EnableMulticast" "ENABLED" "" $currentValuee17 0
     }else{
-        Add-Result "EnableMulticast" "NOT ENABLED" "LOW"
+        Add-Result "EnableMulticast" "NOT ENABLED" "LOW" $currentValuee17 0
     }
     
 }
 function NC_StdDomainUserSetLocation {
     $currentValue18=Get-ItemProperty -Path $regPath18 -Name $valueName18 -ErrorAction Stop
+    $currentValuee18 = (Get-ItemProperty -Path $regPath18 -Name $valueName18 -ErrorAction Stop).$valueName18
     if($currentValue18.$valueName18 -eq 1){
-        Add-Result "NC_StdDomainUserSetLocation" "ENABLED"
+        Add-Result "NC_StdDomainUserSetLocation" "ENABLED" "" $currentValuee18 1
     }else{
-        Add-Result "NC_StdDomainUserSetLocation" "NOT ENABLED" "LOW"
+        Add-Result "NC_StdDomainUserSetLocation" "NOT ENABLED" "LOW" $currentValuee18 1
     }
     
 }
 function fBlockNonDomain{
     $currentValue19=Get-ItemProperty -Path $regPath19 -Name $valueName19 -ErrorAction Stop
+    $currentValuee19 = (Get-ItemProperty -Path $regPath19 -Name $valueName19 -ErrorAction Stop).$valueName19
     if($currentValue19.$valueName19 -eq 1){
-        Add-Result "fBlockNonDomain" "ENABLED"
+        Add-Result "fBlockNonDomain" "ENABLED" "" $currentValuee19 1
     }else{
-        Add-Result "fBlockNonDomain" "NOT ENABLED" "LOW"
+        Add-Result "fBlockNonDomain" "NOT ENABLED" "LOW" $currentValuee19 1
     }
     
 }
 function NoBackgroundPolicy {
     $currentValue20=Get-ItemProperty -Path $regPath20 -Name $valueName20 -ErrorAction Stop
+    $currentValuee20 = (Get-ItemProperty -Path $regPath20 -Name $valueName20 -ErrorAction Stop).$valueName20
     if($currentValue20.$valueName20 -eq 0){
-        Add-Result "NoBackgroundPolicy" "ENABLED"
+        Add-Result "NoBackgroundPolicy" "ENABLED" "" $currentValuee20 0
     }else{
-        Add-Result "NoBackgroundPolicy" "NOT ENABLED" "LOW"
+        Add-Result "NoBackgroundPolicy" "NOT ENABLED" "LOW" $currentValuee20 0
     }
     
 }
 function NoGPOListChanges {
     $currentValue21=Get-ItemProperty -Path $regPath21 -Name $valueName21 -ErrorAction Stop
+    $currentValuee21 = (Get-ItemProperty -Path $regPath21 -Name $valueName21 -ErrorAction Stop).$valueName21
     if($currentValue21.$valueName21 -eq 0){
-        Add-Result "NoGPOListChanges" "ENABLED"
+        Add-Result "NoGPOListChanges" "ENABLED" "" $currentValuee21 0
     }else{
-        Add-Result "NoGPOListChanges" "NOT ENABLED" "LOW"
+        Add-Result "NoGPOListChanges" "NOT ENABLED" "LOW" $currentValuee21 0
     }
     
 }
 function NoBackgroundPolicy2
 {
     $currentValue22=Get-ItemProperty -Path $regPath22 -Name $valueName22 -ErrorAction Stop
+    $currentValuee22 = (Get-ItemProperty -Path $regPath22 -Name $valueName22 -ErrorAction Stop).$valueName22
     if($currentValue22.$valueName22 -eq 0){
-        Add-Result "NoBackgroundPolicy2" "ENABLED"
+        Add-Result "NoBackgroundPolicy2" "ENABLED" "" $currentValuee22 0
     }else{
-        Add-Result "NoBackgroundPolicy2" "NOT ENABLED" "LOW"
+        Add-Result "NoBackgroundPolicy2" "NOT ENABLED" "LOW" $currentValuee22 0
     }
     
 }
 function NoGPOListChanges2 {
     $currentValue23=Get-ItemProperty -Path $regPath23 -Name $valueName23 -ErrorAction Stop
+    $currentValuee23 = (Get-ItemProperty -Path $regPath23 -Name $valueName23 -ErrorAction Stop).$valueName23
     if($currentValue23.$valueName23 -eq 0){
-        Add-Result "NoGPOListChanges2" "ENABLED"
+        Add-Result "NoGPOListChanges2" "ENABLED" "" $currentValuee23 0
     }else{
-        Add-Result "NoGPOListChanges2" "NOT ENABLED" "LOW"
+        Add-Result "NoGPOListChanges2" "NOT ENABLED" "LOW" $currentValuee23 0
     }
     
 }
 function DisableBkGndGroupPolicy {
     $currentValue24=Get-ItemProperty -Path $regPath24 -Name $valueName24 -ErrorAction Stop
+    $currentValuee24 = (Get-ItemProperty -Path $regPath24 -Name $valueName24 -ErrorAction Stop).$valueName24
     if($currentValue24.$valueName24 -eq 0){
-        Add-Result "Disable Background Group Policy" "ENABLED"
+        Add-Result "Disable Background Group Policy" "ENABLED" "" $currentValuee24 0
     }else{
-        Add-Result "Disable Background Group Policy" "NOT ENABLED"
+        Add-Result "Disable Background Group Policy" "NOT ENABLED"  "MEDIUM"  $currentValuee24 0
     }
     
 }
 function BackupDirectory {
     $currentValue25=Get-ItemProperty -Path $regPath25 -Name $valueName25 -ErrorAction Stop
+    $currentValuee25 = (Get-ItemProperty -Path $regPath25 -Name $valueName25 -ErrorAction Stop).$valueName25
     if($currentValue25.$valueName25 -eq 1 -or $currentValue25.$valueName25 -eq 2){
-        Add-Result "LAPS BackupDirectory" "ENABLED"
+        Add-Result "LAPS BackupDirectory" "ENABLED" "" $currentValuee25 "1 or 2"
     }else{
-        Add-Result "LAPS :BackupDirectory" "NOT ENABLED" "LOW"
+        Add-Result "LAPS :BackupDirectory" "NOT ENABLED" "LOW" $currentValuee25 "1 or 2"
     }
 }
 function DontEnumerateConnectedUsers {
     $currentValue26=Get-ItemProperty -Path $regPath26 -Name $valueName26 -ErrorAction Stop
+    $currentValuee26 = (Get-ItemProperty -Path $regPath26 -Name $valueName26 -ErrorAction Stop).$valueName26
     if($currentValue26.$valueName26 -eq 1){
-        Add-Result "DontEnumerateConnectedUsers" "ENABLED"
+        Add-Result "DontEnumerateConnectedUsers" "ENABLED" "" $currentValuee26 1
     }else{
-        Add-Result "DontEnumerateConnectedUsers" "NOT ENABLED" "LOW"
+        Add-Result "DontEnumerateConnectedUsers" "NOT ENABLED" "LOW" $currentValuee26 1
     }
     
 }
 function EnumerateLocalUsers {
     $currentValue27=Get-ItemProperty -Path $regPath27 -Name $valueName27 -ErrorAction Stop
+    $currentValuee27 = (Get-ItemProperty -Path $regPath27 -Name $valueName27 -ErrorAction Stop).$valueName27
     if($currentValue27.$valueName27 -eq 0){
-        Add-Result "EnumerateLocalUsers" "ENABLED"
+        Add-Result "EnumerateLocalUsers" "ENABLED" "" $currentValuee27 0
     }else{
-        Add-Result "EnumerateLocalUsers" "NOT ENABLED" "LOW"
+        Add-Result "EnumerateLocalUsers" "NOT ENABLED" "LOW" $currentValuee27 0
     }
     
 }
 function BlockDomainPicturePassword {
     $currentValue28=Get-ItemProperty -Path $regPath28 -Name $valueName28 -ErrorAction Stop
+    $currentValuee28 = (Get-ItemProperty -Path $regPath28 -Name $valueName28 -ErrorAction Stop).$valueName28
     if($currentValue28.$valueName28 -eq 1){
-        Add-Result "BlockDomainPicturePassword" "ENABLED"
+        Add-Result "BlockDomainPicturePassword" "ENABLED" "" $currentValuee28 1
     }else{
-        Add-Result "BlockDomainPicturePassword" "NOT ENABLED" "LOW"
+        Add-Result "BlockDomainPicturePassword" "NOT ENABLED" "LOW" $currentValuee28 1
     }
     
 }
 function Enabled {
     $currentValue29=Get-ItemProperty -Path $regPath29 -Name $valueName29 -ErrorAction Stop
+    $currentValuee29 = (Get-ItemProperty -Path $regPath29 -Name $valueName29 -ErrorAction Stop).$valueName29
     if($currentValue29.$valueName29 -eq 0){
-        Add-Result "NTPEnabled" "ENABLED"
+        Add-Result "NTPEnabled" "ENABLED" "" $currentValuee29 0
     }else{
-        Add-Result "NTPEnabled" "NOT ENABLED" "LOW"
+        Add-Result "NTPEnabled" "NOT ENABLED" "LOW" $currentValuee29 0
     }
     
 }
 function PwdExpirationProtectionEnabled {
     $currentValue30=Get-ItemProperty -Path $regPath30 -Name $valueName30 -ErrorAction Stop
+    $currentValuee30 = (Get-ItemProperty -Path $regPath30 -Name $valueName30 -ErrorAction Stop).$valueName30
     if($currentValue30.$valueName30 -eq 1){
-        Add-Result "PwdExpirationProtection" "ENABLED"
+        Add-Result "PwdExpirationProtection" "ENABLED" "" $currentValuee30 1
     }
     else{
-        Add-Result "PwdExpirationProtection" "NOT ENABLED" "HIGH"
+        Add-Result "PwdExpirationProtection" "NOT ENABLED" "HIGH" $currentValuee30 1
     }
 }
 
 function ADPasswordEncryptionEnabled {
     $currentValue31=Get-ItemProperty -Path $regPath31 -Name $valueName31 -ErrorAction Stop
+    $currentValuee31 = (Get-ItemProperty -Path $regPath31 -Name $valueName31 -ErrorAction Stop).$valueName31
     if($currentValue31.$valueName31 -eq 1){
-        Add-Result "ADPasswordEncryptionEnabled" "ENABLED"
+        Add-Result "ADPasswordEncryptionEnabled" "ENABLED" "" $currentValuee31 1
     }else{
-        Add-Result "ADPasswordEncryptionEnabled" "NOT ENABLED" "HIGH"
+        Add-Result "ADPasswordEncryptionEnabled" "NOT ENABLED" "HIGH" $currentValuee31 1
     }
     
 }
 function PasswordComplexity {
     $currentValue32=Get-ItemProperty -Path $regPath32 -Name $valueName32 -ErrorAction Stop
+    $currentValuee32 = (Get-ItemProperty -Path $regPath32 -Name $valueName32 -ErrorAction Stop).$valueName32
     if($currentValue32.$valueName32 -eq 4){
-        Add-Result "PasswordComplexity" "ENABLED"
+        Add-Result "PasswordComplexity" "ENABLED" "" $currentValuee32 4
     }
     else{
-        Add-Result "PasswordComplexity" "NOT ENABLED" "HIGH"
+        Add-Result "PasswordComplexity" "NOT ENABLED" "HIGH" $currentValuee32 4
     }
     
 }
 function PasswordLength {
     $currentValue33=Get-ItemProperty -Path $regPath33 -Name $valueName33 -ErrorAction Stop
+    $currentValuee33 = (Get-ItemProperty -Path $regPath33 -Name $valueName33 -ErrorAction Stop).$valueName33
     if($currentValue33.$valueName33 -eq 15){
-        Add-Result "PasswordLength" "ENABLED"
+        Add-Result "PasswordLength" "ENABLED" "" $currentValuee33 15
     }else{
-        Add-Result "PasswordLength" "NOT ENABLED" "MEDIUM"
+        Add-Result "PasswordLength" "NOT ENABLED" "MEDIUM" $currentValuee33 15
     }
     
 }
 function PasswordAgeDays {
     $currentValue34=Get-ItemProperty -Path $regPath34 -Name $valueName34 -ErrorAction Stop
+    $currentValuee34 = (Get-ItemProperty -Path $regPath34 -Name $valueName34 -ErrorAction Stop).$valueName34
     if($currentValue34.$valueName34 -eq 30){
-        Add-Result "PasswordAgeDays" "ENABLED"
+        Add-Result "PasswordAgeDays" "ENABLED" "" $currentValuee34 30
     }
     else{
-        Add-Result "PasswordAgeDays" "NOT ENABLED" "MEDIUM"
+        Add-Result "PasswordAgeDays" "NOT ENABLED" "MEDIUM" $currentValuee34 30
     }
     
 }
 function PostAuthenticationResetDelay {
     $currentValue35=Get-ItemProperty -Path $regPath35 -Name $valueName35 -ErrorAction Stop
+    $currentValuee35 = (Get-ItemProperty -Path $regPath35 -Name $valueName35 -ErrorAction Stop).$valueName35
     if($currentValue35.$valueName35  -le 8 -and $currentValue35.$valueName35 -ne 0){
-        Add-Result "PostAuthenticationResetDelay" "ENABLED"
+        Add-Result "PostAuthenticationResetDelay" "ENABLED" "" $currentValuee35 "less than 8  not equal to 0"
     }else{
-        Add-Result "PostAuthenticationResetDelay" "NOT ENABLED" "MEDIUM"
+        Add-Result "PostAuthenticationResetDelay" "NOT ENABLED" "MEDIUM" $currentValuee35
     }
     
 }
 function PostAuthenticationActions{
     $currentValue36=Get-ItemProperty -Path $regPath36 -Name $valueName36 -ErrorAction Stop
+    $currentValuee36 = (Get-ItemProperty -Path $regPath36 -Name $valueName36 -ErrorAction Stop).$valueName36
     if($currentValue36.$valueName36 -eq 3 -or $currentValue36.$valueName36 -eq 5){
-        Add-Result "PostAuthenticationActions" "ENABLED"
+        Add-Result "PostAuthenticationActions" "ENABLED" "" $currentValuee36 "3 or 5"
     }else{
-        Add-Result "PostAuthenticationActions" "NOT ENABLED" "LOW"
+        Add-Result "PostAuthenticationActions" "NOT ENABLED" "LOW" $currentValuee36
     }
     
 }

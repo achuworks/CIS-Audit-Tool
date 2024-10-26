@@ -1,0 +1,192 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Configuration Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .table-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 18px;
+            text-align: left;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #05b40b;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
+        td {
+            word-wrap: break-word;
+            max-width: 300px;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+        h1 {
+            margin-top: 15px;
+            font-size: 28px;
+            color: #750202;
+        }
+        h2 {
+            margin-bottom: 5px;
+            font-size: 24px;
+        }
+        img {
+            display: block;
+            margin: 0 auto;
+        }
+        .high {
+            color: black;
+            background-color: rgb(255, 0, 0);
+            font-weight: 700;
+        }
+        .medium {
+            color: black;
+            background-color: rgb(255, 166, 0);
+            font-weight: 700;
+        }
+        .low {
+            color: black;
+            background-color: rgb(27, 92, 233);
+            font-weight: 700;
+        }
+        .a {
+            color: green;
+        }
+        .b {
+            color: red;
+        }
+        .t1 {
+            background-color: #05b40b;
+        }
+        .t2 {
+            background-color: red;
+        }
+        .c{
+            color:green;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Security Configuration Compliance Report</h2>
+<h1>Umbrella Corporation</h1>
+<h1>Remediation Report</h1>
+<img src="logo.jpg" height="70px" width="100px">
+
+<div class="table-container">
+
+    <div>
+        <h2 class="c">After Remediation</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th class="t1">Name</th>
+                    <th class="t1">Remediation Status</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>DisablePasswordChange</td>
+                    <td>Remediation applied:ENABLED.</td>
+                </tr>
+    
+                <tr>
+                    <td>DefaultInbound</td>
+                    <td>Remediation applied:ENABLED</td>
+                </tr>
+    
+                <tr>
+                    <td>LogFilePath</td>
+                    <td>Remediation applied:ENABLED</td>
+                </tr>
+    
+                <tr>
+                    <td>LogFileSize</td>
+                    <td>Remediation applied:set to 16384</td>
+                </tr>
+    
+                <tr>
+                    <td>Log Dropped Packets</td>
+                    <td>Remediation applied:ENABLED</td>
+                </tr>
+    
+                <tr>
+                    <td>LogSuccessfulConnections</td>
+                    <td>Remediation applied:ENABLED</td>
+                </tr>
+    
+                <tr>
+                    <td>DoHPolicy</td>
+                    <td>Remediation applied:Enabled</td>
+                </tr>
+    
+                <tr>
+                    <td>NetBIOS</td>
+                    <td>Remediation applied:Enabled</td>
+                </tr>
+    
+                <tr>
+                    <td>NoGPOListChanges</td>
+                    <td>Remediation applied:ENABLED</td>
+                </tr>
+    
+                <tr>
+                    <td>NoGPOListChanges2</td>
+                    <td>Remediation applied:ENABLED</td>
+                </tr>
+    
+                <tr>
+                    <td>LAPS BackupDirectory</td>
+                    <td>Remediation applied:ENABLED</td>
+                </tr>
+    
+                <tr>
+                    <td>PasswordLength</td>
+                    <td>Remediation applied:ENABLED</td>
+                </tr>
+    
+                <tr>
+                    <td>PasswordAgeDays</td>
+                    <td>Remediation applied:ENABLED</td>
+                </tr>
+    
+                <tr>
+                    <td>PostAuthenticationActions</td>
+                    <td>Remediation applied:ENABLED</td>
+                </tr>
+    
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>
