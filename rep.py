@@ -1,12 +1,32 @@
 import pandas as pd
 
+# Load the CSV file
 csv_file = 'output3.csv'
 df = pd.read_csv(csv_file, delimiter='|')
 
-df.fillna('N/A', inplace=True)
-enabled_df = df[~df['Status'].str.contains('not', case=False, na=False)]
-not_enabled_df = df[df['Status'].str.contains('not', case=False, na=False)]  
+# Fill NaN values with empty strings
+df.fillna('', inplace=True)
 
+# Assign sorting priority for Priority and Status
+priority_map = {
+    'HIGH': 1,
+    'MEDIUM': 2,
+    'LOW': 3
+}
+status_map = {
+    'NOT ENABLED': 1,
+    'NOT SET': 2,
+    'ENABLED': 3
+}
+
+# Create sorting columns
+df['PrioritySort'] = df['Priority'].str.upper().map(priority_map)
+df['StatusSort'] = df['Status'].str.upper().map(status_map)
+
+# Sort the DataFrame by Priority (High -> Medium -> Low) and then by Status
+df.sort_values(by=['PrioritySort', 'StatusSort'], inplace=True)
+
+# Generate the HTML
 html = """
 <!DOCTYPE html>
 <html lang="en">
@@ -22,14 +42,12 @@ html = """
             background-color: #f9f9f9;
         }
         .table-container {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 20px;
+            margin: 20px auto;
+            width: 90%;
         }
         table {
-            width: 45%;
+            width: 100%;
             border-collapse: collapse;
-            margin: 15px;
             font-size: 18px;
             text-align: left;
             background-color: #fff;
@@ -40,7 +58,7 @@ html = """
             border: 1px solid #ddd;
         }
         th {
-            background-color: #05b40b;
+            background-color: black;
             color: white;
         }
         tr:nth-child(even) {
@@ -71,31 +89,35 @@ html = """
             margin: 0 auto;
         }
         .high {
-            color:black;
-            background-color: rgb(255, 0, 0);
+            color: black;
+            background-color: rgb(255, 0, 0);  
             font-weight: 700;
         }
         .medium {
             color: black;
-            background-color: rgb(255, 166, 0);
+            background-color: rgb(255, 166, 0); 
             font-weight: 700;
         }
         .low {
             color: black;
-            background-color: rgb(27, 92, 233);
+            background-color: rgb(27, 92, 233); 
             font-weight: 700;
         }
-        .a {
-            color: green;
-        }
-        .b {
-            color: red;
-        }
-        .t1 {
+        .header {
             background-color: #05b40b;
         }
-        .t2 {
-            background-color: red;
+        .sub-header {
+            background-color: #e0e0e0;
+            font-weight: bold;
+            text-align: center;
+        }
+        .status-match {
+            background-color: rgb(6, 175, 6); /* Green for match */
+            color: black;
+        }
+        .status-mismatch {
+            background-color: rgb(255, 0, 0); /* Red for mismatch */
+            color: white;
         }
     </style>
 </head>
@@ -106,64 +128,38 @@ html = """
 <img src="logo.jpg" height="70px" width="100px">
 
 <div class="table-container">
-
-    <div>
-        <h2 class="a">Enabled Configurations</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th class="t1">Name</th>
-                    <th class="t1">Status</th>
-                    <th class="t1">Registry Value</th>
-                  
-                </tr>
-            </thead>
-            <tbody>
+    <table>
+        <thead>
+            <tr class="header">
+                <th>Name</th>
+                <th>Your Status</th>
+                <th>Status as per (CIS)</th>
+                <th>Priority</th>
+                <th>Your Registry Value</th>
+                <th>ValueToBe</th>
+            </tr>
+        </thead>
+        <tbody>
 """
 
-for index, row in enabled_df.iterrows():
-    html += f"""
-    <tr>
-        <td>{row['Name']}</td>
-        <td>{row['Status']}</td>
-        <td>{row['RegistryValue']}</td>
-    </tr>
-    """
-
-html += """
-            </tbody>
-        </table>
-    </div>
-
-    <div>
-        <h2 class="b">Not Enabled Configurations</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th class="t2">Name</th>
-                    <th class="t2">Status</th>
-                    <th class="t2">Priority</th>
-                    <th class="t2">Your Registry Value</th>
-                    <th class="t2">ValueToBe</th>
-                </tr>
-            </thead>
-            <tbody>
-"""
-
-
-for index, row in not_enabled_df.iterrows():
+# Populate the table with configurations sorted by priority and status
+for index, row in df.iterrows():
     priority_class = ""
-    if row['Priority'].strip() == 'HIGH':
+    if 'HIGH' in row['Priority'].strip().upper():
         priority_class = "high"
-    elif row['Priority'].strip() == 'MEDIUM':
+    elif 'MEDIUM' in row['Priority'].strip().upper():
         priority_class = "medium"
-    elif row['Priority'].strip() == 'LOW':
+    elif 'LOW' in row['Priority'].strip().upper():
         priority_class = "low"
+    
+    # Apply status color classes based on the match/mismatch condition
+    status_class = "status-match" if row['Status'].strip().upper() == row['StatusToBe'].strip().upper() else "status-mismatch"
     
     html += f"""
     <tr>
         <td>{row['Name']}</td>
-        <td>{row['Status']}</td>
+        <td class="{status_class}">{row['Status']}</td>
+        <td>{row['StatusToBe']}</td>
         <td class="{priority_class}">{row['Priority']}</td>
         <td>{row['RegistryValue']}</td>
         <td>{row['ValueToBe']}</td>
@@ -171,18 +167,17 @@ for index, row in not_enabled_df.iterrows():
     """
 
 html += """
-            </tbody>
-        </table>
-    </div>
-
+        </tbody>
+    </table>
 </div>
 
 </body>
 </html>
 """
 
-output_html = 'new.html'
+# Save the HTML report
+output_html = 'merged_report.html'
 with open(output_html, 'w') as f:
     f.write(html)
 
-print(f"HTML report with side-by-side tables, RegistryValue, and priority colors saved as {output_html}")
+print(f"Merged HTML report with color-coded 'Your Status' based on match/mismatch saved as {output_html}")
