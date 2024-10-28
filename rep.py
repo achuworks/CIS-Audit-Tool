@@ -1,13 +1,9 @@
 import pandas as pd
-
-# Load the CSV file
 csv_file = 'output3.csv'
 df = pd.read_csv(csv_file, delimiter='|')
 
-# Fill NaN values with empty strings
 df.fillna('', inplace=True)
 
-# Assign sorting priority for Priority and Status
 priority_map = {
     'HIGH': 1,
     'MEDIUM': 2,
@@ -19,14 +15,11 @@ status_map = {
     'ENABLED': 3
 }
 
-# Create sorting columns
 df['PrioritySort'] = df['Priority'].str.upper().map(priority_map)
 df['StatusSort'] = df['Status'].str.upper().map(status_map)
 
-# Sort the DataFrame by Priority (High -> Medium -> Low) and then by Status
 df.sort_values(by=['PrioritySort', 'StatusSort'], inplace=True)
 
-# Generate the HTML
 html = """
 <!DOCTYPE html>
 <html lang="en">
@@ -112,12 +105,20 @@ html = """
             text-align: center;
         }
         .status-match {
-            background-color: rgb(6, 175, 6); /* Green for match */
-            color: black;
+            background-color: rgb(6, 130, 6); /* Dark Green for match */
+            color: white;
+            font-weight: bold;
         }
         .status-mismatch {
-            background-color: rgb(255, 0, 0); /* Red for mismatch */
+            background-color: rgb(200, 0, 0); /* Dark Red for mismatch */
             color: white;
+            font-weight: bold;
+        }
+        .row-match {
+            background-color: rgb(200, 255, 200); /* Light Green for row match */
+        }
+        .row-mismatch {
+            background-color: rgb(255, 200, 200); /* Light Red for row mismatch */
         }
     </style>
 </head>
@@ -142,7 +143,6 @@ html = """
         <tbody>
 """
 
-# Populate the table with configurations sorted by priority and status
 for index, row in df.iterrows():
     priority_class = ""
     if 'HIGH' in row['Priority'].strip().upper():
@@ -152,11 +152,12 @@ for index, row in df.iterrows():
     elif 'LOW' in row['Priority'].strip().upper():
         priority_class = "low"
     
-    # Apply status color classes based on the match/mismatch condition
+    # Determine row class and individual status cell class
+    row_class = "row-match" if row['Status'].strip().upper() == row['StatusToBe'].strip().upper() else "row-mismatch"
     status_class = "status-match" if row['Status'].strip().upper() == row['StatusToBe'].strip().upper() else "status-mismatch"
     
     html += f"""
-    <tr>
+    <tr class="{row_class}">
         <td>{row['Name']}</td>
         <td class="{status_class}">{row['Status']}</td>
         <td>{row['StatusToBe']}</td>
@@ -175,9 +176,8 @@ html += """
 </html>
 """
 
-# Save the HTML report
 output_html = 'merged_report.html'
 with open(output_html, 'w') as f:
     f.write(html)
 
-print(f"Merged HTML report with color-coded 'Your Status' based on match/mismatch saved as {output_html}")
+print(f"Merged HTML report with color-coded rows and 'Your Status' cell saved as {output_html}")
