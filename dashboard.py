@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QGridLayout, QPushButton, QGroupBox, QScrollArea
+from PySide6.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QHBoxLayout, QGridLayout, QPushButton, QGroupBox, QScrollArea
 from PySide6.QtCharts import QChart, QChartView, QPieSeries, QLineSeries
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QPainter
@@ -18,43 +18,45 @@ class Dashboard(QWidget):
         main_layout.setSpacing(0)
         self.currently_visible_description = None
 
-     
-        grid_layout.addWidget(self.create_indicator("849", "HIGH", "#FF0000"), 0, 0)  
-        grid_layout.addWidget(self.create_indicator("384", "MEDIUM", "#FFA500"), 0, 1)  
-        grid_layout.addWidget(self.create_indicator("31", "LOW", "#0000FF"), 0, 2)     
+        passed_count, failed_count, high_count, medium_count, low_count = self.calculate_counts()
 
-     
-        pie_chart_view = self.create_pie_chart()
+        # Display "TOTAL PASSED" indicator
+        grid_layout.addWidget(self.create_indicator(f"TOTAL PASSED: {passed_count}", "#008000"), 0, 0, 1, 2)
+
+        # Display "TOTAL FAILED" indicator with colored severities in a single line
+        failed_widget = self.create_failed_indicator(failed_count, high_count, medium_count, low_count)
+        grid_layout.addWidget(failed_widget, 0, 2, 1, 2)
+
+        pie_chart_view = self.create_pie_chart(high_count, medium_count, low_count)
         pie_chart_view.setFixedSize(400, 300)
         grid_layout.addWidget(pie_chart_view, 1, 3, 1, 1)
 
         line_chart_view = self.create_line_chart()
         line_chart_view.setFixedSize(400, 300)
         grid_layout.addWidget(line_chart_view, 2, 3, 1, 1)
-        self.setStyleSheet("QWidget{background-color:#FFFFFF}");
+        self.setStyleSheet("QWidget{background-color:#FFFFFF}")
 
-        white = QWidget()
-        white.setStyleSheet("background-color:white")
-        grid_layout.addWidget(white, 0, 3, 1, 1)
-
-        
         scroll_area = QScrollArea()
         scroll_area.setWidgetResizable(True)
         scroll_content = QWidget()
         scroll_layout = QVBoxLayout(scroll_content)
 
-        with open("output.txt", "r") as file:
-            creader = csv.reader(file)
-            for i in creader:
-                group_box = QGroupBox(i[0])
+        with open("output3.csv", "r") as file:
+            creader = csv.reader(file, delimiter='|')
+            next(creader)
+            for row in creader:
+                name, status, status_to_be, priority, registry_value, value_to_be = row
+
+                group_box = QGroupBox(name)
                 group_box.setStyleSheet("border: none;")
                 group_layout = QVBoxLayout()
 
-                button = QPushButton(i[0])
+                button = QPushButton(name)
                 button.setStyleSheet("QPushButton{color: black; border: 1px solid grey;border-radius:15px;padding:5px;margin:2px}")
                 button.clicked.connect(lambda checked, gb=group_box: self.toggle_visibility(gb))
 
-                description_label = QLabel(i[1])
+                description = f"Status: {status} | Status To Be: {status_to_be}"
+                description_label = QLabel(description)
                 description_label.setWordWrap(True)
                 description_label.setStyleSheet("color: black; font-size: 13px;border: 1px solid grey;background-color:#bfbfbf;border-radius:15px;padding:5px")
                 description_label.setVisible(False)
@@ -70,30 +72,82 @@ class Dashboard(QWidget):
         main_layout.addLayout(grid_layout)
         self.setLayout(main_layout)
 
-    def create_indicator(self, value, label, color):
+    def calculate_counts(self):
+        passed_count = 0
+        failed_count = 0
+        high_count = 0
+        medium_count = 0
+        low_count = 0
+
+        with open("output3.csv", "r") as file:
+            creader = csv.reader(file, delimiter='|')
+            next(creader)
+            for row in creader:
+                _, status, status_to_be, priority, _, _ = row
+
+                if status == status_to_be:
+                    passed_count += 1
+                else:
+                    failed_count += 1
+
+                    if priority == "HIGH":
+                        high_count += 1
+                    elif priority == "MEDIUM":
+                        medium_count += 1
+                    elif priority == "LOW":
+                        low_count += 1
+
+        return passed_count, failed_count, high_count, medium_count, low_count
+
+    def create_indicator(self, text, color):
         layout = QVBoxLayout()
-        layout.setSpacing(0)
-        layout.setContentsMargins(0, 0, 0, 0)
-        lbl_value = QLabel(value)
-        lbl_value.setStyleSheet(f"font-size: 30px; color: {color};margin:0px;padding:0px")
-        lbl_value.setAlignment(Qt.AlignCenter)
+        lbl = QLabel(text)
+        lbl.setStyleSheet(f"font-size: 20px; color: {color}; margin:0px; padding:0px")
+        lbl.setAlignment(Qt.AlignCenter)
+        layout.addWidget(lbl)
+        widget = QWidget()
+        widget.setLayout(layout)
+        return widget
 
-        lbl_label = QLabel(label)
-        lbl_label.setStyleSheet(f"font-size: 15px; color: {color};margin:0px;padding:0px")
-        lbl_label.setAlignment(Qt.AlignTop | Qt.AlignHCenter)
+    def create_failed_indicator(self, failed_count, high_count, medium_count, low_count):
+        layout = QVBoxLayout()
 
-        layout.addWidget(lbl_value)
-        layout.addWidget(lbl_label)
+        # Main failed count in dark red
+        lbl_failed = QLabel(f"TOTAL FAILED: {failed_count}")
+        lbl_failed.setStyleSheet("font-size: 20px; color: #8B0000;")
+        lbl_failed.setAlignment(Qt.AlignCenter)
+        layout.addWidget(lbl_failed)
+
+        # Create a horizontal layout for severities in one line
+        severity_layout = QHBoxLayout()
+
+        lbl_high = QLabel(f"HIGH: {high_count}")
+        lbl_high.setStyleSheet("font-size: 15px; color: #FF0000;")  # Red for high
+        severity_layout.addWidget(lbl_high)
+
+        lbl_medium = QLabel(f"MEDIUM: {medium_count}")
+        lbl_medium.setStyleSheet("font-size: 15px; color: #FFA500;")  # Amber for medium
+        severity_layout.addWidget(lbl_medium)
+
+        lbl_low = QLabel(f"LOW: {low_count}")
+        lbl_low.setStyleSheet("font-size: 15px; color: #0000FF;")  # Blue for low
+        severity_layout.addWidget(lbl_low)
+
+        severity_widget = QWidget()
+        severity_widget.setLayout(severity_layout)
+        severity_layout.setAlignment(Qt.AlignCenter)
+
+        layout.addWidget(severity_widget)
 
         widget = QWidget()
         widget.setLayout(layout)
         return widget
 
-    def create_pie_chart(self):
+    def create_pie_chart(self, high_count, medium_count, low_count):
         series = QPieSeries()
-        series.append("High", 20)
-        series.append("Medium", 30)
-        series.append("Low", 40)
+        series.append("High", high_count)
+        series.append("Medium", medium_count)
+        series.append("Low", low_count)
 
         chart = QChart()
         chart.addSeries(series)

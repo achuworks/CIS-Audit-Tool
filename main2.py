@@ -8,12 +8,12 @@ from PySide6.QtCore import QTimer
 
 def is_admin():
     """Return True if the user has administrative/root privileges, False otherwise."""
-    if os.name == 'nt':  # Windows
+    if os.name == 'nt':  
         try:
             return ctypes.windll.shell32.IsUserAnAdmin() != 0
         except AttributeError:
-            return False  # Default to non-admin if API is not available
-    else:  # Assuming Linux or other POSIX systems
+            return False  
+    else:
         return os.geteuid() == 0
 
 def ensure_admin_privileges():
