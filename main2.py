@@ -2,10 +2,9 @@ import os
 import sys
 import ctypes
 import subprocess 
-from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QHBoxLayout, QPushButton, QWidget, QLabel, QStackedWidget, QMessageBox, QTextEdit
-from PySide6.QtCore import Slot
+from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QHBoxLayout, QPushButton, QWidget, QLabel, QStackedWidget, QTextEdit, QMessageBox
+from PySide6.QtCore import Slot, QTimer 
 from dashboard import Dashboard
-from PySide6.QtCore import QTimer 
 
 def is_admin():
     """Return True if the user has administrative/root privileges, False otherwise."""
@@ -18,9 +17,7 @@ def is_admin():
         return os.geteuid() == 0
 
 def ensure_admin_privileges():
-
     if os.name == 'nt' and not ctypes.windll.shell32.IsUserAnAdmin():
-
         app = QApplication(sys.argv)
 
         msg_box = QMessageBox()
@@ -30,12 +27,10 @@ def ensure_admin_privileges():
         msg_box.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
 
         if msg_box.exec() == QMessageBox.Ok:
-       
             params = ' '.join([f'"{arg}"' for arg in sys.argv])  
             ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, params, None, 1)
             sys.exit(0)  
         else:
-
             sys.exit("User opted not to run with admin privileges.")
 
 class MainWindow(QMainWindow):
@@ -49,17 +44,24 @@ class MainWindow(QMainWindow):
         sidebar_layout = QVBoxLayout()
         sidebar.setLayout(sidebar_layout)
 
-    
         self.stack = QStackedWidget()
         dashboard = Dashboard() 
         page2 = QWidget() 
         page2.setLayout(QVBoxLayout())
         page2.layout().addWidget(QLabel("This is a page 2 test"))
 
+        # Create a widget for the report page
+        self.report_page = QWidget()
+        self.report_page.setLayout(QVBoxLayout())
+        self.report_output = QTextEdit()
+        self.report_output.setReadOnly(True)
+        self.report_page.layout().addWidget(QLabel("Report Output:"))
+        self.report_page.layout().addWidget(self.report_output)
+
         self.stack.addWidget(dashboard)
         self.stack.addWidget(page2)
+        self.stack.addWidget(self.report_page)  # Add the report page to the stack
 
-     
         button1 = QPushButton("Dashboard")
         button2 = QPushButton("Settings")
         button3 = QPushButton("Generate Report") 
@@ -91,7 +93,6 @@ class MainWindow(QMainWindow):
         access_label = QLabel(f"Access Level: {'Administrator' if admin_access else 'Standard User'}")
         access_label.setStyleSheet("font-size: 18px; font-weight: bold; color: green;" if admin_access else "font-size: 18px; font-weight: bold; color: red;")
 
-  
         main_vertical_layout = QVBoxLayout()
         main_vertical_layout.addWidget(access_label)
         main_vertical_layout.addLayout(main_layout)
@@ -101,6 +102,7 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(central_widget)
 
         QTimer.singleShot(3000, access_label.hide) 
+    
     @Slot(int)
     def change_page(self, index):
         self.stack.setCurrentIndex(index)
@@ -108,28 +110,23 @@ class MainWindow(QMainWindow):
     @Slot()
     def generate_report(self):
         """Executes the report generation script and displays the output."""
-    
         try:
-         
             result = subprocess.run(
                 [sys.executable, 'rep.py'], 
                 capture_output=True,
                 text=True,
                 check=True
             )
- 
             output = result.stdout.strip()
-            QMessageBox.information(self, "Report Output", output or "No output generated.")
+            self.report_output.setPlainText(output or "No output generated.")  # Display the output in the QTextEdit
+            self.change_page(2)  # Switch to the report page
         except subprocess.CalledProcessError as e:
-            QMessageBox.critical(self, "Error", f"Error running report: {e.stderr.strip()}")
-
+            self.report_output.setPlainText(f"Error running report: {e.stderr.strip()}")  # Display error in the QTextEdit
+            self.change_page(2)  # Switch to the report page
 
 if __name__ == "__main__":
-
     ensure_admin_privileges()
-
     admin_access = is_admin()
-
     app = QApplication(sys.argv)
     window = MainWindow(admin_access)
     window.resize(1098, 755)
