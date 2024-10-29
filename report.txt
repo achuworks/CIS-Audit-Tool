@@ -1,0 +1,189 @@
+CIS Benchmark Report
+
+Total Passed: 27
+Total Failed: 9
+ - High Severity: 1
+ - Medium Severity: 5
+ - Low Severity: 3
+
+Detailed Results:
+
+Name: RequireSignOrSeal
+  Status: ENABLED
+  Expected Status: ENABLED
+  Priority: 
+
+Name: SealSecureChannel
+  Status: ENABLED
+  Expected Status: ENABLED
+  Priority: 
+
+Name: SignSecureChannel
+  Status: ENABLED
+  Expected Status: ENABLED
+  Priority: 
+
+Name: DisablePasswordChange
+  Status: ENABLED
+  Expected Status: NOT ENABLED
+  Priority: MEDIUM
+
+Name: MaximumPasswordAge
+  Status: ENABLED
+  Expected Status: ENABLED
+  Priority: 
+
+Name: RequireStrongKey
+  Status: ENABLED
+  Expected Status: ENABLED
+  Priority: 
+
+Name: Firewall state
+  Status: ENABLED
+  Expected Status: ENABLED
+  Priority: 
+
+Name: DefaultInbound
+  Status: NOT ENABLED.
+  Expected Status: ENABLED
+  Priority: MEDIUM
+
+Name: DisableNotifications
+  Status: ENABLED
+  Expected Status: NOT ENABLED
+  Priority: MEDIUM
+
+Name: LogFilePath
+  Status: NOT ENABLED
+  Expected Status: ENABLED
+  Priority: MEDIUM
+
+Name: LogFileSize
+  Status: NOT SET TO 16384
+  Expected Status: SET TO 16384
+  Priority: MEDIUM
+
+Name: Log Dropped Packets
+  Status: ENABLED
+  Expected Status: ENABLED
+  Priority: 
+
+Name: LogSuccessfulConnections
+  Status: NOT ENABLED
+  Expected Status: ENABLED
+  Priority: HIGH
+
+Name: LocalAccountTokenFilterPolicy
+  Status: ENABLED
+  Expected Status: ENABLED
+  Priority: 
+
+Name: DoHPolicy
+  Status: ENABLED
+  Expected Status: ENABLED
+  Priority: 
+
+Name: NetBIOS
+  Status: ENABLED
+  Expected Status: ENABLED
+  Priority: 
+
+Name: EnableMulticast
+  Status: ENABLED
+  Expected Status: ENABLED
+  Priority: 
+
+Name: NC_StdDomainUserSetLocation
+  Status: ENABLED
+  Expected Status: ENABLED
+  Priority: 
+
+Name: fBlockNonDomain
+  Status: ENABLED
+  Expected Status: ENABLED
+  Priority: 
+
+Name: NoBackgroundPolicy
+  Status: ENABLED
+  Expected Status: ENABLED
+  Priority: 
+
+Name: NoGPOListChanges
+  Status: NOT ENABLED
+  Expected Status: ENABLED
+  Priority: LOW
+
+Name: NoBackgroundPolicy2
+  Status: ENABLED
+  Expected Status: ENABLED
+  Priority: 
+
+Name: NoGPOListChanges2
+  Status: NOT ENABLED
+  Expected Status: ENABLED
+  Priority: LOW
+
+Name: Disable Background Group Policy
+  Status: NOT ENABLED
+  Expected Status: NOT ENABLED
+  Priority: 
+
+Name: LAPS BackupDirectory
+  Status: ENABLED
+  Expected Status: ENABLED
+  Priority: 
+
+Name: DontEnumerateConnectedUsers
+  Status: ENABLED
+  Expected Status: ENABLED
+  Priority: 
+
+Name: EnumerateLocalUsers
+  Status: ENABLED
+  Expected Status: NOT ENABLED
+  Priority: LOW
+
+Name: BlockDomainPicturePassword
+  Status: ENABLED
+  Expected Status: ENABLED
+  Priority: 
+
+Name: NTPEnabled
+  Status: ENABLED
+  Expected Status: ENABLED
+  Priority: 
+
+Name: PwdExpirationProtection
+  Status: ENABLED
+  Expected Status: ENABLED
+  Priority: 
+
+Name: ADPasswordEncryptionEnabled
+  Status: ENABLED
+  Expected Status: ENABLED
+  Priority: 
+
+Name: PasswordComplexity
+  Status: ENABLED
+  Expected Status: ENABLED
+  Priority: 
+
+Name: PasswordLength
+  Status: ENABLED
+  Expected Status: ENABLED
+  Priority: 
+
+Name: PasswordAgeDays
+  Status: ENABLED
+  Expected Status: ENABLED
+  Priority: 
+
+Name: PostAuthenticationResetDelay
+  Status: ENABLED
+  Expected Status: ENABLED
+  Priority: 
+
+Name: PostAuthenticationActions
+  Status: ENABLED
+  Expected Status: ENABLED
+  Priority: 

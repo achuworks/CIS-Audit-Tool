@@ -1,4 +1,8 @@
 import pandas as pd
+import webbrowser
+import os
+
+
 csv_file = 'output3.csv'
 df = pd.read_csv(csv_file, delimiter='|')
 
@@ -143,6 +147,7 @@ html = """
         <tbody>
 """
 
+
 for index, row in df.iterrows():
     priority_class = ""
     if 'HIGH' in row['Priority'].strip().upper():
@@ -151,8 +156,7 @@ for index, row in df.iterrows():
         priority_class = "medium"
     elif 'LOW' in row['Priority'].strip().upper():
         priority_class = "low"
-    
-    # Determine row class and individual status cell class
+  
     row_class = "row-match" if row['Status'].strip().upper() == row['StatusToBe'].strip().upper() else "row-mismatch"
     status_class = "status-match" if row['Status'].strip().upper() == row['StatusToBe'].strip().upper() else "status-mismatch"
     
@@ -180,4 +184,6 @@ output_html = 'merged_report.html'
 with open(output_html, 'w') as f:
     f.write(html)
 
-print(f"Merged HTML report with color-coded rows and 'Your Status' cell saved as {output_html}")
+webbrowser.open(f'file://{os.path.realpath(output_html)}')
+
+print(f"Merged HTML report with color-coded rows and 'Your Status' cell saved as {output_html} and opened in browser.")

@@ -1,6 +1,7 @@
 from PySide6.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QHBoxLayout, QGridLayout, QPushButton, QGroupBox, QScrollArea
 from PySide6.QtCharts import QChart, QChartView, QPieSeries, QLineSeries
 from PySide6.QtCore import Qt
+from PySide6.QtGui import QColor
 from PySide6.QtGui import QPainter
 import sys, csv
 
@@ -144,14 +145,33 @@ class Dashboard(QWidget):
         return widget
 
     def create_pie_chart(self, high_count, medium_count, low_count):
+        # Create the pie chart series and add each severity count
         series = QPieSeries()
         series.append("High", high_count)
         series.append("Medium", medium_count)
         series.append("Low", low_count)
 
+        # Customize each slice with colors and labels
+        high_slice = series.slices()[0]
+        high_slice.setBrush(Qt.red)
+        high_slice.setLabelVisible(True)
+        high_slice.setLabel(f"High: {high_count}")
+
+        medium_slice = series.slices()[1]
+        medium_slice.setBrush(QColor(255, 191, 0))
+
+        medium_slice.setLabelVisible(True)
+        medium_slice.setLabel(f"Medium: {medium_count}")
+
+        low_slice = series.slices()[2]
+        low_slice.setBrush(Qt.blue)
+        low_slice.setLabelVisible(True)
+        low_slice.setLabel(f"Low: {low_count}")
+
+        # Create and configure the chart
         chart = QChart()
         chart.addSeries(series)
-        chart.setTitle("CIS Benchmark Severity")
+        chart.setTitle("CIS Benchmark Severity Distribution")
         chart.legend().setAlignment(Qt.AlignRight)
 
         chart_view = QChartView(chart)
