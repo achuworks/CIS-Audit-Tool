@@ -1,0 +1,50 @@
+{
+  "Network Configuration": [
+      "RequireSignOrSeal",
+      "SealSecureChannel",
+      "SignSecureChannel",
+      "DisablePasswordChange",
+      "NetBIOS",
+      "EnableMulticast",
+      "NC_StdDomainUserSetLocation"
+  ],
+  "Firewall Settings": [
+      "Firewall state",
+      "DefaultInbound",
+      "DisableNotifications",
+      "LogFilePath",
+      "LogFileSize",
+      "Log Dropped Packets",
+      "LogSuccessfulConnections"
+  ],
+  "User Account Control": [
+      "MaximumPasswordAge",
+      "RequireStrongKey",
+      "LocalAccountTokenFilterPolicy",
+      "LAPS BackupDirectory",
+      "DontEnumerateConnectedUsers",
+      "EnumerateLocalUsers",
+      "BlockDomainPicturePassword",
+      "PasswordComplexity",
+      "PasswordLength",
+      "PasswordAgeDays",
+      "PwdExpirationProtection",
+      "ADPasswordEncryptionEnabled"
+  ],
+  "System Updates and Policies": [
+      "NoBackgroundPolicy",
+      "NoGPOListChanges",
+      "NoBackgroundPolicy2",
+      "NoGPOListChanges2",
+      "Disable Background Group Policy",
+      "PostAuthenticationResetDelay",
+      "PostAuthenticationActions"
+  ],
+  "Date & Time Settings": [
+      "NTPEnabled"
+  ],
+  "Security Policies": [
+      "DoHPolicy",
+      "fBlockNonDomain"
+  ]
+}

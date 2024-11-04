@@ -50,7 +50,6 @@ class MainWindow(QMainWindow):
         page2.setLayout(QVBoxLayout())
         page2.layout().addWidget(QLabel("This is a page 2 test"))
 
-        # Create a widget for the report page
         self.report_page = QWidget()
         self.report_page.setLayout(QVBoxLayout())
         self.report_output = QTextEdit()
@@ -60,7 +59,7 @@ class MainWindow(QMainWindow):
 
         self.stack.addWidget(dashboard)
         self.stack.addWidget(page2)
-        self.stack.addWidget(self.report_page)  # Add the report page to the stack
+        self.stack.addWidget(self.report_page)  
 
         button1 = QPushButton("Dashboard")
         button2 = QPushButton("Settings")
@@ -118,12 +117,11 @@ class MainWindow(QMainWindow):
                 check=True
             )
             output = result.stdout.strip()
-            self.report_output.setPlainText(output or "No output generated.")  # Display the output in the QTextEdit
-            self.change_page(2)  # Switch to the report page
+            self.report_output.setPlainText(output or "No output generated.")  
+            self.change_page(2)  
         except subprocess.CalledProcessError as e:
-            self.report_output.setPlainText(f"Error running report: {e.stderr.strip()}")  # Display error in the QTextEdit
-            self.change_page(2)  # Switch to the report page
-
+            self.report_output.setPlainText(f"Error running report: {e.stderr.strip()}")  
+            self.change_page(2)  
 if __name__ == "__main__":
     ensure_admin_privileges()
     admin_access = is_admin()

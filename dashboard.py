@@ -113,25 +113,23 @@ class Dashboard(QWidget):
     def create_failed_indicator(self, failed_count, high_count, medium_count, low_count):
         layout = QVBoxLayout()
 
-        # Main failed count in dark red
         lbl_failed = QLabel(f"TOTAL FAILED: {failed_count}")
         lbl_failed.setStyleSheet("font-size: 20px; color: #8B0000;")
         lbl_failed.setAlignment(Qt.AlignCenter)
         layout.addWidget(lbl_failed)
 
-        # Create a horizontal layout for severities in one line
         severity_layout = QHBoxLayout()
 
         lbl_high = QLabel(f"HIGH: {high_count}")
-        lbl_high.setStyleSheet("font-size: 15px; color: #FF0000;")  # Red for high
+        lbl_high.setStyleSheet("font-size: 15px; color: #FF0000;") 
         severity_layout.addWidget(lbl_high)
 
         lbl_medium = QLabel(f"MEDIUM: {medium_count}")
-        lbl_medium.setStyleSheet("font-size: 15px; color: #FFA500;")  # Amber for medium
+        lbl_medium.setStyleSheet("font-size: 15px; color: #FFA500;")  
         severity_layout.addWidget(lbl_medium)
 
         lbl_low = QLabel(f"LOW: {low_count}")
-        lbl_low.setStyleSheet("font-size: 15px; color: #0000FF;")  # Blue for low
+        lbl_low.setStyleSheet("font-size: 15px; color: #0000FF;")  
         severity_layout.addWidget(lbl_low)
 
         severity_widget = QWidget()
@@ -151,7 +149,6 @@ class Dashboard(QWidget):
         series.append("Medium", medium_count)
         series.append("Low", low_count)
 
-        # Customize each slice with colors and labels
         high_slice = series.slices()[0]
         high_slice.setBrush(Qt.red)
         high_slice.setLabelVisible(True)
@@ -168,7 +165,6 @@ class Dashboard(QWidget):
         low_slice.setLabelVisible(True)
         low_slice.setLabel(f"Low: {low_count}")
 
-        # Create and configure the chart
         chart = QChart()
         chart.addSeries(series)
         chart.setTitle("CIS Benchmark Severity Distribution")

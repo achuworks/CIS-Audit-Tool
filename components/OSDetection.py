@@ -50,8 +50,7 @@ class OSVersionWindow(QWidget):
     def osList(self, os_version):
         # Add items to the dropdown
         self.dropdown.addItems([
-            "Microsoft Windows 11 Enterprise Standalone", 
-            "Microsoft Windows 11 Enterprise Domain-Joined", 
+            "Microsoft Windows 11 Enterprise ", 
             "Microsoft Windows 11 Pro Standalone", 
             "Ubuntu"
         ])

@@ -44,7 +44,7 @@ class MainWindow(QMainWindow):
         self.scroll_area.setFixedHeight(400)
         
         if("Windows" in os_name):
-            with open('config/windows_configuration.json') as file:
+            with open('config/windows_enterprise.json') as file:
                 file_content = file.read()
         elif("Ubuntu" in os_name):
             with open('config/linux_configuration.json') as file:
@@ -164,19 +164,18 @@ class SettingsTree(QTreeWidget):
         self.itemClicked.connect(self.handle_item_click)
 
     def load_json_data(self, data):
-        # Iterate through the JSON data and populate the tree
         for parent, children in data.items():
             parent_item = QTreeWidgetItem([parent])
-            parent_item.setCheckState(0, Qt.Unchecked)  # Initialize the parent checkbox to unchecked
+            parent_item.setCheckState(0, Qt.Unchecked) 
             self.addTopLevelItem(parent_item)
 
             for child in children:
                 child_item = QTreeWidgetItem([child])
-                child_item.setCheckState(0, Qt.Unchecked)  # Initialize the child checkbox to unchecked
+                child_item.setCheckState(0, Qt.Unchecked)
                 parent_item.addChild(child_item)
 
     def handle_item_click(self, item, column):
-        if item.childCount() > 0:  # If the clicked item is a parent
+        if item.childCount() > 0: 
             if item.checkState(0) == Qt.Checked:  # Checked
                 self.set_children_check_state(item, Qt.Checked)
             else:  # Unchecked
