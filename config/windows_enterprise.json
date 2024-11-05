@@ -4,20 +4,22 @@
       "SealSecureChannel",
       "SignSecureChannel",
       "DisablePasswordChange",
-      "NetBIOS",
+      "EnableNetbios",
       "EnableMulticast",
       "NC_StdDomainUserSetLocation"
   ],
   "Firewall Settings": [
+      "EnableFirewall",
       "Firewall state",
       "DefaultInbound",
       "DisableNotifications",
       "LogFilePath",
       "LogFileSize",
-      "Log Dropped Packets",
+      "LogDroppedPackets",
       "LogSuccessfulConnections"
   ],
   "User Account Control": [
+      "BackupDirectory",
       "MaximumPasswordAge",
       "RequireStrongKey",
       "LocalAccountTokenFilterPolicy",
@@ -28,7 +30,7 @@
       "PasswordComplexity",
       "PasswordLength",
       "PasswordAgeDays",
-      "PwdExpirationProtection",
+      "PwdExpirationProtectionEnabled",
       "ADPasswordEncryptionEnabled"
   ],
   "System Updates and Policies": [
@@ -36,12 +38,12 @@
       "NoGPOListChanges",
       "NoBackgroundPolicy2",
       "NoGPOListChanges2",
-      "Disable Background Group Policy",
+      "DisableBkGndGroupPolicy",
       "PostAuthenticationResetDelay",
       "PostAuthenticationActions"
   ],
   "Date & Time Settings": [
-      "NTPEnabled"
+      "Enabled"
   ],
   "Security Policies": [
       "DoHPolicy",

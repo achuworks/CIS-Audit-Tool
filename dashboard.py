@@ -20,11 +20,7 @@ class Dashboard(QWidget):
         self.currently_visible_description = None
 
         passed_count, failed_count, high_count, medium_count, low_count = self.calculate_counts()
-
-        # Display "TOTAL PASSED" indicator
         grid_layout.addWidget(self.create_indicator(f"TOTAL PASSED: {passed_count}", "#008000"), 0, 0, 1, 2)
-
-        # Display "TOTAL FAILED" indicator with colored severities in a single line
         failed_widget = self.create_failed_indicator(failed_count, high_count, medium_count, low_count)
         grid_layout.addWidget(failed_widget, 0, 2, 1, 2)
 
@@ -143,7 +139,6 @@ class Dashboard(QWidget):
         return widget
 
     def create_pie_chart(self, high_count, medium_count, low_count):
-        # Create the pie chart series and add each severity count
         series = QPieSeries()
         series.append("High", high_count)
         series.append("Medium", medium_count)
