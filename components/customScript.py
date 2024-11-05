@@ -201,11 +201,11 @@ class SettingsTree(QTreeWidget):
                     all_checked = False
 
             if all_checked:
-                parent_item.setCheckState(0, Qt.Checked)  # Check parent
+                parent_item.setCheckState(0, Qt.Checked)  
             elif all_unchecked:
-                parent_item.setCheckState(0, Qt.Unchecked)  # Uncheck parent
+                parent_item.setCheckState(0, Qt.Unchecked) 
             else:
-                parent_item.setCheckState(0, Qt.PartiallyChecked)  # Partially checked
+                parent_item.setCheckState(0, Qt.PartiallyChecked)  
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
