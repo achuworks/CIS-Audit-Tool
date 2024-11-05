@@ -1,3 +1,4 @@
+import subprocess
 import json
 from PySide6.QtWidgets import (
     QApplication, QWidget, QVBoxLayout, QLabel, QMainWindow, QScrollArea, QPushButton, QGridLayout, QListWidget, QHBoxLayout, QTreeWidget, QTreeWidgetItem, QFileDialog
@@ -70,7 +71,7 @@ class MainWindow(QMainWindow):
 
         self.apply_button = QPushButton("Next")
         self.apply_button.setStyleSheet("font-size: 16px; padding: 10px; background-color: #e0e0e0;")
-        self.apply_button.clicked.connect(self.run_script)
+        self.apply_button.clicked.connect(self.next)
 
         self.import_button = QPushButton("Import")
         self.import_button.setStyleSheet("font-size: 16px; padding: 10px; background-color: #e0e0e0;")
@@ -102,7 +103,26 @@ class MainWindow(QMainWindow):
             if(child.childCount() > 0):
                 self.collect_checked_items(child)
 
+    import subprocess
 
+    def next(self):
+        settings = {}
+    # Collect settings from the tree structure
+        self.collect_settings(self.tree.invisibleRootItem(), settings)
+
+    # Run the initial PowerShell command
+        subprocess.run(['powershell', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-Command', '. .\\test.ps1'])
+
+    # Loop through each setting and run the PowerShell command for each value
+        for category, values in settings.items():
+            for value in values:
+                command = f'. .\\test.ps1; {value}'  # Build the PowerShell command
+                subprocess.run(['powershell', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-Command', command])
+
+    # Additional commands
+        subprocess.run(['powershell', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-Command', '. .\\test.ps1; SayHello'])
+        subprocess.run(['powershell', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-Command', '. .\\test.ps1'])
+        
     def export_settings(self):
         settings = {}
         self.collect_settings(self.tree.invisibleRootItem(), settings)

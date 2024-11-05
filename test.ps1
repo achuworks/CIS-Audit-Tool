@@ -482,50 +482,17 @@ function PostAuthenticationActions{
 
 
 
+function SayHello{
+	Write-Output "Hello World"
+}
 
 
-RequireSignOrSeal
-SealSecureChannel
-SignSecureChannel
-DisablePasswordChange
-MaximumPasswordAge
-RequireStrongKey
-EnableFirewall
-DefaultInbound
-DisableNotifications
-LogFilePath
-LogFileSize
-LogDroppedPackets
-LogSuccessfulConnections
-LocalAccountTokenFilterPolicy
-DoHPolicy 
-EnableNetbios
-EnableMulticast
-NC_StdDomainUserSetLocation
-fBlockNonDomain
-NoBackgroundPolicy
-NoGPOListChanges
-NoBackgroundPolicy2
-NoGPOListChanges2
-DisableBkGndGroupPolicy 
-BackupDirectory
-DontEnumerateConnectedUsers
-EnumerateLocalUsers
-BlockDomainPicturePassword
-Enabled
-PwdExpirationProtectionEnabled
-ADPasswordEncryptionEnabled
-PasswordComplexity
-PasswordLength
-PasswordAgeDays
-PostAuthenticationResetDelay
-PostAuthenticationActions
+function writeout{
 
+	Write-Host $results;
+	$results | Export-Csv -Path "output.csv" -NoTypeInformation -Delimiter "|"
+}
 
-
-
-Write-Host $results;
-$results | Export-Csv -Path "output3.csv" -NoTypeInformation -Delimiter "|"
 
 
 
