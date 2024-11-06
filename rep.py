@@ -3,12 +3,12 @@ import webbrowser
 import os
 
 
-csv_file = 'output3.csv'
+csv_file = 'output.csv'
 df = pd.read_csv(csv_file, delimiter='|')
 
 df.fillna('', inplace=True)
 
-priority_map = {
+Severity_map = {
     'HIGH': 1,
     'MEDIUM': 2,
     'LOW': 3
@@ -19,10 +19,10 @@ status_map = {
     'ENABLED': 3
 }
 
-df['PrioritySort'] = df['Priority'].str.upper().map(priority_map)
+df['SeveritySort'] = df['Severity'].str.upper().map(Severity_map)
 df['StatusSort'] = df['Status'].str.upper().map(status_map)
 
-df.sort_values(by=['PrioritySort', 'StatusSort'], inplace=True)
+df.sort_values(by=['SeveritySort', 'StatusSort'], inplace=True)
 
 html = """
 <!DOCTYPE html>
@@ -139,9 +139,10 @@ html = """
                 <th>Name</th>
                 <th>Your Status</th>
                 <th>Status as per (CIS)</th>
-                <th>Priority</th>
+                <th>Severity</th>
                 <th>Your Registry Value</th>
-                <th>ValueToBe</th>
+                <th>ExpectedValue</th>
+                
             </tr>
         </thead>
         <tbody>
@@ -149,13 +150,13 @@ html = """
 
 
 for index, row in df.iterrows():
-    priority_class = ""
-    if 'HIGH' in row['Priority'].strip().upper():
-        priority_class = "high"
-    elif 'MEDIUM' in row['Priority'].strip().upper():
-        priority_class = "medium"
-    elif 'LOW' in row['Priority'].strip().upper():
-        priority_class = "low"
+    Severity_class = ""
+    if 'HIGH' in row['Severity'].strip().upper():
+        Severity_class = "high"
+    elif 'MEDIUM' in row['Severity'].strip().upper():
+        Severity_class = "medium"
+    elif 'LOW' in row['Severity'].strip().upper():
+        Severity_class = "low"
   
     row_class = "row-match" if row['Status'].strip().upper() == row['StatusToBe'].strip().upper() else "row-mismatch"
     status_class = "status-match" if row['Status'].strip().upper() == row['StatusToBe'].strip().upper() else "status-mismatch"
@@ -165,9 +166,9 @@ for index, row in df.iterrows():
         <td>{row['Name']}</td>
         <td class="{status_class}">{row['Status']}</td>
         <td>{row['StatusToBe']}</td>
-        <td class="{priority_class}">{row['Priority']}</td>
-        <td>{row['RegistryValue']}</td>
-        <td>{row['ValueToBe']}</td>
+        <td class="{Severity_class}">{row['Severity']}</td>
+        <td>{row['CurrentValue']}</td>
+        <td>{row['ExpectedValue']}</td>
     </tr>
     """
 

@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-csv_file = 'remediationoutput.csv'
+csv_file = 'rem.csv'
 df = pd.read_csv(csv_file, delimiter='|')
 
 df.fillna('', inplace=True)

@@ -5,7 +5,7 @@ import ctypes
 from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QHBoxLayout, QPushButton, QWidget, QLabel, QStackedWidget, QMessageBox
 from PySide6.QtCore import Slot, QTimer, QUrl
 from PySide6.QtWebEngineWidgets import QWebEngineView
-from dashboard import Dashboard  # Assuming a dashboard.py file is available
+from dashboard import Dashboard  
 
 
 def is_admin():
@@ -44,7 +44,7 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("Dashboard")
 
-        # Set geometry to match dashboard dimensions
+     
         self.setGeometry(100, 100, 1200, 700)
 
         main_layout = QHBoxLayout()
@@ -52,13 +52,13 @@ class MainWindow(QMainWindow):
         sidebar_layout = QVBoxLayout()
         sidebar.setLayout(sidebar_layout)
 
-        # Stack widget for main pages
+      
         self.stack = QStackedWidget()
 
-        # Dashboard page
+       
         dashboard = Dashboard()
 
-        # Generate Report page
+        
         self.generate_report_page = QWidget()
         generate_report_layout = QVBoxLayout()
         self.generate_report_view = QWebEngineView()

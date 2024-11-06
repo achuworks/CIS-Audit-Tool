@@ -9,11 +9,8 @@ class InstallationWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("Installation")
         self.setFixedSize(800, 600)
-
-        # Main layout
         main_layout = QVBoxLayout()
 
-        # Title
         title_label = QLabel("Welcome to Solid Umbrella")
         title_label.setFont(QFont("Arial", 18, QFont.Bold))
         title_label.setAlignment(Qt.AlignCenter)

@@ -1,0 +1,2 @@
+"Name"|"RemediationStatus"|"Priority"
+"EnableFirewall"|"Error: Cannot find path 'HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile' because it does not exist."|"High"
