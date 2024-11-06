@@ -66,7 +66,6 @@ class MainWindow(QMainWindow):
         generate_report_layout.addWidget(self.generate_report_view)
         self.generate_report_page.setLayout(generate_report_layout)
 
-        # Remediation page
         self.remediation_page = QWidget()
         remediation_layout = QVBoxLayout()
         self.remediation_view = QWebEngineView()
@@ -74,12 +73,11 @@ class MainWindow(QMainWindow):
         remediation_layout.addWidget(self.remediation_view)
         self.remediation_page.setLayout(remediation_layout)
 
-        # Add pages to the stack
-        self.stack.addWidget(dashboard)               # Page 0: Dashboard
-        self.stack.addWidget(self.generate_report_page)  # Page 1: Generate Report
-        self.stack.addWidget(self.remediation_page)       # Page 2: Remediation
+    
+        self.stack.addWidget(dashboard)               
+        self.stack.addWidget(self.generate_report_page)  
+        self.stack.addWidget(self.remediation_page)      
 
-        # Sidebar buttons
         button1 = QPushButton("Dashboard")
         button2 = QPushButton("Generate Report")
         button3 = QPushButton("Remediation")
@@ -93,7 +91,6 @@ class MainWindow(QMainWindow):
         sidebar_layout.addWidget(button3)
         sidebar_layout.addStretch(1)
 
-        # Sidebar styling
         button1.setCheckable(True)
         button2.setCheckable(True)
         button3.setCheckable(True)
@@ -114,7 +111,6 @@ class MainWindow(QMainWindow):
         main_layout.setContentsMargins(0, 0, 0, 0)
         main_layout.setSpacing(0)
 
-        # Access level label
         access_label = QLabel(f"Access Level: {'Administrator' if admin_access else 'Standard User'}")
         access_label.setStyleSheet("font-size: 18px; font-weight: bold; color: green;" if admin_access else "font-size: 18px; font-weight: bold; color: red;")
 
@@ -126,7 +122,7 @@ class MainWindow(QMainWindow):
         central_widget.setLayout(main_vertical_layout)
         self.setCentralWidget(central_widget)
 
-        # Auto-hide access level label after 3 seconds
+       
         QTimer.singleShot(3000, access_label.hide)
 
     @Slot()
