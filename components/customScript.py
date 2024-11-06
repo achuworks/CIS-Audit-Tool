@@ -1,4 +1,6 @@
 import subprocess
+import os
+import pandas as pd
 import json
 from PySide6.QtWidgets import (
     QApplication, QWidget, QVBoxLayout, QLabel, QMainWindow, QScrollArea, QPushButton, QGridLayout, QListWidget, QHBoxLayout, QTreeWidget, QTreeWidgetItem, QFileDialog
@@ -103,25 +105,35 @@ class MainWindow(QMainWindow):
             if(child.childCount() > 0):
                 self.collect_checked_items(child)
 
-    import subprocess
-
     def next(self):
         settings = {}
-    # Collect settings from the tree structure
+        # Collect settings from the tree structure
         self.collect_settings(self.tree.invisibleRootItem(), settings)
 
-    # Run the initial PowerShell command
-        subprocess.run(['powershell', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-Command', '. .\\test.ps1'])
+        # Initialize the temporary output file
+        temp_output_path = "temp_output.csv"
+        subprocess.run(['powershell', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-Command', 'Remove-Item "temp_output.csv" -ErrorAction SilentlyContinue'])
 
-    # Loop through each setting and run the PowerShell command for each value
+        # Run the initial PowerShell command
+        subprocess.run(['powershell', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-Command', '. .\\test.ps1'], check=True)
+
+        # Loop through each setting and run the PowerShell command for each value
         for category, values in settings.items():
             for value in values:
                 command = f'. .\\test.ps1; {value}'  # Build the PowerShell command
-                subprocess.run(['powershell', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-Command', command])
+                subprocess.run(['powershell', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-Command', command], check=True)
 
-    # Additional commands
-        subprocess.run(['powershell', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-Command', '. .\\test.ps1; SayHello'])
-        subprocess.run(['powershell', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-Command', '. .\\test.ps1'])
+        # Call additional commands
+        subprocess.run(['powershell', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-Command', '. .\\test.ps1; SayHello'], check=True)
+
+        # Read the temporary output file into a DataFrame
+        if os.path.exists(temp_output_path):
+            results_df = pd.read_csv(temp_output_path, delimiter='|')
+            results_df.to_csv("output.csv", index=False, sep='|')  # Export final results to your output CSV
+
+        # Clean up temporary file
+        if os.path.exists(temp_output_path):
+            os.remove(temp_output_path)
         
     def export_settings(self):
         settings = {}
@@ -221,11 +233,11 @@ class SettingsTree(QTreeWidget):
                     all_checked = False
 
             if all_checked:
-                parent_item.setCheckState(0, Qt.Checked)  
+                parent_item.setCheckState(0, Qt.Checked)  # Check parent
             elif all_unchecked:
-                parent_item.setCheckState(0, Qt.Unchecked) 
+                parent_item.setCheckState(0, Qt.Unchecked)  # Uncheck parent
             else:
-                parent_item.setCheckState(0, Qt.PartiallyChecked)  
+                parent_item.setCheckState(0, Qt.PartiallyChecked)  # Partially checked
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
