@@ -1,7 +1,7 @@
+#!/usr/bin/env python
 import os
 import sys
 import ctypes
-import subprocess
 from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QHBoxLayout, QPushButton, QWidget, QLabel, QStackedWidget, QTextEdit, QMessageBox
 from PySide6.QtCore import Slot, QTimer, QUrl
 from PySide6.QtWebEngineWidgets import QWebEngineView
@@ -38,7 +38,7 @@ def ensure_admin_privileges():
 
 
 class MainWindow(QMainWindow):
-    """Main application window that displays access level information."""
+    """Main application window that displays access level information and embedded HTML reports."""
     def __init__(self, admin_access):
         super().__init__()
         self.setWindowTitle("Dashboard")
@@ -48,57 +48,69 @@ class MainWindow(QMainWindow):
         sidebar_layout = QVBoxLayout()
         sidebar.setLayout(sidebar_layout)
 
+        # Stack widget for main pages
         self.stack = QStackedWidget()
+
+        # Dashboard page
         dashboard = Dashboard()
-        settings_page = QWidget()
-        settings_page.setLayout(QVBoxLayout())
-        self.html_viewer = HTMLViewer(QUrl.fromLocalFile(os.path.abspath('remnew.html')))
 
-        self.report_page = QWidget()
-        self.report_page.setLayout(QVBoxLayout())
-        self.report_output = QTextEdit()
-        self.report_output.setReadOnly(True)
-        self.report_page.layout().addWidget(QLabel("Report Output:"))
-        self.report_page.layout().addWidget(self.report_output)
+        # Generate Report page
+        self.generate_report_page = QWidget()
+        generate_report_layout = QVBoxLayout()
+        self.generate_report_view = QWebEngineView()
+        
+        generate_report_layout.addWidget(self.generate_report_view)
+        self.generate_report_page.setLayout(generate_report_layout)
 
-        self.stack.addWidget(dashboard)
-        self.stack.addWidget(settings_page)
-        self.stack.addWidget(self.report_page)
+        # Remediation page
+        self.remediation_page = QWidget()
+        remediation_layout = QVBoxLayout()
+        self.remediation_view = QWebEngineView()
+        
+        remediation_layout.addWidget(self.remediation_view)
+        self.remediation_page.setLayout(remediation_layout)
 
+        # Add pages to the stack
+        self.stack.addWidget(dashboard)              # Page 0
+        self.stack.addWidget(self.generate_report_page)  # Page 1
+        self.stack.addWidget(self.remediation_page)      # Page 2
+
+        # Sidebar buttons
         button1 = QPushButton("Dashboard")
-        button3 = QPushButton("Generate Report")
-        button4 = QPushButton("Remediation")
+        button2 = QPushButton("Generate Report")
+        button3 = QPushButton("Remediation")
 
         button1.clicked.connect(lambda: self.change_page(0))
-        button3.clicked.connect(self.generate_report)
-  
-        button4.clicked.connect(self.show_remediation)
+        button2.clicked.connect(self.load_generate_report)
+        button3.clicked.connect(self.load_remediation_report)
 
         sidebar_layout.addWidget(button1)
+        sidebar_layout.addWidget(button2)
         sidebar_layout.addWidget(button3)
-        sidebar_layout.addWidget(button4)
         sidebar_layout.addStretch(1)
 
+        # Sidebar styling
         button1.setCheckable(True)
- 
+        button2.setCheckable(True)
         button3.setCheckable(True)
-        button4.setCheckable(True)
         button1.setAutoExclusive(True)
-     
+        button2.setAutoExclusive(True)
         button3.setAutoExclusive(True)
-        button4.setAutoExclusive(True)
 
         sidebar.setMinimumWidth(185)
         sidebar.setMaximumWidth(300)
-        sidebar.setStyleSheet(u"QWidget{background-color:#3399ff;color:white;margin:0;padding:0}\n"
-                              "QPushButton{border-radius:20px;padding:20px;font-size:16px} "
-                              "QPushButton:checked{background-color:#FFFFFF;color:#1F95EF}")
+        sidebar.setStyleSheet(
+            "QWidget{background-color:#3399ff;color:white;margin:0;padding:0}\n"
+            "QPushButton{border-radius:20px;padding:20px;font-size:16px} "
+            "QPushButton:checked{background-color:#FFFFFF;color:#1F95EF}"
+        )
 
         main_layout.addWidget(sidebar)
         main_layout.addWidget(self.stack)
         main_layout.setContentsMargins(0, 0, 0, 0)
         main_layout.setSpacing(0)
 
+        # Access level label
         access_label = QLabel(f"Access Level: {'Administrator' if admin_access else 'Standard User'}")
         access_label.setStyleSheet("font-size: 18px; font-weight: bold; color: green;" if admin_access else "font-size: 18px; font-weight: bold; color: red;")
 
@@ -110,37 +122,31 @@ class MainWindow(QMainWindow):
         central_widget.setLayout(main_vertical_layout)
         self.setCentralWidget(central_widget)
 
+        # Auto-hide access level label after 3 seconds
         QTimer.singleShot(3000, access_label.hide)
 
-    @Slot(int)
+    @Slot()
     def change_page(self, index):
+        """Switch to the page at the given index in the stack."""
         self.stack.setCurrentIndex(index)
-    @Slot()
-    def generate_report(self):
-        """Displays the merged report HTML."""
-        self.html_viewer = HTMLViewer(QUrl.fromLocalFile(os.path.abspath('merged_report.html')))
-        self.html_viewer.show()
 
     @Slot()
-    def show_remediation(self):
-        """Displays the remediation report (remnew.html) and filters red issues."""
-        self.html_viewer = HTMLViewer(QUrl.fromLocalFile(os.path.abspath('remnew.html')))
-        self.html_viewer.filter_red_issues()  
-        self.html_viewer.show()
+    def load_generate_report(self):
+        """Load the merged report HTML into the Generate Report page."""
+        report_path = QUrl.fromLocalFile(os.path.abspath('merged_report.html'))
+        self.generate_report_view.setUrl(report_path)
+        self.change_page(1)
 
-    
+    @Slot()
+    def load_remediation_report(self):
+        """Load the remediation report HTML into the Remediation page and apply red-issue filtering."""
+        report_path = QUrl.fromLocalFile(os.path.abspath('remnew.html'))
+        self.remediation_view.setUrl(report_path)
+        self.apply_red_filter()
+        self.change_page(2)
 
-
-class HTMLViewer(QMainWindow):
-    def __init__(self, html_path):
-        super().__init__()
-        self.browser = QWebEngineView()
-        self.browser.setUrl(html_path)
-        self.setCentralWidget(self.browser)
-        self.setWindowTitle("Report")
-
-    def filter_red_issues(self):
-        """Apply JavaScript to display only red issues in the HTML report."""
+    def apply_red_filter(self):
+        """Inject JavaScript to show only red-colored issues in the HTML."""
         script = """
         document.querySelectorAll('body *').forEach(el => {
             if (window.getComputedStyle(el).color !== 'rgb(255, 0, 0)') { 
@@ -148,7 +154,7 @@ class HTMLViewer(QMainWindow):
             }
         });
         """
-        self.browser.page().runJavaScript(script)
+        self.remediation_view.page().runJavaScript(script)
 
 
 if __name__ == "__main__":
