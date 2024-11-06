@@ -52,7 +52,7 @@ class MainWindow(QMainWindow):
         dashboard = Dashboard()
         settings_page = QWidget()
         settings_page.setLayout(QVBoxLayout())
-        settings_page.layout().addWidget(QLabel("This is a page 2 test"))
+        self.html_viewer = HTMLViewer(QUrl.fromLocalFile(os.path.abspath('remnew.html')))
 
         self.report_page = QWidget()
         self.report_page.setLayout(QVBoxLayout())
@@ -70,9 +70,9 @@ class MainWindow(QMainWindow):
         button4 = QPushButton("Remediation")
 
         button1.clicked.connect(lambda: self.change_page(0))
+        button3.clicked.connect(self.generate_report)
   
-        button3.clicked.connect(self.show_remediation)
-        button4.clicked.connect(self.show_remediation)  
+        button4.clicked.connect(self.show_remediation)
 
         sidebar_layout.addWidget(button1)
         sidebar_layout.addWidget(button3)
@@ -115,30 +115,20 @@ class MainWindow(QMainWindow):
     @Slot(int)
     def change_page(self, index):
         self.stack.setCurrentIndex(index)
-
     @Slot()
     def generate_report(self):
-        """Executes the report generation script and displays the output."""
-        try:
-            result = subprocess.run(
-                [sys.executable, 'rep.py'], 
-                capture_output=True,
-                text=True,
-                check=True
-            )
-            output = result.stdout.strip()
-            self.report_output.setPlainText(output or "No output generated.")
-            self.change_page(2)
-        except subprocess.CalledProcessError as e:
-            self.report_output.setPlainText(f"Error running report: {e.stderr.strip()}")
-            self.change_page(2)
+        """Displays the merged report HTML."""
+        self.html_viewer = HTMLViewer(QUrl.fromLocalFile(os.path.abspath('merged_report.html')))
+        self.html_viewer.show()
 
     @Slot()
     def show_remediation(self):
-        """Open the HTML report and filter to show only remediation (red) issues."""
-        self.html_viewer = HTMLViewer(QUrl.fromLocalFile(os.path.abspath('merged_report.html')))
-        self.html_viewer.filter_red_issues()  # Load and show only red (remediation) parts
+        """Displays the remediation report (remnew.html) and filters red issues."""
+        self.html_viewer = HTMLViewer(QUrl.fromLocalFile(os.path.abspath('remnew.html')))
+        self.html_viewer.filter_red_issues()  
         self.html_viewer.show()
+
+    
 
 
 class HTMLViewer(QMainWindow):
