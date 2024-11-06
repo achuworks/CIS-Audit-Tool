@@ -1,10 +1,12 @@
 import os
 import sys
 import ctypes
-import subprocess 
+import subprocess
 from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QHBoxLayout, QPushButton, QWidget, QLabel, QStackedWidget, QTextEdit, QMessageBox
-from PySide6.QtCore import Slot, QTimer 
+from PySide6.QtCore import Slot, QTimer, QUrl
+from PySide6.QtWebEngineWidgets import QWebEngineView
 from dashboard import Dashboard
+
 
 def is_admin():
     """Return True if the user has administrative/root privileges, False otherwise."""
@@ -15,6 +17,7 @@ def is_admin():
             return False  
     else:
         return os.geteuid() == 0
+
 
 def ensure_admin_privileges():
     if os.name == 'nt' and not ctypes.windll.shell32.IsUserAnAdmin():
@@ -33,6 +36,7 @@ def ensure_admin_privileges():
         else:
             sys.exit("User opted not to run with admin privileges.")
 
+
 class MainWindow(QMainWindow):
     """Main application window that displays access level information."""
     def __init__(self, admin_access):
@@ -45,10 +49,10 @@ class MainWindow(QMainWindow):
         sidebar.setLayout(sidebar_layout)
 
         self.stack = QStackedWidget()
-        dashboard = Dashboard() 
-        page2 = QWidget() 
-        page2.setLayout(QVBoxLayout())
-        page2.layout().addWidget(QLabel("This is a page 2 test"))
+        dashboard = Dashboard()
+        settings_page = QWidget()
+        settings_page.setLayout(QVBoxLayout())
+        settings_page.layout().addWidget(QLabel("This is a page 2 test"))
 
         self.report_page = QWidget()
         self.report_page.setLayout(QVBoxLayout())
@@ -58,26 +62,32 @@ class MainWindow(QMainWindow):
         self.report_page.layout().addWidget(self.report_output)
 
         self.stack.addWidget(dashboard)
-        self.stack.addWidget(page2)
-        self.stack.addWidget(self.report_page)  
+        self.stack.addWidget(settings_page)
+        self.stack.addWidget(self.report_page)
 
         button1 = QPushButton("Dashboard")
-        button2 = QPushButton("Settings")
-        button3 = QPushButton("Generate Report") 
+        button3 = QPushButton("Generate Report")
+        button4 = QPushButton("Remediation")
 
         button1.clicked.connect(lambda: self.change_page(0))
-        button2.clicked.connect(lambda: self.change_page(1))
-        button3.clicked.connect(self.generate_report) 
+  
+        button3.clicked.connect(self.show_remediation)
+        button4.clicked.connect(self.show_remediation)  
+
         sidebar_layout.addWidget(button1)
-        sidebar_layout.addWidget(button2)
-        sidebar_layout.addWidget(button3)  
+        sidebar_layout.addWidget(button3)
+        sidebar_layout.addWidget(button4)
         sidebar_layout.addStretch(1)
+
         button1.setCheckable(True)
-        button2.setCheckable(True)
-        button3.setCheckable(True)  
+ 
+        button3.setCheckable(True)
+        button4.setCheckable(True)
         button1.setAutoExclusive(True)
-        button2.setAutoExclusive(True)
-        button3.setAutoExclusive(True)  
+     
+        button3.setAutoExclusive(True)
+        button4.setAutoExclusive(True)
+
         sidebar.setMinimumWidth(185)
         sidebar.setMaximumWidth(300)
         sidebar.setStyleSheet(u"QWidget{background-color:#3399ff;color:white;margin:0;padding:0}\n"
@@ -100,8 +110,8 @@ class MainWindow(QMainWindow):
         central_widget.setLayout(main_vertical_layout)
         self.setCentralWidget(central_widget)
 
-        QTimer.singleShot(3000, access_label.hide) 
-    
+        QTimer.singleShot(3000, access_label.hide)
+
     @Slot(int)
     def change_page(self, index):
         self.stack.setCurrentIndex(index)
@@ -117,11 +127,40 @@ class MainWindow(QMainWindow):
                 check=True
             )
             output = result.stdout.strip()
-            self.report_output.setPlainText(output or "No output generated.")  
-            self.change_page(2)  
+            self.report_output.setPlainText(output or "No output generated.")
+            self.change_page(2)
         except subprocess.CalledProcessError as e:
-            self.report_output.setPlainText(f"Error running report: {e.stderr.strip()}")  
-            self.change_page(2)  
+            self.report_output.setPlainText(f"Error running report: {e.stderr.strip()}")
+            self.change_page(2)
+
+    @Slot()
+    def show_remediation(self):
+        """Open the HTML report and filter to show only remediation (red) issues."""
+        self.html_viewer = HTMLViewer(QUrl.fromLocalFile(os.path.abspath('merged_report.html')))
+        self.html_viewer.filter_red_issues()  # Load and show only red (remediation) parts
+        self.html_viewer.show()
+
+
+class HTMLViewer(QMainWindow):
+    def __init__(self, html_path):
+        super().__init__()
+        self.browser = QWebEngineView()
+        self.browser.setUrl(html_path)
+        self.setCentralWidget(self.browser)
+        self.setWindowTitle("Report")
+
+    def filter_red_issues(self):
+        """Apply JavaScript to display only red issues in the HTML report."""
+        script = """
+        document.querySelectorAll('body *').forEach(el => {
+            if (window.getComputedStyle(el).color !== 'rgb(255, 0, 0)') { 
+                el.style.display = 'none'; 
+            }
+        });
+        """
+        self.browser.page().runJavaScript(script)
+
+
 if __name__ == "__main__":
     ensure_admin_privileges()
     admin_access = is_admin()

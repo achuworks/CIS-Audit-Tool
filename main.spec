@@ -11,6 +11,11 @@ a = Analysis(
     hooksconfig={},
     runtime_hooks=[],
     excludes=[],
+    hiddenimports=[
+        'PySide6.QtWebEngineCore',
+        'PySide6.QtWebEngineWidgets',
+        'PySide6.QtWebChannel',
+    ],
     noarchive=False,
     optimize=0,
 )

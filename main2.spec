@@ -7,6 +7,12 @@ a = Analysis(
     binaries=[],
     datas=[('C:\\Users\\AchuAbu\\Desktop\\SIH\\solid-umbrella/rep.py', '.')],
     hiddenimports=[],
+    hiddenimports=[
+        'PySide6.QtWebEngineCore',
+        'PySide6.QtWebEngineWidgets',
+        'PySide6.QtWebChannel',
+        # Add any additional modules you may use
+    ],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
