@@ -2,10 +2,10 @@
 import os
 import sys
 import ctypes
-from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QHBoxLayout, QPushButton, QWidget, QLabel, QStackedWidget, QTextEdit, QMessageBox
+from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QHBoxLayout, QPushButton, QWidget, QLabel, QStackedWidget, QMessageBox
 from PySide6.QtCore import Slot, QTimer, QUrl
 from PySide6.QtWebEngineWidgets import QWebEngineView
-from dashboard import Dashboard
+from dashboard import Dashboard  # Assuming a dashboard.py file is available
 
 
 def is_admin():
@@ -20,6 +20,7 @@ def is_admin():
 
 
 def ensure_admin_privileges():
+    """Ensure the application is running with admin privileges; if not, attempt to restart as admin."""
     if os.name == 'nt' and not ctypes.windll.shell32.IsUserAnAdmin():
         app = QApplication(sys.argv)
 
@@ -43,6 +44,9 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("Dashboard")
 
+        # Set geometry to match dashboard dimensions
+        self.setGeometry(100, 100, 1200, 700)
+
         main_layout = QHBoxLayout()
         sidebar = QWidget()
         sidebar_layout = QVBoxLayout()
@@ -58,7 +62,7 @@ class MainWindow(QMainWindow):
         self.generate_report_page = QWidget()
         generate_report_layout = QVBoxLayout()
         self.generate_report_view = QWebEngineView()
-        
+        self.generate_report_view.setStyleSheet("background-color: white;")
         generate_report_layout.addWidget(self.generate_report_view)
         self.generate_report_page.setLayout(generate_report_layout)
 
@@ -66,14 +70,14 @@ class MainWindow(QMainWindow):
         self.remediation_page = QWidget()
         remediation_layout = QVBoxLayout()
         self.remediation_view = QWebEngineView()
-        
+        self.remediation_view.setStyleSheet("background-color: white;")
         remediation_layout.addWidget(self.remediation_view)
         self.remediation_page.setLayout(remediation_layout)
 
         # Add pages to the stack
-        self.stack.addWidget(dashboard)              # Page 0
-        self.stack.addWidget(self.generate_report_page)  # Page 1
-        self.stack.addWidget(self.remediation_page)      # Page 2
+        self.stack.addWidget(dashboard)               # Page 0: Dashboard
+        self.stack.addWidget(self.generate_report_page)  # Page 1: Generate Report
+        self.stack.addWidget(self.remediation_page)       # Page 2: Remediation
 
         # Sidebar buttons
         button1 = QPushButton("Dashboard")
@@ -162,6 +166,6 @@ if __name__ == "__main__":
     admin_access = is_admin()
     app = QApplication(sys.argv)
     window = MainWindow(admin_access)
-    window.resize(1098, 755)
+    window.resize(1200, 700)
     window.show()
     sys.exit(app.exec())

@@ -1,8 +1,7 @@
 from PySide6.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QHBoxLayout, QGridLayout, QPushButton, QGroupBox, QScrollArea
 from PySide6.QtCharts import QChart, QChartView, QPieSeries, QLineSeries
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QColor
-from PySide6.QtGui import QPainter
+from PySide6.QtGui import QColor, QPainter
 import sys, csv
 
 class Dashboard(QWidget):
@@ -20,7 +19,11 @@ class Dashboard(QWidget):
         self.currently_visible_description = None
 
         passed_count, failed_count, high_count, medium_count, low_count = self.calculate_counts()
-        grid_layout.addWidget(self.create_indicator(f"TOTAL PASSED: {passed_count}", "#008000"), 0, 0, 1, 2)
+        
+        # Increase font size and bold for TOTAL PASSED
+        grid_layout.addWidget(self.create_indicator(f"TOTAL PASSED: {passed_count}", "#008000", "35px", True), 0, 0, 1, 2)
+        
+        # Increase font size and bold for TOTAL FAILED and severity counts
         failed_widget = self.create_failed_indicator(failed_count, high_count, medium_count, low_count)
         grid_layout.addWidget(failed_widget, 0, 2, 1, 2)
 
@@ -49,13 +52,13 @@ class Dashboard(QWidget):
                 group_layout = QVBoxLayout()
 
                 button = QPushButton(name)
-                button.setStyleSheet("QPushButton{color: black; border: 1px solid grey;border-radius:15px;padding:5px;margin:2px}")
+                button.setStyleSheet("QPushButton{color: black; border: 1px solid grey; border-radius: 15px; padding: 5px; margin: 2px}")
                 button.clicked.connect(lambda checked, gb=group_box: self.toggle_visibility(gb))
 
                 description = f"Status: {status} | Status To Be: {status_to_be}"
                 description_label = QLabel(description)
                 description_label.setWordWrap(True)
-                description_label.setStyleSheet("color: black; font-size: 13px;border: 1px solid grey;background-color:#bfbfbf;border-radius:15px;padding:5px")
+                description_label.setStyleSheet("color: black; font-size: 13px; border: 1px solid grey; background-color: #bfbfbf; border-radius: 15px; padding: 5px")
                 description_label.setVisible(False)
 
                 group_layout.addWidget(button)
@@ -96,10 +99,10 @@ class Dashboard(QWidget):
 
         return passed_count, failed_count, high_count, medium_count, low_count
 
-    def create_indicator(self, text, color):
+    def create_indicator(self, text, color, font_size="20px", bold=False):
         layout = QVBoxLayout()
         lbl = QLabel(text)
-        lbl.setStyleSheet(f"font-size: 20px; color: {color}; margin:0px; padding:0px")
+        lbl.setStyleSheet(f"font-size: {font_size}; color: {color}; font-weight: {'bold' if bold else 'normal'}; margin: 0px; padding: 0px")
         lbl.setAlignment(Qt.AlignCenter)
         layout.addWidget(lbl)
         widget = QWidget()
@@ -110,22 +113,22 @@ class Dashboard(QWidget):
         layout = QVBoxLayout()
 
         lbl_failed = QLabel(f"TOTAL FAILED: {failed_count}")
-        lbl_failed.setStyleSheet("font-size: 20px; color: #8B0000;")
+        lbl_failed.setStyleSheet("font-size: 35px; color: #8B0000; font-weight: bold;")
         lbl_failed.setAlignment(Qt.AlignCenter)
         layout.addWidget(lbl_failed)
 
         severity_layout = QHBoxLayout()
 
         lbl_high = QLabel(f"HIGH: {high_count}")
-        lbl_high.setStyleSheet("font-size: 15px; color: #FF0000;") 
+        lbl_high.setStyleSheet("font-size: 25px; color: #FF0000; font-weight: bold; margin-right: 15px;") 
         severity_layout.addWidget(lbl_high)
 
         lbl_medium = QLabel(f"MEDIUM: {medium_count}")
-        lbl_medium.setStyleSheet("font-size: 15px; color: #FFA500;")  
+        lbl_medium.setStyleSheet("font-size: 25px; color: #FFA500; font-weight: bold; margin-right: 15px;")  
         severity_layout.addWidget(lbl_medium)
 
         lbl_low = QLabel(f"LOW: {low_count}")
-        lbl_low.setStyleSheet("font-size: 15px; color: #0000FF;")  
+        lbl_low.setStyleSheet("font-size: 25px; color: #0000FF; font-weight: bold; margin-right: 15px;")  
         severity_layout.addWidget(lbl_low)
 
         severity_widget = QWidget()
@@ -151,7 +154,6 @@ class Dashboard(QWidget):
 
         medium_slice = series.slices()[1]
         medium_slice.setBrush(QColor(255, 191, 0))
-
         medium_slice.setLabelVisible(True)
         medium_slice.setLabel(f"Medium: {medium_count}")
 
