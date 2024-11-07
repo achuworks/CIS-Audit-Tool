@@ -1,0 +1,7 @@
+"Name"|"Status"|"StatusToBe"|"Severity"|"CurrentValue"|"ExpectedValue"|"Message"
+"RequireSignOrSeal"|"ENABLED"|"ENABLED"|""|"1"|"1"|""
+"SealSecureChannel"|"ENABLED"|"ENABLED"|""|"1"|"1"|""
+"SignSecureChannel"|"ENABLED"|"ENABLED"|""|"1"|"1"|""
+"DisablePasswordChange"|"ENABLED"|"NOT ENABLED"|"MEDIUM"|"1"|"1"|""
+"NetBIOS"|"ERROR"|"ENABLED"|"LOW"|"0"|"Registry path not found: Cannot find path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient' because it does not exist."|""
+"EnableMulticast"|"ERROR"|"ENABLED"|"LOW"|"0"|"Registry path not found: Cannot find path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient' because it does not exist."|""

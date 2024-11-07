@@ -10,7 +10,7 @@
   ],
   "Firewall Settings": [
       "EnableFirewall",
-      "Firewall state",
+      "Firewallstate",
       "DefaultInbound",
       "DisableNotifications",
       "LogFilePath",
@@ -23,7 +23,6 @@
       "MaximumPasswordAge",
       "RequireStrongKey",
       "LocalAccountTokenFilterPolicy",
-      "LAPS BackupDirectory",
       "DontEnumerateConnectedUsers",
       "EnumerateLocalUsers",
       "BlockDomainPicturePassword",

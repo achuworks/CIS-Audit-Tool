@@ -1,3 +1,5 @@
 "Name"|"Status"|"StatusToBe"|"Severity"|"CurrentValue"|"ExpectedValue"|"Message"
 "LAPS BackupDirectory"|"ERROR"|"MEDIUM"|"N/A"|"0"|"Registry path not found: Cannot find path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\LAPS' because it does not exist."|""
 "DontEnumerateConnectedUsers"|"ERROR"|"MEDIUM"|"N/A"|"0"|"Error retrieving registry value: Property DontEnumerateConnectedUsers does not exist at path HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System."|""
+"RequireSignOrSeal"|"ENABLED"|"ENABLED"|""|"1"|"1"|""
+"SealSecureChannel"|"ENABLED"|"ENABLED"|""|"1"|"1"|""

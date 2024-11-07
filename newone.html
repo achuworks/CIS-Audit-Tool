@@ -1,30 +1,4 @@
-import pandas as pd
-import webbrowser
-import os
 
-
-csv_file = 'new.csv'
-df = pd.read_csv(csv_file, delimiter='|')
-
-df.fillna('', inplace=True)
-
-Severity_map = {
-    'HIGH': 1,
-    'MEDIUM': 2,
-    'LOW': 3
-}
-status_map = {
-    'NOT ENABLED': 1,
-    'NOT SET': 2,
-    'ENABLED': 3
-}
-
-df['SeveritySort'] = df['Severity'].str.upper().map(Severity_map)
-df['StatusSort'] = df['Status'].str.upper().map(status_map)
-
-df.sort_values(by=['SeveritySort', 'StatusSort'], inplace=True)
-
-html = """
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -146,45 +120,64 @@ html = """
             </tr>
         </thead>
         <tbody>
-"""
 
-
-for index, row in df.iterrows():
-    Severity_class = ""
-    if 'HIGH' in row['Severity'].strip().upper():
-        Severity_class = "high"
-    elif 'MEDIUM' in row['Severity'].strip().upper():
-        Severity_class = "medium"
-    elif 'LOW' in row['Severity'].strip().upper():
-        Severity_class = "low"
-  
-    row_class = "row-match" if row['Status'].strip().upper() == row['StatusToBe'].strip().upper() else "row-mismatch"
-    status_class = "status-match" if row['Status'].strip().upper() == row['StatusToBe'].strip().upper() else "status-mismatch"
-    
-    html += f"""
-    <tr class="{row_class}">
-        <td>{row['Name']}</td>
-        <td class="{status_class}">{row['Status']}</td>
-        <td>{row['StatusToBe']}</td>
-        <td class="{Severity_class}">{row['Severity']}</td>
-        <td>{row['CurrentValue']}</td>
-        <td>{row['ExpectedValue']}</td>
+    <tr class="row-mismatch">
+        <td>DisablePasswordChange</td>
+        <td class="status-mismatch">ENABLED</td>
+        <td>NOT ENABLED</td>
+        <td class="medium">MEDIUM</td>
+        <td>1</td>
+        <td>1</td>
     </tr>
-    """
-
-html += """
+    
+    <tr class="row-mismatch">
+        <td>NetBIOS</td>
+        <td class="status-mismatch">ERROR</td>
+        <td>ENABLED</td>
+        <td class="low">LOW</td>
+        <td>0</td>
+        <td>Registry path not found: Cannot find path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient' because it does not exist.</td>
+    </tr>
+    
+    <tr class="row-mismatch">
+        <td>EnableMulticast</td>
+        <td class="status-mismatch">ERROR</td>
+        <td>ENABLED</td>
+        <td class="low">LOW</td>
+        <td>0</td>
+        <td>Registry path not found: Cannot find path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient' because it does not exist.</td>
+    </tr>
+    
+    <tr class="row-match">
+        <td>RequireSignOrSeal</td>
+        <td class="status-match">ENABLED</td>
+        <td>ENABLED</td>
+        <td class=""></td>
+        <td>1</td>
+        <td>1</td>
+    </tr>
+    
+    <tr class="row-match">
+        <td>SealSecureChannel</td>
+        <td class="status-match">ENABLED</td>
+        <td>ENABLED</td>
+        <td class=""></td>
+        <td>1</td>
+        <td>1</td>
+    </tr>
+    
+    <tr class="row-match">
+        <td>SignSecureChannel</td>
+        <td class="status-match">ENABLED</td>
+        <td>ENABLED</td>
+        <td class=""></td>
+        <td>1</td>
+        <td>1</td>
+    </tr>
+    
         </tbody>
     </table>
 </div>
 
 </body>
 </html>
-"""
-
-output_html = 'newone.html'
-with open(output_html, 'w') as f:
-    f.write(html)
-
-webbrowser.open(f'file://{os.path.realpath(output_html)}')
-
-print(f"Merged HTML report with color-coded rows and 'Your Status' cell saved as {output_html} and opened in browser.")

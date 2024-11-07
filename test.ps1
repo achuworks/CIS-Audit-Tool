@@ -1,106 +1,14 @@
 Import-Module LAPS
 
+# Clear existing output CSV if it exists
+if (Test-Path "new.csv") {
+    Remove-Item "new.csv"
+}
+
+# Initialize the global array to store results
 $global:results = @()
-$regPath = "HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters"
-$valueName = "RequireSignOrSeal"
-$regPath2 = "HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters"
-$valueName2 = "SealSecureChannel"
-$regPath3 = "HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters"
-$valueName3 = "SignSecureChannel"
-$regPath4 = "HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters"
-$valueName4 = "DisablePasswordChange"
-$regPath5 = "HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters"
-$valueName5 = "MaximumPasswordAge"
-$regPath6 = "HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters"
-$valueName6 = "RequireStrongKey"
-#the below are from 9.1.1 to 9.1.7
-<#function CheckFirewall {
-    $firewallProfiles = Get-NetFirewallProfile
-    foreach ($profile in $firewallProfiles) {
-        if ($profile.Enabled -eq $true) {
-            Write-Host "$($profile.Name) Firewall ENABLED"
-        } else {
-            Write-Host "$($profile.Name) Firewall NOT ENABLED"
-        }
-    }
-}#>
-$regPath7 = "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile"
-$valueName7 = "EnableFirewall"
-$regPath8 = "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile"
-$valueName8 = "DefaultInboundAction"
-$regPath9 = "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile"
-$valueName9 = "DisableNotifications"
-$regPath10 = "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging"
-$valueName10 = "LogFilePath"
-$regPath11 = "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging"
-$valueName11="LogFileSize"
-$regPath12 = "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging"
-$valueName12 = "LogDroppedPackets"
-$regPath13="HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging"
-$valueName13="LogSuccessfulConnections"
-#18.4.1 UAC 
-$regPath14="HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
-$valueName14="LocalAccountTokenFilterPolicy"
-#18.6.4 DNS Client
-#18.6.4.1 DoH
-$regPath15="HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient"
-$valueName15="DoHPolicy"
-#18.6.4.2 NetBIOS
-$regPath16="HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient"
-$valueName16="EnableNetbios"
-#18.6.4.3 LLMNR
-$regPath17="HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient"
-$valueName17="EnableMulticast"
-#18.6.11.4 not allowing users to change the network connection (private,public,domain)
-$regPath18="HKLM:\SOFTWARE\Policies\Microsoft\Windows\Network Connections"
-$valueName18="NC_StdDomainUserSetLocation"#>
-#18.6.21.2 ensure not connection to non-domain network
-$regPath19="HKLM:\SOFTWARE\Policies\Microsoft\Windows\WcmSvc\GroupPolicy"
-$valueName19="fBlockNonDomain"
-#18.9.19.1 no background policy when logged in too 
-$regPath20="HKLM:\SOFTWARE\Policies\Microsoft\Windows\Group Policy\{35378EAC-683F-11D2-A89A-00C04FBBCFA2}"
-$valueName20="NoBackgroundPolicy"
 
-$regPath21="HKLM:\SOFTWARE\Policies\Microsoft\Windows\Group Policy\{35378EAC-683F-11D2-A89A-00C04FBBCFA2}"
-$valueName21="NoGPOListChanges"
-#18.9.19.4 no background policy when computer is running too
-$regPath22="HKLM:\SOFTWARE\Policies\Microsoft\Windows\Group Policy\{827D319E-6EAC-11D2-A4EA-00C04F79F83A}"
-$valueName22="NoBackgroundPolicy"
-#18.9.19.5 no GPO2
-$regPath23="HKLM:\SOFTWARE\Policies\Microsoft\Windows\Group Policy\{827D319E-6EAC-11D2-A4EA-00C04F79F83A}"
-$valueName23="NoGPOListChanges"
-#18.9.19.7 (6 Already available in Standalone) Updates on Group Policy even if computer is on
-$regPath24="HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
-$valueName24="DisableBkGndGroupPolicy"
-#18.9.25 goes from here 
-#18.9.25.1 LAPS AD
-$regPath25="HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\LAPS"
-$valueName25="BackupDirectory"#have to be downloaded from the official Microsoft website !!!! should be done later
-#18.9.28 LOGON
-$regPath26="HKLM:\SOFTWARE\Policies\Microsoft\Windows\System"
-$valueName26="DontEnumerateConnectedUsers"
-$regPath27="HKLM:\SOFTWARE\Policies\Microsoft\Windows\System"
-$valueName27="EnumerateLocalUsers"
-$regPath28="HKLM:\SOFTWARE\Policies\Microsoft\Windows\System"
-$valueName28="BlockDomainPicturePassword"
-#18.9.51.1.2 
-$regPath29="HKLM:\SOFTWARE\Policies\Microsoft\W32Time\TimeProviders\NtpServer"
-$valueName29="Enabled"
-$regPath30="HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\LAPS"
-$valueName30="PwdExpirationProtectionEnabled"
-$regPath31="HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\LAPS"
-$valueName31="ADPasswordEncryptionEnabled"
-$regPath32="HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\LAPS"
-$valueName32="PasswordComplexity"
-$regPath33="HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\LAPS"
-$valueName33="PasswordLength"
-$regPath34="HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\LAPS"
-$valueName34="PasswordAgeDays"
-$regPath35="HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\LAPS"
-$valueName35="PostAuthenticationResetDelay"
-$regPath36="HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\LAPS"
-$valueName36="PostAuthenticationActions"
-
+# Function to add results to the global array and CSV
 function Add-Result {
     param (
         [string]$Name,
@@ -114,51 +22,115 @@ function Add-Result {
     $result = [PSCustomObject]@{
         Name          = $Name
         Status        = $Status
-        StatusToBe    =$StatusToBe
+        StatusToBe    = $StatusToBe
         Severity      = $Severity
         CurrentValue  = $CurrentValue
         ExpectedValue = $ExpectedValue
         Message       = $Message
     }
-    $result | Export-Csv -Path "temp_output.csv" -NoTypeInformation -Append -Delimiter "|"
+
+    $global:results += $result # Collect results into the global array
+    
+    # Always export to CSV
+    $result | Export-Csv -Path "new.csv" -NoTypeInformation -Append -Delimiter "|"
 }
 
-# Template for exception handling in each function
-function Generic-Function-Template {
-    param([string]$functionName)
-    try {
-        # Original function logic here
-    }
-    catch [System.Management.Automation.ItemNotFoundException] {
-        Add-Result $functionName "ERROR" "HIGH" "N/A" "N/A" "Registry path not found: $($_.Exception.Message)"
-    }
-    catch [System.Management.Automation.PSArgumentException] {
-        Add-Result $functionName "ERROR" "HIGH" "N/A" "N/A" "Registry value not found: $($_.Exception.Message)"
-    }
-    catch {
-        Add-Result $functionName "ERROR" "HIGH" "N/A" "N/A" "Unexpected error: $($_.Exception.Message)"
-    }
+# Load settings from the JSON file
+$settingsFile = "C:\Users\AchuAbu\Desktop\SIH\solid-umbrella\auto_saved_settings.json"  # Update the path as needed
+if (-not (Test-Path $settingsFile)) {
+    Write-Host "Settings file not found."
+    exit
 }
 
-function RequireSignorSeal {
+# Parse the JSON content to get functions to run
+$settingsContent = Get-Content $settingsFile -Raw | ConvertFrom-Json
+# Parse the JSON content to get functions to run
+$settingsContent = Get-Content $settingsFile -Raw | ConvertFrom-Json
+# Initialize Registry Paths and Value Names
+$regPath = "HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters"
+$valueName = "RequireSignOrSeal"
+$regPath2 = "HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters"
+$valueName2 = "SealSecureChannel"
+$regPath3 = "HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters"
+$valueName3 = "SignSecureChannel"
+$regPath4 = "HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters"
+$valueName4 = "DisablePasswordChange"
+$regPath5 = "HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters"
+$valueName5 = "MaximumPasswordAge"
+$regPath6 = "HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters"
+$valueName6 = "RequireStrongKey"
+$regPath7 = "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile"
+$valueName7 = "EnableFirewall"
+$regPath8 = "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile"
+$valueName8 = "DefaultInboundAction"
+$regPath9 = "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile"
+$valueName9 = "DisableNotifications"
+$regPath10 = "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging"
+$valueName10 = "LogFilePath"
+$regPath11 = "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging"
+$valueName11 = "LogFileSize"
+$regPath12 = "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging"
+$valueName12 = "LogDroppedPackets"
+$regPath13 = "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging"
+$valueName13 = "LogSuccessfulConnections"
+$regPath14 = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
+$valueName14 = "LocalAccountTokenFilterPolicy"
+$regPath15 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient"
+$valueName15 = "DoHPolicy"
+$regPath16 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient"
+$valueName16 = "EnableNetbios"
+$regPath17 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient"
+$valueName17 = "EnableMulticast"
+$regPath18 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Network Connections"
+$valueName18 = "NC_StdDomainUserSetLocation"
+$regPath19 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WcmSvc\GroupPolicy"
+$valueName19 = "fBlockNonDomain"
+$regPath20 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Group Policy\{35378EAC-683F-11D2-A89A-00C04FBBCFA2}"
+$valueName20 = "NoBackgroundPolicy"
+$regPath21 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Group Policy\{35378EAC-683F-11D2-A89A-00C04FBBCFA2}"
+$valueName21 = "NoGPOListChanges"
+$regPath22 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Group Policy\{827D319E-6EAC-11D2-A4EA-00C04F79F83A}"
+$valueName22 = "NoBackgroundPolicy"
+$regPath23 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Group Policy\{827D319E-6EAC-11D2-A4EA-00C04F79F83A}"
+$valueName23 = "NoGPOListChanges"
+$regPath24 = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
+$valueName24 = "DisableBkGndGroupPolicy"
+$regPath25 = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\LAPS"
+$valueName25 = "BackupDirectory"
+$regPath26 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System"
+$valueName26 = "DontEnumerateConnectedUsers"
+$regPath27 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System"
+$valueName27 = "EnumerateLocalUsers"
+$regPath28 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System"
+$valueName28 = "BlockDomainPicturePassword"
+$regPath29 = "HKLM:\SOFTWARE\Policies\Microsoft\W32Time\TimeProviders\NtpServer"
+$valueName29 = "Enabled"
+$regPath30 = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\LAPS"
+$valueName30 = "PwdExpirationProtectionEnabled"
+$regPath31 = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\LAPS"
+$valueName31 = "ADPasswordEncryptionEnabled"
+$regPath32 = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\LAPS"
+$valueName32 = "PasswordComplexity"
+$regPath33 = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\LAPS"
+$valueName33 = "PasswordLength"
+$regPath34 = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\LAPS"
+$valueName34 = "PasswordAgeDays"
+$regPath35 = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\LAPS"
+$valueName35 = "PostAuthenticationResetDelay"
+$regPath36 = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\LAPS"
+$valueName36 = "PostAuthenticationActions"
+
+function RequireSignOrSeal {
     try {
         $currentValue = Get-ItemProperty -Path $regPath -Name $valueName -ErrorAction Stop
         $currentValuee = $currentValue.$valueName
         if ($currentValuee -eq 1) {
             Add-Result "RequireSignOrSeal" "ENABLED" "ENABLED" "" $currentValuee 1
-        }
-        else {
+        } else {
             Add-Result "RequireSignOrSeal" "NOT ENABLED" "ENABLED" "MEDIUM" $currentValuee 1
         }
-    }
-    catch [System.Management.Automation.ItemNotFoundException] {
-        Add-Result "RequireSignOrSeal" "ERROR" "HIGH" "N/A" "1" "Registry path not found: $($_.Exception.Message)"
-    }
-    catch [System.Management.Automation.PSArgumentException] {
-        Add-Result "RequireSignOrSeal" "ERROR" "HIGH" "N/A" "1" "Registry value not found: $($_.Exception.Message)"
-    }
-    catch {
-        Add-Result "RequireSignOrSeal" "ERROR" "HIGH" "N/A" "1" "Unexpected error: $($_.Exception.Message)"
+    } catch {
+        Add-Result "RequireSignOrSeal" "ERROR" "ENABLED" "HIGH" "1" "Registry path not found: $($_.Exception.Message)"
     }
 }
 
@@ -166,63 +138,43 @@ function SealSecureChannel {
     try {
         $currentValue2 = Get-ItemProperty -Path $regPath2 -Name $valueName2 -ErrorAction Stop
         $currentValuee2 = $currentValue2.$valueName2
-        if($currentValuee2 -eq 1){
+        if ($currentValuee2 -eq 1) {
             Add-Result "SealSecureChannel" "ENABLED" "ENABLED" "" $currentValuee2 1
-        }else{
+        } else {
             Add-Result "SealSecureChannel" "NOT ENABLED" "ENABLED" "MEDIUM" $currentValuee2 1
         }
-    }
-    catch [System.Management.Automation.ItemNotFoundException] {
-        Add-Result "SealSecureChannel" "ERROR" "HIGH" "N/A" "1" "Registry path not found: $($_.Exception.Message)"
-    }
-    catch [System.Management.Automation.PSArgumentException] {
-        Add-Result "SealSecureChannel" "ERROR" "HIGH" "N/A" "1" "Registry value not found: $($_.Exception.Message)"
-    }
-    catch {
-        Add-Result "SealSecureChannel" "ERROR" "HIGH" "N/A" "1" "Unexpected error: $($_.Exception.Message)"
+    } catch {
+        Add-Result "SealSecureChannel" "ERROR" "ENABLED" "HIGH" "1" "Registry path not found: $($_.Exception.Message)"
     }
 }
 
-# Continue this pattern for all other functions...
+
 function SignSecureChannel {
     try {
         $currentValue3 = Get-ItemProperty -Path $regPath3 -Name $valueName3 -ErrorAction Stop
         $currentValuee3 = $currentValue3.$valueName3
-        if($currentValuee3 -eq 1){
+        if ($currentValuee3 -eq 1) {
             Add-Result "SignSecureChannel" "ENABLED" "ENABLED" "" $currentValuee3 1
-        }else{
+        } else {
             Add-Result "SignSecureChannel" "NOT ENABLED" "ENABLED" "MEDIUM" $currentValuee3 1
         }
-    }
-    catch [System.Management.Automation.ItemNotFoundException] {
-        Add-Result "SignSecureChannel" "ERROR" "HIGH" "N/A" "1" "Registry path not found: $($_.Exception.Message)"
-    }
-    catch [System.Management.Automation.PSArgumentException] {
-        Add-Result "SignSecureChannel" "ERROR" "HIGH" "N/A" "1" "Registry value not found: $($_.Exception.Message)"
-    }
-    catch {
-        Add-Result "SignSecureChannel" "ERROR" "HIGH" "N/A" "1" "Unexpected error: $($_.Exception.Message)"
+    } catch {
+        Add-Result "SignSecureChannel" "ERROR" "ENABLED" "HIGH" "1" "Registry path not found: $($_.Exception.Message)"
     }
 }
 
+# Example Functions for other registry values
 function DisablePasswordChange {
     try {
         $currentValue4 = Get-ItemProperty -Path $regPath4 -Name $valueName4 -ErrorAction Stop
         $currentValuee4 = $currentValue4.$valueName4
-        if($currentValuee4 -eq 1){
-            Add-Result "DisablePasswordChange" "ENABLED" "NOT ENABLED" "" $currentValuee4 1
-        }else{
-            Add-Result "DisablePasswordChange" "NOT ENABLED" "NOT ENABLED" "MEDIUM" $currentValuee4 1
+        if ($currentValuee4 -eq 1) {
+            Add-Result "DisablePasswordChange" "ENABLED" "NOT ENABLED" "MEDIUM" $currentValuee4 1
+        } else {
+            Add-Result "DisablePasswordChange" "NOT ENABLED" "NOT ENABLED" "" $currentValuee4 1
         }
-    }
-    catch [System.Management.Automation.ItemNotFoundException] {
-        Add-Result "DisablePasswordChange" "ERROR" "HIGH" "N/A" "1" "Registry path not found: $($_.Exception.Message)"
-    }
-    catch [System.Management.Automation.PSArgumentException] {
-        Add-Result "DisablePasswordChange" "ERROR" "HIGH" "N/A" "1" "Registry value not found: $($_.Exception.Message)"
-    }
-    catch {
-        Add-Result "DisablePasswordChange" "ERROR" "HIGH" "N/A" "1" "Unexpected error: $($_.Exception.Message)"
+    } catch {
+        Add-Result "DisablePasswordChange" "ERROR" "NOT ENABLED" "MEDIUM" "1" "Registry path not found: $($_.Exception.Message)"
     }
 }
 
@@ -230,20 +182,13 @@ function MaximumPasswordAge {
     try {
         $currentValue5 = Get-ItemProperty -Path $regPath5 -Name $valueName5 -ErrorAction Stop
         $currentValuee5 = $currentValue5.$valueName5
-        if($currentValuee5 -eq 30){
+        if ($currentValuee5 -eq 30) {
             Add-Result "MaximumPasswordAge" "ENABLED" "ENABLED" "" $currentValuee5 30
-        }else{
+        } else {
             Add-Result "MaximumPasswordAge" "NOT ENABLED" "ENABLED" "HIGH" $currentValuee5 30
         }
-    }
-    catch [System.Management.Automation.ItemNotFoundException] {
-        Add-Result "MaximumPasswordAge" "ERROR" "HIGH" "N/A" "30" "Registry path not found: $($_.Exception.Message)"
-    }
-    catch [System.Management.Automation.PSArgumentException] {
-        Add-Result "MaximumPasswordAge" "ERROR" "HIGH" "N/A" "30" "Registry value not found: $($_.Exception.Message)"
-    }
-    catch {
-        Add-Result "MaximumPasswordAge" "ERROR" "HIGH" "N/A" "30" "Unexpected error: $($_.Exception.Message)"
+    } catch {
+        Add-Result "MaximumPasswordAge" "ERROR" "ENABLED" "HIGH" "30" "Registry path not found: $($_.Exception.Message)"
     }
 }
 
@@ -251,22 +196,18 @@ function RequireStrongKey {
     try {
         $currentValue6 = Get-ItemProperty -Path $regPath6 -Name $valueName6 -ErrorAction Stop
         $currentValuee6 = $currentValue6.$valueName6
-        if($currentValuee6 -eq 1){
+        if ($currentValuee6 -eq 1) {
             Add-Result "RequireStrongKey" "ENABLED" "ENABLED" "" $currentValuee6 1
-        }else{
+        } else {
             Add-Result "RequireStrongKey" "NOT ENABLED" "ENABLED" "HIGH" $currentValuee6 1
         }
-    }
-    catch [System.Management.Automation.ItemNotFoundException] {
-        Add-Result "RequireStrongKey" "ERROR" "HIGH" "N/A" "1" "Registry path not found: $($_.Exception.Message)"
-    }
-    catch [System.Management.Automation.PSArgumentException] {
-        Add-Result "RequireStrongKey" "ERROR" "HIGH" "N/A" "1" "Registry value not found: $($_.Exception.Message)"
-    }
-    catch {
-        Add-Result "RequireStrongKey" "ERROR" "HIGH" "N/A" "1" "Unexpected error: $($_.Exception.Message)"
+    } catch {
+        Add-Result "RequireStrongKey" "ERROR" "ENABLED" "HIGH" "1" "Registry path not found: $($_.Exception.Message)"
     }
 }
+
+# Similarly add more functions for each registry key as shown above
+
 
 function EnableFirewall {
     try {
@@ -279,13 +220,13 @@ function EnableFirewall {
         }
     }
     catch [System.Management.Automation.ItemNotFoundException] {
-        Add-Result "Firewall state" "ERROR" "HIGH" "N/A" "1" "Registry path not found: $($_.Exception.Message)"
+        Add-Result "Firewall state" "ERROR" "ENABLED" "HIGH" "1" "Registry path not found: $($_.Exception.Message)"
     }
     catch [System.Management.Automation.PSArgumentException] {
-        Add-Result "Firewall state" "ERROR" "HIGH" "N/A" "1" "Registry value not found: $($_.Exception.Message)"
+        Add-Result "Firewall state" "ERROR" "ENABLED" "HIGH" "1" "Registry value not found: $($_.Exception.Message)"
     }
     catch {
-        Add-Result "Firewall state" "ERROR" "HIGH" "N/A" "1" "Unexpected error: $($_.Exception.Message)"
+        Add-Result "Firewall state" "ERROR" "ENABLED" "HIGH" "1" "Unexpected error: $($_.Exception.Message)"
     }
 }
 
@@ -300,13 +241,13 @@ function DefaultInbound {
         }
     }
     catch [System.Management.Automation.ItemNotFoundException] {
-        Add-Result "DefaultInbound" "ERROR" "HIGH" "N/A" "1" "Registry path not found: $($_.Exception.Message)"
+        Add-Result "DefaultInbound" "ERROR" "ENABLED" "MEDIUM" "1" "Registry path not found: $($_.Exception.Message)"
     }
     catch [System.Management.Automation.PSArgumentException] {
-        Add-Result "DefaultInbound" "ERROR" "HIGH" "N/A" "1" "Registry value not found: $($_.Exception.Message)"
+        Add-Result "DefaultInbound" "ERROR" "ENABLED" "MEDIUM" "1" "Registry value not found: $($_.Exception.Message)"
     }
     catch {
-        Add-Result "DefaultInbound" "ERROR" "HIGH" "N/A" "1" "Unexpected error: $($_.Exception.Message)"
+        Add-Result "DefaultInbound" "ERROR" "ENABLED" "MEDIUM" "1" "Unexpected error: $($_.Exception.Message)"
     }
 }
 
@@ -321,13 +262,13 @@ function DisableNotifications {
         }
     }
     catch [System.Management.Automation.ItemNotFoundException] {
-        Add-Result "DisableNotifications" "ERROR" "HIGH" "N/A" "1" "Registry path not found: $($_.Exception.Message)"
+        Add-Result "DisableNotifications" "ERROR" "NOT ENABLED" "MEDIUM" "1" "Registry path not found: $($_.Exception.Message)"
     }
     catch [System.Management.Automation.PSArgumentException] {
-        Add-Result "DisableNotifications" "ERROR" "HIGH" "N/A" "1" "Registry value not found: $($_.Exception.Message)"
+        Add-Result "DisableNotifications" "ERROR" "NOT ENABLED" "MEDIUM" "1" "Registry value not found: $($_.Exception.Message)"
     }
     catch {
-        Add-Result "DisableNotifications" "ERROR" "HIGH" "N/A" "1" "Unexpected error: $($_.Exception.Message)"
+        Add-Result "DisableNotifications" "ERROR" "NOT ENABLED" "MEDIUM" "1" "Unexpected error: $($_.Exception.Message)"
     }
 }
 
@@ -343,13 +284,13 @@ function LogFilePath {
         }
     }
     catch [System.Management.Automation.ItemNotFoundException] {
-        Add-Result "LogFilePath" "ERROR" "HIGH" "N/A" "$expectedLogFilePath" "Registry path not found: $($_.Exception.Message)"
+        Add-Result "LogFilePath" "ERROR" "ENABLED" "MEDIUM" "$expectedLogFilePath" "Registry path not found: $($_.Exception.Message)"
     }
     catch [System.Management.Automation.PSArgumentException] {
-        Add-Result "LogFilePath" "ERROR" "HIGH" "N/A" "$expectedLogFilePath" "Registry value not found: $($_.Exception.Message)"
+        Add-Result "LogFilePath" "ERROR" "ENABLED" "MEDIUM" "$expectedLogFilePath" "Registry value not found: $($_.Exception.Message)"
     }
     catch {
-        Add-Result "LogFilePath" "ERROR" "HIGH" "N/A" "$expectedLogFilePath" "Unexpected error: $($_.Exception.Message)"
+        Add-Result "LogFilePath" "ERROR" "ENABLED" "MEDIUM" "$expectedLogFilePath" "Unexpected error: $($_.Exception.Message)"
     }
 }
 
@@ -364,13 +305,13 @@ function LogFileSize {
         }
     }
     catch [System.Management.Automation.ItemNotFoundException] {
-        Add-Result "LogFileSize" "ERROR" "HIGH" "N/A" "16384" "Registry path not found: $($_.Exception.Message)"
+        Add-Result "LogFileSize" "ERROR" "SET TO 16384" "MEDIUM" "16384" "Registry path not found: $($_.Exception.Message)"
     }
     catch [System.Management.Automation.PSArgumentException] {
-        Add-Result "LogFileSize" "ERROR" "HIGH" "N/A" "16384" "Registry value not found: $($_.Exception.Message)"
+        Add-Result "LogFileSize" "ERROR" "SET TO 16384" "MEDIUM" "16384" "Registry value not found: $($_.Exception.Message)"
     }
     catch {
-        Add-Result "LogFileSize" "ERROR" "HIGH" "N/A" "16384" "Unexpected error: $($_.Exception.Message)"
+        Add-Result "LogFileSize" "ERROR" "SET TO 16384" "MEDIUM" "16384" "Unexpected error: $($_.Exception.Message)"
     }
 }
 
@@ -385,13 +326,13 @@ function LogDroppedPackets {
         }
     }
     catch [System.Management.Automation.ItemNotFoundException] {
-        Add-Result "Log Dropped Packets" "ERROR" "HIGH" "N/A" "1" "Registry path not found: $($_.Exception.Message)"
+        Add-Result "Log Dropped Packets" "ERROR" "ENABLED" "HIGH" "1" "Registry path not found: $($_.Exception.Message)"
     }
     catch [System.Management.Automation.PSArgumentException] {
-        Add-Result "Log Dropped Packets" "ERROR" "HIGH" "N/A" "1" "Registry value not found: $($_.Exception.Message)"
+        Add-Result "Log Dropped Packets" "ERROR" "ENABLED" "HIGH" "1" "Registry value not found: $($_.Exception.Message)"
     }
     catch {
-        Add-Result "Log Dropped Packets" "ERROR" "HIGH" "N/A" "1" "Unexpected error: $($_.Exception.Message)"
+        Add-Result "Log Dropped Packets" "ERROR" "ENABLED" "HIGH" "1" "Unexpected error: $($_.Exception.Message)"
     }
 }
 
@@ -406,13 +347,13 @@ function LogSuccessfulConnections {
         }
     }
     catch [System.Management.Automation.ItemNotFoundException] {
-        Add-Result "LogSuccessfulConnections" "ERROR" "HIGH" "N/A" "1" "Registry path not found: $($_.Exception.Message)"
+        Add-Result "LogSuccessfulConnections" "ERROR" "ENABLED" "HIGH" "1" "Registry path not found: $($_.Exception.Message)"
     }
     catch [System.Management.Automation.PSArgumentException] {
-        Add-Result "LogSuccessfulConnections" "ERROR" "HIGH" "N/A" "1" "Registry value not found: $($_.Exception.Message)"
+        Add-Result "LogSuccessfulConnections" "ERROR" "ENABLED" "HIGH" "1" "Registry value not found: $($_.Exception.Message)"
     }
     catch {
-        Add-Result "LogSuccessfulConnections" "ERROR" "HIGH" "N/A" "1" "Unexpected error: $($_.Exception.Message)"
+        Add-Result "LogSuccessfulConnections" "ERROR" "ENABLED" "HIGH" "1" "Unexpected error: $($_.Exception.Message)"
     }
 }
 
@@ -427,13 +368,13 @@ function LocalAccountTokenFilterPolicy {
         }
     }
     catch [System.Management.Automation.ItemNotFoundException] {
-        Add-Result "LocalAccountTokenFilterPolicy" "ERROR" "MEDIUM" "N/A" "0" "Registry path not found: $($_.Exception.Message)"
+        Add-Result "LocalAccountTokenFilterPolicy" "ERROR" "ENABLED" "MEDIUM" "0" "Registry path not found: $($_.Exception.Message)"
     }
     catch [System.Management.Automation.PSArgumentException] {
-        Add-Result "LocalAccountTokenFilterPolicy" "ERROR" "MEDIUM" "N/A" "0" "Registry value not found: $($_.Exception.Message)"
+        Add-Result "LocalAccountTokenFilterPolicy" "ERROR" "ENABLED" "MEDIUM" "0" "Registry value not found: $($_.Exception.Message)"
     }
     catch {
-        Add-Result "LocalAccountTokenFilterPolicy" "ERROR" "MEDIUM" "N/A" "0" "Unexpected error: $($_.Exception.Message)"
+        Add-Result "LocalAccountTokenFilterPolicy" "ERROR" "ENABLED" "MEDIUM" "0" "Unexpected error: $($_.Exception.Message)"
     }
 }
 
@@ -449,13 +390,13 @@ function DoHPolicy {
         }
     }
     catch [System.Management.Automation.ItemNotFoundException] {
-        Add-Result "DoHPolicy" "ERROR" "MEDIUM" "N/A" "2 or 3" "Registry path not found: $($_.Exception.Message)"
+        Add-Result "DoHPolicy" "ERROR" "ENABLED" "MEDIUM" "2 or 3" "Registry path not found: $($_.Exception.Message)"
     }
     catch [System.Management.Automation.PSArgumentException] {
-        Add-Result "DoHPolicy" "ERROR" "MEDIUM" "N/A" "2 or 3" "Registry value not found: $($_.Exception.Message)"
+        Add-Result "DoHPolicy" "ERROR" "ENABLED" "MEDIUM" "2 or 3" "Registry value not found: $($_.Exception.Message)"
     }
     catch {
-        Add-Result "DoHPolicy" "ERROR" "MEDIUM" "N/A" "2 or 3" "Unexpected error: $($_.Exception.Message)"
+        Add-Result "DoHPolicy" "ERROR" "ENABLED" "MEDIUM" "2 or 3" "Unexpected error: $($_.Exception.Message)"
     }
 }
 
@@ -471,13 +412,13 @@ function EnableNetbios {
         }
     }
     catch [System.Management.Automation.ItemNotFoundException] {
-        Add-Result "NetBIOS" "ERROR" "LOW" "N/A" "0" "Registry path not found: $($_.Exception.Message)"
+        Add-Result "NetBIOS" "ERROR" "ENABLED" "LOW" "0" "Registry path not found: $($_.Exception.Message)"
     }
     catch [System.Management.Automation.PSArgumentException] {
-        Add-Result "NetBIOS" "ERROR" "LOW" "N/A" "0" "Registry value not found: $($_.Exception.Message)"
+        Add-Result "NetBIOS" "ERROR" "ENABLED" "LOW" "0" "Registry value not found: $($_.Exception.Message)"
     }
     catch {
-        Add-Result "NetBIOS" "ERROR" "LOW" "N/A" "0" "Unexpected error: $($_.Exception.Message)"
+        Add-Result "NetBIOS" "ERROR" "ENABLED" "LOW" "0" "Unexpected error: $($_.Exception.Message)"
     }
 }
 
@@ -492,13 +433,13 @@ function EnableMulticast {
         }
     }
     catch [System.Management.Automation.ItemNotFoundException] {
-        Add-Result "EnableMulticast" "ERROR" "LOW" "N/A" "0" "Registry path not found: $($_.Exception.Message)"
+        Add-Result "EnableMulticast" "ERROR" "ENABLED" "LOW" "0" "Registry path not found: $($_.Exception.Message)"
     }
     catch [System.Management.Automation.PSArgumentException] {
-        Add-Result "EnableMulticast" "ERROR" "LOW" "N/A" "0" "Registry value not found: $($_.Exception.Message)"
+        Add-Result "EnableMulticast" "ERROR" "ENABLED" "LOW" "0" "Registry value not found: $($_.Exception.Message)"
     }
     catch {
-        Add-Result "EnableMulticast" "ERROR" "LOW" "N/A" "0" "Unexpected error: $($_.Exception.Message)"
+        Add-Result "EnableMulticast" "ERROR" "ENABLED" "LOW" "0" "Unexpected error: $($_.Exception.Message)"
     }
 }
 
@@ -513,13 +454,13 @@ function NC_StdDomainUserSetLocation {
         }
     }
     catch [System.Management.Automation.ItemNotFoundException] {
-        Add-Result "NC_StdDomainUserSetLocation" "ERROR" "LOW" "N/A" "1" "Registry path not found: $($_.Exception.Message)"
+        Add-Result "NC_StdDomainUserSetLocation" "ERROR" "ENABLED" "LOW" "1" "Registry path not found: $($_.Exception.Message)"
     }
     catch [System.Management.Automation.PSArgumentException] {
-        Add-Result "NC_StdDomainUserSetLocation" "ERROR" "LOW" "N/A" "1" "Registry value not found: $($_.Exception.Message)"
+        Add-Result "NC_StdDomainUserSetLocation" "ERROR" "ENABLED" "LOW" "1" "Registry value not found: $($_.Exception.Message)"
     }
     catch {
-        Add-Result "NC_StdDomainUserSetLocation" "ERROR" "LOW" "N/A" "1" "Unexpected error: $($_.Exception.Message)"
+        Add-Result "NC_StdDomainUserSetLocation" "ERROR" "ENABLED" "LOW" "1" "Unexpected error: $($_.Exception.Message)"
     }
 }
 
@@ -534,13 +475,13 @@ function fBlockNonDomain {
         }
     }
     catch [System.Management.Automation.ItemNotFoundException] {
-        Add-Result "fBlockNonDomain" "ERROR" "LOW" "N/A" "1" "Registry path not found: $($_.Exception.Message)"
+        Add-Result "fBlockNonDomain" "ERROR" "ENABLED" "LOW" "1" "Registry path not found: $($_.Exception.Message)"
     }
     catch [System.Management.Automation.PSArgumentException] {
-        Add-Result "fBlockNonDomain" "ERROR" "LOW" "N/A" "1" "Registry value not found: $($_.Exception.Message)"
+        Add-Result "fBlockNonDomain" "ERROR" "ENABLED" "LOW" "1" "Registry value not found: $($_.Exception.Message)"
     }
     catch {
-        Add-Result "fBlockNonDomain" "ERROR" "LOW" "N/A" "1" "Unexpected error: $($_.Exception.Message)"
+        Add-Result "fBlockNonDomain" "ERROR" "ENABLED" "LOW" "1" "Unexpected error: $($_.Exception.Message)"
     }
 }
 
@@ -555,13 +496,13 @@ function NoBackgroundPolicy {
         }
     }
     catch [System.Management.Automation.ItemNotFoundException] {
-        Add-Result "NoBackgroundPolicy" "ERROR" "LOW" "N/A" "0" "Registry path not found: $($_.Exception.Message)"
+        Add-Result "NoBackgroundPolicy" "ERROR" "ENABLED" "LOW" "0" "Registry path not found: $($_.Exception.Message)"
     }
     catch [System.Management.Automation.PSArgumentException] {
-        Add-Result "NoBackgroundPolicy" "ERROR" "LOW" "N/A" "0" "Registry value not found: $($_.Exception.Message)"
+        Add-Result "NoBackgroundPolicy" "ERROR" "ENABLED" "LOW" "0" "Registry value not found: $($_.Exception.Message)"
     }
     catch {
-        Add-Result "NoBackgroundPolicy" "ERROR" "LOW" "N/A" "0" "Unexpected error: $($_.Exception.Message)"
+        Add-Result "NoBackgroundPolicy" "ERROR" "ENABLED" "LOW" "0" "Unexpected error: $($_.Exception.Message)"
     }
 }
 
@@ -576,13 +517,13 @@ function NoGPOListChanges {
         }
     }
     catch [System.Management.Automation.ItemNotFoundException] {
-        Add-Result "NoGPOListChanges" "ERROR" "LOW" "N/A" "0" "Registry path not found: $($_.Exception.Message)"
+        Add-Result "NoGPOListChanges" "ERROR" "ENABLED" "LOW" "0" "Registry path not found: $($_.Exception.Message)"
     }
     catch [System.Management.Automation.PSArgumentException] {
-        Add-Result "NoGPOListChanges" "ERROR" "LOW" "N/A" "0" "Registry value not found: $($_.Exception.Message)"
+        Add-Result "NoGPOListChanges" "ERROR" "ENABLED" "LOW" "0" "Registry value not found: $($_.Exception.Message)"
     }
     catch {
-        Add-Result "NoGPOListChanges" "ERROR" "LOW" "N/A" "0" "Unexpected error: $($_.Exception.Message)"
+        Add-Result "NoGPOListChanges" "ERROR" "ENABLED" "LOW" "0" "Unexpected error: $($_.Exception.Message)"
     }
 }
 
@@ -597,13 +538,13 @@ function NoBackgroundPolicy2 {
         }
     }
     catch [System.Management.Automation.ItemNotFoundException] {
-        Add-Result "NoBackgroundPolicy2" "ERROR" "LOW" "N/A" "0" "Registry path not found: $($_.Exception.Message)"
+        Add-Result "NoBackgroundPolicy2" "ERROR" "ENABLED" "LOW" "0" "Registry path not found: $($_.Exception.Message)"
     }
     catch [System.Management.Automation.PSArgumentException] {
-        Add-Result "NoBackgroundPolicy2" "ERROR" "LOW" "N/A" "0" "Registry value not found: $($_.Exception.Message)"
+        Add-Result "NoBackgroundPolicy2" "ERROR" "ENABLED" "LOW" "0" "Registry value not found: $($_.Exception.Message)"
     }
     catch {
-        Add-Result "NoBackgroundPolicy2" "ERROR" "LOW" "N/A" "0" "Unexpected error: $($_.Exception.Message)"
+        Add-Result "NoBackgroundPolicy2" "ERROR" "ENABLED" "LOW" "0" "Unexpected error: $($_.Exception.Message)"
     }
 }
 
@@ -618,13 +559,13 @@ function NoGPOListChanges2 {
         }
     }
     catch [System.Management.Automation.ItemNotFoundException] {
-        Add-Result "NoGPOListChanges2" "ERROR" "LOW" "N/A" "0" "Registry path not found: $($_.Exception.Message)"
+        Add-Result "NoGPOListChanges2" "ERROR" "ENABLED" "LOW" "0" "Registry path not found: $($_.Exception.Message)"
     }
     catch [System.Management.Automation.PSArgumentException] {
-        Add-Result "NoGPOListChanges2" "ERROR" "LOW" "N/A" "0" "Registry value not found: $($_.Exception.Message)"
+        Add-Result "NoGPOListChanges2" "ERROR" "ENABLED" "LOW" "0" "Registry value not found: $($_.Exception.Message)"
     }
     catch {
-        Add-Result "NoGPOListChanges2" "ERROR" "LOW" "N/A" "0" "Unexpected error: $($_.Exception.Message)"
+        Add-Result "NoGPOListChanges2" "ERROR" "ENABLED" "LOW" "0" "Unexpected error: $($_.Exception.Message)"
     }
 }
 
@@ -639,13 +580,13 @@ function DisableBkGndGroupPolicy {
         }
     }
     catch [System.Management.Automation.ItemNotFoundException] {
-        Add-Result "Disable Background Group Policy" "ERROR" "MEDIUM" "N/A" "0" "Registry path not found: $($_.Exception.Message)"
+        Add-Result "Disable Background Group Policy" "ERROR" "NOT ENABLED" "MEDIUM" "0" "Registry path not found: $($_.Exception.Message)"
     }
     catch [System.Management.Automation.PSArgumentException] {
-        Add-Result "Disable Background Group Policy" "ERROR" "MEDIUM" "N/A" "0" "Registry value not found: $($_.Exception.Message)"
+        Add-Result "Disable Background Group Policy" "ERROR" "NOT ENABLED" "MEDIUM" "0" "Registry value not found: $($_.Exception.Message)"
     }
     catch {
-        Add-Result "Disable Background Group Policy" "ERROR" "MEDIUM" "N/A" "0" "Unexpected error: $($_.Exception.Message)"
+        Add-Result "Disable Background Group Policy" "ERROR" "NOT ENABLED" "MEDIUM" "0" "Unexpected error: $($_.Exception.Message)"
     }
 }
 
@@ -660,11 +601,11 @@ function BackupDirectory {
             Add-Result "LAPS BackupDirectory" "NOT ENABLED" "ENABLED" "LOW" $currentValuee25 "1 or 2"
         }
     } catch [System.Management.Automation.ItemNotFoundException] {
-        Add-Result "LAPS BackupDirectory" "ERROR" "MEDIUM" "N/A" "0" "Registry path not found: $($_.Exception.Message)"
+        Add-Result "LAPS BackupDirectory" "ERROR" "ENABLED" "LOW" "0" "Registry path not found: $($_.Exception.Message)"
     } catch [System.Management.Automation.PSArgumentException] {
-        Add-Result "LAPS BackupDirectory" "ERROR" "MEDIUM" "N/A" "0" "Registry value not found: $($_.Exception.Message)"
+        Add-Result "LAPS BackupDirectory" "ERROR" "ENABLED" "LOW" "0" "Registry value not found: $($_.Exception.Message)"
     } catch {
-        Add-Result "LAPS BackupDirectory" "ERROR" "MEDIUM" "N/A" "0" "Unexpected error: $($_.Exception.Message)"
+        Add-Result "LAPS BackupDirectory" "ERROR" "ENABLED" "LOW" "0" "Unexpected error: $($_.Exception.Message)"
     }
 }
 
@@ -678,7 +619,7 @@ function DontEnumerateConnectedUsers {
             Add-Result "DontEnumerateConnectedUsers" "NOT ENABLED" "ENABLED" "LOW" $currentValuee26 1
         }
     } catch {
-        Add-Result "DontEnumerateConnectedUsers" "ERROR" "MEDIUM" "N/A" "0" "Error retrieving registry value: $($_.Exception.Message)"
+        Add-Result "DontEnumerateConnectedUsers" "ERROR" "ENABLED" "LOW" "0" "Error retrieving registry value: $($_.Exception.Message)"
     }
 }
 
@@ -692,7 +633,7 @@ function EnumerateLocalUsers {
             Add-Result "EnumerateLocalUsers" "NOT ENABLED" "NOT ENABLED" "LOW" $currentValuee27 0
         }
     } catch {
-        Add-Result "EnumerateLocalUsers" "ERROR" "MEDIUM" "N/A" "0" "Error retrieving registry value: $($_.Exception.Message)"
+        Add-Result "EnumerateLocalUsers" "ERROR" "NOT ENABLED" "LOW" "0" "Error retrieving registry value: $($_.Exception.Message)"
     }
 }
 
@@ -706,7 +647,7 @@ function BlockDomainPicturePassword {
             Add-Result "BlockDomainPicturePassword" "NOT ENABLED" "ENABLED" "LOW" $currentValuee28 1
         }
     } catch {
-        Add-Result "BlockDomainPicturePassword" "ERROR" "MEDIUM" "N/A" "0" "Error retrieving registry value: $($_.Exception.Message)"
+        Add-Result "BlockDomainPicturePassword" "ERROR" "ENABLED" "LOW" "0" "Error retrieving registry value: $($_.Exception.Message)"
     }
 }
 
@@ -720,7 +661,7 @@ function Enabled {
             Add-Result "NTPEnabled" "NOT ENABLED" "ENABLED" "LOW" $currentValuee29 0
         }
     } catch {
-        Add-Result "NTPEnabled" "ERROR" "MEDIUM" "N/A" "0" "Error retrieving registry value: $($_.Exception.Message)"
+        Add-Result "NTPEnabled" "ERROR" "ENABLED" "LOW" "0" "Error retrieving registry value: $($_.Exception.Message)"
     }
 }
 
@@ -734,7 +675,7 @@ function PwdExpirationProtectionEnabled {
             Add-Result "PwdExpirationProtection" "NOT ENABLED" "ENABLED" "HIGH" $currentValuee30 1
         }
     } catch {
-        Add-Result "PwdExpirationProtection" "ERROR" "MEDIUM" "N/A" "0" "Error retrieving registry value: $($_.Exception.Message)"
+        Add-Result "PwdExpirationProtection" "ERROR" "ENABLED" "HIGH" "0" "Error retrieving registry value: $($_.Exception.Message)"
     }
 }
 
@@ -748,7 +689,7 @@ function ADPasswordEncryptionEnabled {
             Add-Result "ADPasswordEncryptionEnabled" "NOT ENABLED" "ENABLED" "HIGH" $currentValuee31 1
         }
     } catch {
-        Add-Result "ADPasswordEncryptionEnabled" "ERROR" "MEDIUM" "N/A" "0" "Error retrieving registry value: $($_.Exception.Message)"
+        Add-Result "ADPasswordEncryptionEnabled" "ERROR" "ENABLED" "HIGH" "0" "Error retrieving registry value: $($_.Exception.Message)"
     }
 }
 
@@ -762,7 +703,7 @@ function PasswordComplexity {
             Add-Result "PasswordComplexity" "NOT ENABLED" "ENABLED" "HIGH" $currentValuee32 4
         }
     } catch {
-        Add-Result "PasswordComplexity" "ERROR" "MEDIUM" "N/A" "0" "Error retrieving registry value: $($_.Exception.Message)"
+        Add-Result "PasswordComplexity" "ERROR" "ENABLED" "HIGH" "0" "Error retrieving registry value: $($_.Exception.Message)"
     }
 }
 
@@ -776,7 +717,7 @@ function PasswordLength {
             Add-Result "PasswordLength" "NOT ENABLED" "ENABLED" "MEDIUM" $currentValuee33 15
         }
     } catch {
-        Add-Result "PasswordLength" "ERROR" "MEDIUM" "N/A" "0" "Error retrieving registry value: $($_.Exception.Message)"
+        Add-Result "PasswordLength" "ERROR" "ENABLED" "MEDIUM" "0" "Error retrieving registry value: $($_.Exception.Message)"
     }
 }
 
@@ -790,7 +731,7 @@ function PasswordAgeDays {
             Add-Result "PasswordAgeDays" "NOT ENABLED" "ENABLED" "MEDIUM" $currentValuee34 30
         }
     } catch {
-        Add-Result "PasswordAgeDays" "ERROR" "MEDIUM" "N/A" "0" "Error retrieving registry value: $($_.Exception.Message)"
+        Add-Result "PasswordAgeDays" "ERROR" "ENABLED" "MEDIUM" "0" "Error retrieving registry value: $($_.Exception.Message)"
     }
 }
 
@@ -804,7 +745,7 @@ function PostAuthenticationResetDelay {
             Add-Result "PostAuthenticationResetDelay" "NOT ENABLED" "ENABLED" "MEDIUM" $currentValuee35
         }
     } catch {
-        Add-Result "PostAuthenticationResetDelay" "ERROR" "MEDIUM" "N/A" "0" "Error retrieving registry value: $($_.Exception.Message)"
+        Add-Result "PostAuthenticationResetDelay" "ERROR" "ENABLED" "MEDIUM" "0" "Error retrieving registry value: $($_.Exception.Message)"
     }
 }
 
@@ -818,21 +759,23 @@ function PostAuthenticationActions {
             Add-Result "PostAuthenticationActions" "NOT ENABLED" "ENABLED" "LOW" $currentValuee36
         }
     } catch {
-        Add-Result "PostAuthenticationActions" "ERROR" "MEDIUM" "N/A" "0" "Error retrieving registry value: $($_.Exception.Message)"
+        Add-Result "PostAuthenticationActions" "ERROR" "ENABLED" "LOW" "0" "Error retrieving registry value: $($_.Exception.Message)"
+    }
+}
+foreach ($key in $settingsContent.PSObject.Properties.Name) {
+    foreach ($setting in $settingsContent.$key) {
+        # Check if the function exists and invoke it
+        if (Get-Command $setting -ErrorAction SilentlyContinue) {
+            & $setting # Use call operator to invoke the function
+        } else {
+            Write-Host "Function '$setting' not found. Skipping."
+        }
     }
 }
 
-Remove-Item "temp_output.csv" -ErrorAction SilentlyContinue
-
-BackupDirectory
-DontEnumerateConnectedUsers
-
-
-function SayHello {
-    Write-Output "Hello World"
-}
-
-function writeout {
-    Write-Host $results
-    $results | Export-Csv -Path "output.csv" -NoTypeInformation -Delimiter "|"
+# Export results if any
+if ($global:results.Count -gt 0) {
+    $global:results | Export-Csv -Path "new.csv" -NoTypeInformation -Delimiter "|"
+} else {
+    Write-Host "No matched functions to write to new.csv."
 }

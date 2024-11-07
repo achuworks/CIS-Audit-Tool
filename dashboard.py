@@ -2,7 +2,8 @@ from PySide6.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QHBoxL
 from PySide6.QtCharts import QChart, QChartView, QPieSeries, QLineSeries
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QColor, QPainter
-import sys, csv
+import sys
+import csv
 
 class Dashboard(QWidget):
     def __init__(self):
@@ -13,20 +14,19 @@ class Dashboard(QWidget):
 
         main_layout = QVBoxLayout()
         grid_layout = QGridLayout()
-
         main_layout.setContentsMargins(0, 0, 0, 0)
         main_layout.setSpacing(0)
         self.currently_visible_description = None
 
+        # Calculate counts based on new.csv
         passed_count, failed_count, high_count, medium_count, low_count = self.calculate_counts()
-        
-        # Increase font size and bold for TOTAL PASSED
+
+        # Display counts
         grid_layout.addWidget(self.create_indicator(f"TOTAL PASSED: {passed_count}", "#008000", "35px", True), 0, 0, 1, 2)
-        
-        # Increase font size and bold for TOTAL FAILED and severity counts
         failed_widget = self.create_failed_indicator(failed_count, high_count, medium_count, low_count)
         grid_layout.addWidget(failed_widget, 0, 2, 1, 2)
 
+        # Create charts
         pie_chart_view = self.create_pie_chart(high_count, medium_count, low_count)
         pie_chart_view.setFixedSize(400, 300)
         grid_layout.addWidget(pie_chart_view, 1, 3, 1, 1)
@@ -34,6 +34,7 @@ class Dashboard(QWidget):
         line_chart_view = self.create_line_chart()
         line_chart_view.setFixedSize(400, 300)
         grid_layout.addWidget(line_chart_view, 2, 3, 1, 1)
+
         self.setStyleSheet("QWidget{background-color:#FFFFFF}")
 
         scroll_area = QScrollArea()
@@ -41,12 +42,17 @@ class Dashboard(QWidget):
         scroll_content = QWidget()
         scroll_layout = QVBoxLayout(scroll_content)
 
-        with open("output3.csv", "r") as file:
+        # Read the CSV and create interface elements
+        with open("new.csv", "r") as file:
             creader = csv.reader(file, delimiter='|')
-            next(creader)
+            next(creader)  # Skip header
             for row in creader:
-                name, status, status_to_be, priority, registry_value, value_to_be = row
+                # Ensure row has the expected number of fields (7 columns)
+                if len(row) < 7:
+                    continue  # Skip if not enough data
 
+                # Unpacking the seven columns
+                name, status, status_to_be, severity, current_value, expected_value, message = row
                 group_box = QGroupBox(name)
                 group_box.setStyleSheet("border: none;")
                 group_layout = QVBoxLayout()
@@ -55,12 +61,17 @@ class Dashboard(QWidget):
                 button.setStyleSheet("QPushButton{color: black; border: 1px solid grey; border-radius: 15px; padding: 5px; margin: 2px}")
                 button.clicked.connect(lambda checked, gb=group_box: self.toggle_visibility(gb))
 
-                description = f"Status: {status} | Status To Be: {status_to_be}"
+                # Create dynamic description including extra_info
+                description = (f"Status: {status} | Status To Be: {status_to_be}")
                 description_label = QLabel(description)
                 description_label.setWordWrap(True)
-                description_label.setStyleSheet("color: black; font-size: 13px; border: 1px solid grey; background-color: #bfbfbf; border-radius: 15px; padding: 5px")
+                description_label.setStyleSheet(
+                    "color: black; font-size: 13px; border: 1px solid grey; "
+                    "background-color: #bfbfbf; border-radius: 15px; padding: 5px"
+                )
                 description_label.setVisible(False)
 
+                # Add widgets to layout
                 group_layout.addWidget(button)
                 group_layout.addWidget(description_label)
                 group_box.setLayout(group_layout)
@@ -79,23 +90,26 @@ class Dashboard(QWidget):
         medium_count = 0
         low_count = 0
 
-        with open("output3.csv", "r") as file:
+        with open("new.csv", "r") as file:
             creader = csv.reader(file, delimiter='|')
-            next(creader)
+            next(creader)  # Skip header
             for row in creader:
-                _, status, status_to_be, priority, _, _ = row
+                if len(row) < 7:
+                    continue  # Skip if not enough data
 
-                if status == status_to_be:
-                    passed_count += 1
-                else:
+                name, status, status_to_be, severity, current_value, expected_value, message = row
+
+                # Check if the status does not match the expected
+                if status != status_to_be:
                     failed_count += 1
-
-                    if priority == "HIGH":
+                    if severity == "HIGH":
                         high_count += 1
-                    elif priority == "MEDIUM":
+                    elif severity == "MEDIUM":
                         medium_count += 1
-                    elif priority == "LOW":
+                    elif severity == "LOW":
                         low_count += 1
+                else:
+                    passed_count += 1  # Status matches expected, count as passed
 
         return passed_count, failed_count, high_count, medium_count, low_count
 
@@ -111,7 +125,6 @@ class Dashboard(QWidget):
 
     def create_failed_indicator(self, failed_count, high_count, medium_count, low_count):
         layout = QVBoxLayout()
-
         lbl_failed = QLabel(f"TOTAL FAILED: {failed_count}")
         lbl_failed.setStyleSheet("font-size: 35px; color: #8B0000; font-weight: bold;")
         lbl_failed.setAlignment(Qt.AlignCenter)
@@ -120,15 +133,15 @@ class Dashboard(QWidget):
         severity_layout = QHBoxLayout()
 
         lbl_high = QLabel(f"HIGH: {high_count}")
-        lbl_high.setStyleSheet("font-size: 25px; color: #FF0000; font-weight: bold; margin-right: 15px;") 
+        lbl_high.setStyleSheet("font-size: 25px; color: #FF0000; font-weight: bold; margin-right: 15px") 
         severity_layout.addWidget(lbl_high)
 
         lbl_medium = QLabel(f"MEDIUM: {medium_count}")
-        lbl_medium.setStyleSheet("font-size: 25px; color: #FFA500; font-weight: bold; margin-right: 15px;")  
+        lbl_medium.setStyleSheet("font-size: 25px; color: #FFA500; font-weight: bold; margin-right: 15px")  
         severity_layout.addWidget(lbl_medium)
 
         lbl_low = QLabel(f"LOW: {low_count}")
-        lbl_low.setStyleSheet("font-size: 25px; color: #0000FF; font-weight: bold; margin-right: 15px;")  
+        lbl_low.setStyleSheet("font-size: 25px; color: #0000FF; font-weight: bold; margin-right: 15px")  
         severity_layout.addWidget(lbl_low)
 
         severity_widget = QWidget()
@@ -136,7 +149,6 @@ class Dashboard(QWidget):
         severity_layout.setAlignment(Qt.AlignCenter)
 
         layout.addWidget(severity_widget)
-
         widget = QWidget()
         widget.setLayout(layout)
         return widget
@@ -146,6 +158,13 @@ class Dashboard(QWidget):
         series.append("High", high_count)
         series.append("Medium", medium_count)
         series.append("Low", low_count)
+
+        if high_count == 0:
+            series.slices()[0].setLabelVisible(False)
+        if medium_count == 0:
+            series.slices()[1].setLabelVisible(False)
+        if low_count == 0:
+            series.slices()[2].setLabelVisible(False)
 
         high_slice = series.slices()[0]
         high_slice.setBrush(Qt.red)
@@ -166,6 +185,7 @@ class Dashboard(QWidget):
         chart.addSeries(series)
         chart.setTitle("CIS Benchmark Severity Distribution")
         chart.legend().setAlignment(Qt.AlignRight)
+        chart.createDefaultAxes()
 
         chart_view = QChartView(chart)
         chart_view.setRenderHint(QPainter.Antialiasing)
@@ -173,12 +193,9 @@ class Dashboard(QWidget):
 
     def create_line_chart(self):
         series = QLineSeries()
-        series.append(0, 1)
-        series.append(1, 3)
-        series.append(2, 2)
-        series.append(3, 5)
-        series.append(4, 4)
-
+        for i in range(5):
+            series.append(i, i * 2)  # Modify this to reflect actual time-series data
+        
         chart = QChart()
         chart.addSeries(series)
         chart.createDefaultAxes()
@@ -200,10 +217,10 @@ class Dashboard(QWidget):
             if isinstance(widget, QLabel):
                 widget.setVisible(not widget.isVisible())
 
-        self.currently_visible_description = group_box
+        self.currently_visible_description = group_box if widget.isVisible() else None
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    dashboard = Dashboard()
-    dashboard.show()
+    window = Dashboard()
+    window.show()
     sys.exit(app.exec())

@@ -1,0 +1,15 @@
+{
+  "Network Configuration": [
+    "RequireSignOrSeal",
+    "SealSecureChannel",
+    "SignSecureChannel",
+    "DisablePasswordChange",
+    "EnableNetbios",
+    "EnableMulticast"
+  ],
+  "Firewall Settings": [],
+  "User Account Control": [],
+  "System Updates and Policies": [],
+  "Date & Time Settings": [],
+  "Security Policies": []
+}

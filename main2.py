@@ -2,10 +2,12 @@
 import os
 import sys
 import ctypes
+import subprocess
 from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QHBoxLayout, QPushButton, QWidget, QLabel, QStackedWidget, QMessageBox
 from PySide6.QtCore import Slot, QTimer, QUrl
 from PySide6.QtWebEngineWidgets import QWebEngineView
 from dashboard import Dashboard  
+from PySide6.QtWebEngineWidgets import QWebEngineView
 
 
 def is_admin():
@@ -132,9 +134,28 @@ class MainWindow(QMainWindow):
 
     @Slot()
     def load_generate_report(self):
-        """Load the merged report HTML into the Generate Report page."""
-        report_path = QUrl.fromLocalFile(os.path.abspath('merged_report.html'))
-        self.generate_report_view.setUrl(report_path)
+        """Load the merged report HTML into the Generate Report page and run rep.py in the background."""
+    
+        # Ensure any previous report (newone.html) is removed before running rep.py
+        report_file = os.path.abspath('newone.html')
+        if os.path.exists(report_file):
+            os.remove(report_file)
+
+        # Run rep.py in the background using subprocess
+        subprocess.Popen(['python', 'rep.py'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+        # Wait for the report to be generated, or implement a better check if necessary
+        # Create a QWebEngineView widget to display the HTML content
+        report_view = QWebEngineView()
+
+        # Load the generated report (newone.html) into the QWebEngineView
+        report_view.setUrl(QUrl.fromLocalFile(report_file))
+
+        # Add the report_view to your layout or window
+        # Assuming self.layout is your current layout, or use the appropriate parent widget or layout:
+        self.layout.addWidget(report_view)  # You can replace 'self.layout' with your actual layout
+    
+        # Change the page to show the report in the same window (instead of navigating away)
         self.change_page(1)
 
     @Slot()

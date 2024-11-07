@@ -1,9 +1,8 @@
 import subprocess
 import os
-import pandas as pd
 import json
 from PySide6.QtWidgets import (
-    QApplication, QWidget, QVBoxLayout, QLabel, QMainWindow, QScrollArea, QPushButton, QGridLayout, QListWidget, QHBoxLayout, QTreeWidget, QTreeWidgetItem, QFileDialog,QMessageBox
+    QApplication, QWidget, QVBoxLayout, QLabel, QMainWindow, QScrollArea, QPushButton, QGridLayout, QListWidget, QHBoxLayout, QTreeWidget, QTreeWidgetItem, QFileDialog, QMessageBox
 )
 from PySide6.QtCore import Qt
 import sys
@@ -45,16 +44,17 @@ class MainWindow(QMainWindow):
         self.scroll_layout.setSpacing(10)
         self.scroll_area.setWidget(self.scroll_content)
         self.scroll_area.setFixedHeight(400)
-        
-        if("Windows" in os_name):
+
+        if "Windows" in os_name:
             with open('config/windows_enterprise.json') as file:
                 file_content = file.read()
-        elif("Ubuntu" in os_name):
+        elif "Ubuntu" in os_name:
             with open('config/linux_configuration.json') as file:
                 file_content = file.read()
         json_data = json.loads(file_content)
 
-        self.tree = SettingsTree(json_data)
+        # Pass the current instance of MainWindow to SettingsTree
+        self.tree = SettingsTree(json_data, self)
         
         self.scroll_layout.addWidget(self.tree)
         self.tree.itemChanged.connect(self.update_chosen_settings)
@@ -70,7 +70,7 @@ class MainWindow(QMainWindow):
         self.chosen_settings_list.setStyleSheet("background-color: #f0f0f0; font-size: 14px; color: #333;")
         self.main_layout.addWidget(self.chosen_settings_list, 2, 1)
 
-        self.apply_button = QPushButton("Next")
+        self.apply_button = QPushButton("Run Audit")
         self.apply_button.setStyleSheet("font-size: 16px; padding: 10px; background-color: #e0e0e0;")
         self.apply_button.clicked.connect(self.next)
 
@@ -92,13 +92,14 @@ class MainWindow(QMainWindow):
     def update_chosen_settings(self):
         self.chosen_settings_list.clear()
         self.collect_checked_items(self.tree.invisibleRootItem())
+        self.export_settings()  # Export settings whenever the chosen settings update
 
     def collect_checked_items(self, parent): 
         for i in range(parent.childCount()):
             child = parent.child(i)
-            if(child.checkState(0) == Qt.Checked):
+            if child.checkState(0) == Qt.Checked:
                 self.chosen_settings_list.addItem(child.text(0))
-            if(child.childCount() > 0):
+            if child.childCount() > 0:
                 self.collect_checked_items(child)
 
     def next(self):
@@ -107,15 +108,23 @@ class MainWindow(QMainWindow):
         message_box.setText("Are you sure you want to run the audit?")
         message_box.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
         message_box.setDefaultButton(QMessageBox.No)
- 
-        message_box.setStyleSheet("""
-            QMessageBox { background-color: white; }
+
+        message_box.setStyleSheet("""QMessageBox { background-color: white; }
             QLabel { color: black; font-size: 14px; }
             QPushButton { color: black; font-size: 12px; padding: 5px; }
         """)
         reply = message_box.exec()
-    
+
         if reply == QMessageBox.Yes:
+            # Step 1: Run test.ps1 in the background
+            test_script = 'C:\\Users\\AchuAbu\\Desktop\\SIH\\solid-umbrella\\test.ps1'  # Ensure the path is correct
+            subprocess.Popen(['powershell', '-ExecutionPolicy', 'Bypass', '-File', test_script], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        
+            # Step 2: Run rep.py in the background
+            rep_script = 'C:\\Users\\AchuAbu\\Desktop\\SIH\\solid-umbrella\\rep.py'  # Ensure the path is correct
+            subprocess.Popen(['python', rep_script], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+            # Step 3: Run main2.py visibly to the user
             subprocess.run(['python', 'main2.py'])
 
     def collect_settings(self, parent, settings):
@@ -137,10 +146,9 @@ class MainWindow(QMainWindow):
     def export_settings(self):
         settings = {}
         self.collect_settings(self.tree.invisibleRootItem(), settings)
-        file_name, _ = QFileDialog.getSaveFileName(self, "Save Settings", "", "JSON Files (*.json)")
-        if file_name:
-            with open(file_name, 'w') as f:
-                json.dump(settings, f, indent=2)
+        file_name = 'auto_saved_settings.json'  
+        with open(file_name, 'w') as f:
+            json.dump(settings, f, indent=2)
 
     def import_settings(self):
         file_name, _ = QFileDialog.getOpenFileName(self, "Load Settings", "", "JSON Files (*.json)")
@@ -166,17 +174,16 @@ class MainWindow(QMainWindow):
         self.update_chosen_settings()
 
 class SettingsTree(QTreeWidget):
-    def __init__(self, data):
+    def __init__(self, data, main_window):
         super().__init__()
-        self.setHeaderHidden(True)  # Hide header
+        self.setHeaderHidden(True)  
         self.setStyleSheet("""QTreeWidget::indicator:unchecked { 
                            border: 1px solid black; background-color: white; border-radius: 5px;
-                            }    """)
-        # Load JSON data into tree widget
-        self.load_json_data(data)
+                            }""")
+        self.main_window = main_window  # Store a reference to the MainWindow
+        self.load_json_data(data)  # Call method to load JSON data
 
-        # Handle clicks on items
-        self.itemClicked.connect(self.handle_item_click)
+        self.itemChanged.connect(self.handle_item_change)
 
     def load_json_data(self, data):
         for parent, children in data.items():
@@ -188,8 +195,10 @@ class SettingsTree(QTreeWidget):
                 child_item.setCheckState(0, Qt.Unchecked)
                 parent_item.addChild(child_item)
 
-    def handle_item_click(self, item, column):
-        pass
+    def handle_item_change(self, item, column):
+        # When an item's check state changes, we should trigger the export
+        if item.checkState(column) in [Qt.Checked, Qt.Unchecked]:
+            self.main_window.update_chosen_settings()  # Notify the MainWindow to update
 
 if __name__ == "__main__":
     app = QApplication([])
