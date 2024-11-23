@@ -1,9 +1,10 @@
 import pandas as pd
 
+# Load the CSV file
+csv_file = 'newrem.csv'
+df = pd.read_csv(csv_file, delimiter='|', dtype=str)
 
-csv_file = 'rem.csv'
-df = pd.read_csv(csv_file, delimiter='|')
-
+# Now fill missing values, consider filling with an appropriate value
 df.fillna('', inplace=True)
 
 html = """
@@ -22,7 +23,7 @@ html = """
         }
         .table-container {
             display: flex;
-            justify-content: space-around;
+            justify-content: center;
             margin-top: 20px;
         }
         table {
@@ -68,36 +69,6 @@ html = """
             display: block;
             margin: 0 auto;
         }
-        .high {
-            color: black;
-            background-color: rgb(255, 0, 0);
-            font-weight: 700;
-        }
-        .medium {
-            color: black;
-            background-color: rgb(255, 166, 0);
-            font-weight: 700;
-        }
-        .low {
-            color: black;
-            background-color: rgb(27, 92, 233);
-            font-weight: 700;
-        }
-        .a {
-            color: green;
-        }
-        .b {
-            color: red;
-        }
-        .t1 {
-            background-color: #05b40b;
-        }
-        .t2 {
-            background-color: red;
-        }
-        .c{
-            color:green;
-        }
     </style>
 </head>
 <body>
@@ -108,41 +79,37 @@ html = """
 <img src="logo.jpg" height="70px" width="100px">
 
 <div class="table-container">
-
     <div>
-        <h2 class="c">After Remediation</h2>
+        <h2>After Remediation</h2>
         <table>
             <thead>
                 <tr>
-                    <th class="t1">Name</th>
-                    <th class="t1">Remediation Status</th>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th>Status To Be</th>
                 </tr>
             </thead>
             <tbody>
 """
 
-
 for index, row in df.iterrows():
-    remediation_status = row['RemediationStatus']
     html += f"""
                 <tr>
                     <td>{row['Name']}</td>
-                    <td>{remediation_status}</td>
+                    <td>{row['Status']}</td>
+                    <td>{row['StatusToBe']}</td>
                 </tr>
     """
-
 
 html += """
             </tbody>
         </table>
     </div>
-
 </div>
 
 </body>
 </html>
 """
-
 
 output_html = 'remnew.html'
 with open(output_html, 'w') as f:

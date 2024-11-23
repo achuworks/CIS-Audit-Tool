@@ -10,7 +10,6 @@
   ],
   "Firewall Settings": [
       "EnableFirewall",
-      "Firewallstate",
       "DefaultInbound",
       "DisableNotifications",
       "LogFilePath",

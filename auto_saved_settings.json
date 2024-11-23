@@ -1,11 +1,7 @@
 {
   "Network Configuration": [
     "RequireSignOrSeal",
-    "SealSecureChannel",
-    "SignSecureChannel",
-    "DisablePasswordChange",
-    "EnableNetbios",
-    "EnableMulticast"
+    "SealSecureChannel"
   ],
   "Firewall Settings": [],
   "User Account Control": [],

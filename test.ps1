@@ -47,209 +47,209 @@ $settingsContent = Get-Content $settingsFile -Raw | ConvertFrom-Json
 # Parse the JSON content to get functions to run
 $settingsContent = Get-Content $settingsFile -Raw | ConvertFrom-Json
 # Initialize Registry Paths and Value Names
-$regPath = "HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters"
-$valueName = "RequireSignOrSeal"
-$regPath2 = "HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters"
-$valueName2 = "SealSecureChannel"
-$regPath3 = "HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters"
-$valueName3 = "SignSecureChannel"
-$regPath4 = "HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters"
-$valueName4 = "DisablePasswordChange"
-$regPath5 = "HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters"
-$valueName5 = "MaximumPasswordAge"
-$regPath6 = "HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters"
-$valueName6 = "RequireStrongKey"
-$regPath7 = "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile"
-$valueName7 = "EnableFirewall"
-$regPath8 = "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile"
-$valueName8 = "DefaultInboundAction"
-$regPath9 = "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile"
-$valueName9 = "DisableNotifications"
-$regPath10 = "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging"
-$valueName10 = "LogFilePath"
-$regPath11 = "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging"
-$valueName11 = "LogFileSize"
-$regPath12 = "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging"
-$valueName12 = "LogDroppedPackets"
-$regPath13 = "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging"
-$valueName13 = "LogSuccessfulConnections"
-$regPath14 = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
-$valueName14 = "LocalAccountTokenFilterPolicy"
-$regPath15 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient"
-$valueName15 = "DoHPolicy"
-$regPath16 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient"
-$valueName16 = "EnableNetbios"
-$regPath17 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient"
-$valueName17 = "EnableMulticast"
-$regPath18 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Network Connections"
-$valueName18 = "NC_StdDomainUserSetLocation"
-$regPath19 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WcmSvc\GroupPolicy"
-$valueName19 = "fBlockNonDomain"
-$regPath20 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Group Policy\{35378EAC-683F-11D2-A89A-00C04FBBCFA2}"
-$valueName20 = "NoBackgroundPolicy"
-$regPath21 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Group Policy\{35378EAC-683F-11D2-A89A-00C04FBBCFA2}"
-$valueName21 = "NoGPOListChanges"
-$regPath22 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Group Policy\{827D319E-6EAC-11D2-A4EA-00C04F79F83A}"
-$valueName22 = "NoBackgroundPolicy"
-$regPath23 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Group Policy\{827D319E-6EAC-11D2-A4EA-00C04F79F83A}"
-$valueName23 = "NoGPOListChanges"
-$regPath24 = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
-$valueName24 = "DisableBkGndGroupPolicy"
-$regPath25 = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\LAPS"
-$valueName25 = "BackupDirectory"
-$regPath26 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System"
-$valueName26 = "DontEnumerateConnectedUsers"
-$regPath27 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System"
-$valueName27 = "EnumerateLocalUsers"
-$regPath28 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System"
-$valueName28 = "BlockDomainPicturePassword"
-$regPath29 = "HKLM:\SOFTWARE\Policies\Microsoft\W32Time\TimeProviders\NtpServer"
-$valueName29 = "Enabled"
-$regPath30 = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\LAPS"
-$valueName30 = "PwdExpirationProtectionEnabled"
-$regPath31 = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\LAPS"
-$valueName31 = "ADPasswordEncryptionEnabled"
-$regPath32 = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\LAPS"
-$valueName32 = "PasswordComplexity"
-$regPath33 = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\LAPS"
-$valueName33 = "PasswordLength"
-$regPath34 = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\LAPS"
-$valueName34 = "PasswordAgeDays"
-$regPath35 = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\LAPS"
-$valueName35 = "PostAuthenticationResetDelay"
-$regPath36 = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\LAPS"
-$valueName36 = "PostAuthenticationActions"
+    $regPath = "HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters"
+    $valueName = "RequireSignOrSeal"
+    $regPath2 = "HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters"
+    $valueName2 = "SealSecureChannel"
+    $regPath3 = "HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters"
+    $valueName3 = "SignSecureChannel"
+    $regPath4 = "HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters"
+    $valueName4 = "DisablePasswordChange"
+    $regPath5 = "HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters"
+    $valueName5 = "MaximumPasswordAge"
+    $regPath6 = "HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters"
+    $valueName6 = "RequireStrongKey"
+    $regPath7 = "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile"
+    $valueName7 = "EnableFirewall"
+    $regPath8 = "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile"
+    $valueName8 = "DefaultInboundAction"
+    $regPath9 = "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile"
+    $valueName9 = "DisableNotifications"
+    $regPath10 = "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging"
+    $valueName10 = "LogFilePath"
+    $regPath11 = "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging"
+    $valueName11 = "LogFileSize"
+    $regPath12 = "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging"
+    $valueName12 = "LogDroppedPackets"
+    $regPath13 = "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging"
+    $valueName13 = "LogSuccessfulConnections"
+    $regPath14 = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
+    $valueName14 = "LocalAccountTokenFilterPolicy"
+    $regPath15 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient"
+    $valueName15 = "DoHPolicy"
+    $regPath16 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient"
+    $valueName16 = "EnableNetbios"
+    $regPath17 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient"
+    $valueName17 = "EnableMulticast"
+    $regPath18 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Network Connections"
+    $valueName18 = "NC_StdDomainUserSetLocation"
+    $regPath19 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WcmSvc\GroupPolicy"
+    $valueName19 = "fBlockNonDomain"
+    $regPath20 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Group Policy\{35378EAC-683F-11D2-A89A-00C04FBBCFA2}"
+    $valueName20 = "NoBackgroundPolicy"
+    $regPath21 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Group Policy\{35378EAC-683F-11D2-A89A-00C04FBBCFA2}"
+    $valueName21 = "NoGPOListChanges"
+    $regPath22 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Group Policy\{827D319E-6EAC-11D2-A4EA-00C04F79F83A}"
+    $valueName22 = "NoBackgroundPolicy"
+    $regPath23 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Group Policy\{827D319E-6EAC-11D2-A4EA-00C04F79F83A}"
+    $valueName23 = "NoGPOListChanges"
+    $regPath24 = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
+    $valueName24 = "DisableBkGndGroupPolicy"
+    $regPath25 = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\LAPS"
+    $valueName25 = "BackupDirectory"
+    $regPath26 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System"
+    $valueName26 = "DontEnumerateConnectedUsers"
+    $regPath27 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System"
+    $valueName27 = "EnumerateLocalUsers"
+    $regPath28 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System"
+    $valueName28 = "BlockDomainPicturePassword"
+    $regPath29 = "HKLM:\SOFTWARE\Policies\Microsoft\W32Time\TimeProviders\NtpServer"
+    $valueName29 = "Enabled"
+    $regPath30 = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\LAPS"
+    $valueName30 = "PwdExpirationProtectionEnabled"
+    $regPath31 = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\LAPS"
+    $valueName31 = "ADPasswordEncryptionEnabled"
+    $regPath32 = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\LAPS"
+    $valueName32 = "PasswordComplexity"
+    $regPath33 = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\LAPS"
+    $valueName33 = "PasswordLength"
+    $regPath34 = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\LAPS"
+    $valueName34 = "PasswordAgeDays"
+    $regPath35 = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\LAPS"
+    $valueName35 = "PostAuthenticationResetDelay"
+    $regPath36 = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\LAPS"
+    $valueName36 = "PostAuthenticationActions"
 
-function RequireSignOrSeal {
-    try {
-        $currentValue = Get-ItemProperty -Path $regPath -Name $valueName -ErrorAction Stop
-        $currentValuee = $currentValue.$valueName
-        if ($currentValuee -eq 1) {
-            Add-Result "RequireSignOrSeal" "ENABLED" "ENABLED" "" $currentValuee 1
-        } else {
-            Add-Result "RequireSignOrSeal" "NOT ENABLED" "ENABLED" "MEDIUM" $currentValuee 1
-        }
-    } catch {
-        Add-Result "RequireSignOrSeal" "ERROR" "ENABLED" "HIGH" "1" "Registry path not found: $($_.Exception.Message)"
-    }
-}
-
-function SealSecureChannel {
-    try {
-        $currentValue2 = Get-ItemProperty -Path $regPath2 -Name $valueName2 -ErrorAction Stop
-        $currentValuee2 = $currentValue2.$valueName2
-        if ($currentValuee2 -eq 1) {
-            Add-Result "SealSecureChannel" "ENABLED" "ENABLED" "" $currentValuee2 1
-        } else {
-            Add-Result "SealSecureChannel" "NOT ENABLED" "ENABLED" "MEDIUM" $currentValuee2 1
-        }
-    } catch {
-        Add-Result "SealSecureChannel" "ERROR" "ENABLED" "HIGH" "1" "Registry path not found: $($_.Exception.Message)"
-    }
-}
-
-
-function SignSecureChannel {
-    try {
-        $currentValue3 = Get-ItemProperty -Path $regPath3 -Name $valueName3 -ErrorAction Stop
-        $currentValuee3 = $currentValue3.$valueName3
-        if ($currentValuee3 -eq 1) {
-            Add-Result "SignSecureChannel" "ENABLED" "ENABLED" "" $currentValuee3 1
-        } else {
-            Add-Result "SignSecureChannel" "NOT ENABLED" "ENABLED" "MEDIUM" $currentValuee3 1
-        }
-    } catch {
-        Add-Result "SignSecureChannel" "ERROR" "ENABLED" "HIGH" "1" "Registry path not found: $($_.Exception.Message)"
-    }
-}
-
-# Example Functions for other registry values
-function DisablePasswordChange {
-    try {
-        $currentValue4 = Get-ItemProperty -Path $regPath4 -Name $valueName4 -ErrorAction Stop
-        $currentValuee4 = $currentValue4.$valueName4
-        if ($currentValuee4 -eq 1) {
-            Add-Result "DisablePasswordChange" "ENABLED" "NOT ENABLED" "MEDIUM" $currentValuee4 1
-        } else {
-            Add-Result "DisablePasswordChange" "NOT ENABLED" "NOT ENABLED" "" $currentValuee4 1
-        }
-    } catch {
-        Add-Result "DisablePasswordChange" "ERROR" "NOT ENABLED" "MEDIUM" "1" "Registry path not found: $($_.Exception.Message)"
-    }
-}
-
-function MaximumPasswordAge {
-    try {
-        $currentValue5 = Get-ItemProperty -Path $regPath5 -Name $valueName5 -ErrorAction Stop
-        $currentValuee5 = $currentValue5.$valueName5
-        if ($currentValuee5 -eq 30) {
-            Add-Result "MaximumPasswordAge" "ENABLED" "ENABLED" "" $currentValuee5 30
-        } else {
-            Add-Result "MaximumPasswordAge" "NOT ENABLED" "ENABLED" "HIGH" $currentValuee5 30
-        }
-    } catch {
-        Add-Result "MaximumPasswordAge" "ERROR" "ENABLED" "HIGH" "30" "Registry path not found: $($_.Exception.Message)"
-    }
-}
-
-function RequireStrongKey {
-    try {
-        $currentValue6 = Get-ItemProperty -Path $regPath6 -Name $valueName6 -ErrorAction Stop
-        $currentValuee6 = $currentValue6.$valueName6
-        if ($currentValuee6 -eq 1) {
-            Add-Result "RequireStrongKey" "ENABLED" "ENABLED" "" $currentValuee6 1
-        } else {
-            Add-Result "RequireStrongKey" "NOT ENABLED" "ENABLED" "HIGH" $currentValuee6 1
-        }
-    } catch {
-        Add-Result "RequireStrongKey" "ERROR" "ENABLED" "HIGH" "1" "Registry path not found: $($_.Exception.Message)"
-    }
-}
-
-# Similarly add more functions for each registry key as shown above
-
-
-function EnableFirewall {
-    try {
-        $currentValue7 = Get-ItemProperty -Path $regPath7 -Name $valueName7 -ErrorAction Stop
-        $currentValuee7 = $currentValue7.$valueName7
-        if($currentValuee7 -eq 1){
-            Add-Result "Firewall state" "ENABLED" "ENABLED" "" $currentValuee7 1
-        }else{
-            Add-Result "Firewall state" "NOT ENABLED" "ENABLED" "HIGH" $currentValuee7 1
+    function RequireSignOrSeal {
+        try {
+            $currentValue = Get-ItemProperty -Path $regPath -Name $valueName -ErrorAction Stop
+            $currentValuee = $currentValue.$valueName
+            if ($currentValuee -eq 1) {
+                Add-Result "RequireSignOrSeal" "ENABLED" "ENABLED" "" $currentValuee 1
+            } else {
+                Add-Result "RequireSignOrSeal" "NOT ENABLED" "ENABLED" "MEDIUM" $currentValuee 1
+            }
+        } catch {
+            Add-Result "RequireSignOrSeal" "ERROR" "ENABLED" "HIGH" "1" "Registry path not found: $($_.Exception.Message)"
         }
     }
-    catch [System.Management.Automation.ItemNotFoundException] {
-        Add-Result "Firewall state" "ERROR" "ENABLED" "HIGH" "1" "Registry path not found: $($_.Exception.Message)"
-    }
-    catch [System.Management.Automation.PSArgumentException] {
-        Add-Result "Firewall state" "ERROR" "ENABLED" "HIGH" "1" "Registry value not found: $($_.Exception.Message)"
-    }
-    catch {
-        Add-Result "Firewall state" "ERROR" "ENABLED" "HIGH" "1" "Unexpected error: $($_.Exception.Message)"
-    }
-}
 
-function DefaultInbound {
-    try {
-        $currentValue8 = Get-ItemProperty -Path $regPath8 -Name $valueName8 -ErrorAction Stop
-        $currentValuee8 = $currentValue8.$valueName8
-        if($currentValuee8 -eq 1){
-            Add-Result "DefaultInbound" "ENABLED" "ENABLED" "" $currentValuee8 1
-        }else{
-            Add-Result "DefaultInbound" "NOT ENABLED" "ENABLED" "MEDIUM" $currentValuee8 1
+    function SealSecureChannel {
+        try {
+            $currentValue2 = Get-ItemProperty -Path $regPath2 -Name $valueName2 -ErrorAction Stop
+            $currentValuee2 = $currentValue2.$valueName2
+            if ($currentValuee2 -eq 1) {
+                Add-Result "SealSecureChannel" "ENABLED" "ENABLED" "" $currentValuee2 1
+            } else {
+                Add-Result "SealSecureChannel" "NOT ENABLED" "ENABLED" "MEDIUM" $currentValuee2 1
+            }
+        } catch {
+            Add-Result "SealSecureChannel" "ERROR" "ENABLED" "HIGH" "1" "Registry path not found: $($_.Exception.Message)"
         }
     }
-    catch [System.Management.Automation.ItemNotFoundException] {
-        Add-Result "DefaultInbound" "ERROR" "ENABLED" "MEDIUM" "1" "Registry path not found: $($_.Exception.Message)"
+
+
+    function SignSecureChannel {
+        try {
+            $currentValue3 = Get-ItemProperty -Path $regPath3 -Name $valueName3 -ErrorAction Stop
+            $currentValuee3 = $currentValue3.$valueName3
+            if ($currentValuee3 -eq 1) {
+                Add-Result "SignSecureChannel" "ENABLED" "ENABLED" "" $currentValuee3 1
+            } else {
+                Add-Result "SignSecureChannel" "NOT ENABLED" "ENABLED" "MEDIUM" $currentValuee3 1
+            }
+        } catch {
+            Add-Result "SignSecureChannel" "ERROR" "ENABLED" "HIGH" "1" "Registry path not found: $($_.Exception.Message)"
+        }
     }
-    catch [System.Management.Automation.PSArgumentException] {
-        Add-Result "DefaultInbound" "ERROR" "ENABLED" "MEDIUM" "1" "Registry value not found: $($_.Exception.Message)"
+
+    # Example Functions for other registry values
+    function DisablePasswordChange {
+        try {
+            $currentValue4 = Get-ItemProperty -Path $regPath4 -Name $valueName4 -ErrorAction Stop
+            $currentValuee4 = $currentValue4.$valueName4
+            if ($currentValuee4 -eq 1) {
+                Add-Result "DisablePasswordChange" "ENABLED" "NOT ENABLED" "MEDIUM" $currentValuee4 1
+            } else {
+                Add-Result "DisablePasswordChange" "NOT ENABLED" "NOT ENABLED" "" $currentValuee4 1
+            }
+        } catch {
+            Add-Result "DisablePasswordChange" "ERROR" "NOT ENABLED" "MEDIUM" "1" "Registry path not found: $($_.Exception.Message)"
+        }
     }
-    catch {
-        Add-Result "DefaultInbound" "ERROR" "ENABLED" "MEDIUM" "1" "Unexpected error: $($_.Exception.Message)"
+
+    function MaximumPasswordAge {
+        try {
+            $currentValue5 = Get-ItemProperty -Path $regPath5 -Name $valueName5 -ErrorAction Stop
+            $currentValuee5 = $currentValue5.$valueName5
+            if ($currentValuee5 -eq 30) {
+                Add-Result "MaximumPasswordAge" "ENABLED" "ENABLED" "" $currentValuee5 30
+            } else {
+                Add-Result "MaximumPasswordAge" "NOT ENABLED" "ENABLED" "HIGH" $currentValuee5 30
+            }
+        } catch {
+            Add-Result "MaximumPasswordAge" "ERROR" "ENABLED" "HIGH" "30" "Registry path not found: $($_.Exception.Message)"
+        }
     }
-}
+
+    function RequireStrongKey {
+        try {
+            $currentValue6 = Get-ItemProperty -Path $regPath6 -Name $valueName6 -ErrorAction Stop
+            $currentValuee6 = $currentValue6.$valueName6
+            if ($currentValuee6 -eq 1) {
+                Add-Result "RequireStrongKey" "ENABLED" "ENABLED" "" $currentValuee6 1
+            } else {
+                Add-Result "RequireStrongKey" "NOT ENABLED" "ENABLED" "HIGH" $currentValuee6 1
+            }
+        } catch {
+            Add-Result "RequireStrongKey" "ERROR" "ENABLED" "HIGH" "1" "Registry path not found: $($_.Exception.Message)"
+        }
+    }
+
+    # Similarly add more functions for each registry key as shown above
+
+
+    function EnableFirewall {
+        try {
+            $currentValue7 = Get-ItemProperty -Path $regPath7 -Name $valueName7 -ErrorAction Stop
+            $currentValuee7 = $currentValue7.$valueName7
+            if($currentValuee7 -eq 1){
+                Add-Result "Firewall state" "ENABLED" "ENABLED" "" $currentValuee7 1
+            }else{
+                Add-Result "Firewall state" "NOT ENABLED" "ENABLED" "HIGH" $currentValuee7 1
+            }
+        }
+        catch [System.Management.Automation.ItemNotFoundException] {
+            Add-Result "Firewall state" "ERROR" "ENABLED" "HIGH" "1" "Registry path not found: $($_.Exception.Message)"
+        }
+        catch [System.Management.Automation.PSArgumentException] {
+            Add-Result "Firewall state" "ERROR" "ENABLED" "HIGH" "1" "Registry value not found: $($_.Exception.Message)"
+        }
+        catch {
+            Add-Result "Firewall state" "ERROR" "ENABLED" "HIGH" "1" "Unexpected error: $($_.Exception.Message)"
+        }
+    }
+
+    function DefaultInbound {
+        try {
+            $currentValue8 = Get-ItemProperty -Path $regPath8 -Name $valueName8 -ErrorAction Stop
+            $currentValuee8 = $currentValue8.$valueName8
+            if($currentValuee8 -eq 1){
+                Add-Result "DefaultInbound" "ENABLED" "ENABLED" "" $currentValuee8 1
+            }else{
+                Add-Result "DefaultInbound" "NOT ENABLED" "ENABLED" "MEDIUM" $currentValuee8 1
+            }
+        }
+        catch [System.Management.Automation.ItemNotFoundException] {
+            Add-Result "DefaultInbound" "ERROR" "ENABLED" "MEDIUM" "1" "Registry path not found: $($_.Exception.Message)"
+        }
+        catch [System.Management.Automation.PSArgumentException] {
+            Add-Result "DefaultInbound" "ERROR" "ENABLED" "MEDIUM" "1" "Registry value not found: $($_.Exception.Message)"
+        }
+        catch {
+            Add-Result "DefaultInbound" "ERROR" "ENABLED" "MEDIUM" "1" "Unexpected error: $($_.Exception.Message)"
+        }
+    }
 
 function DisableNotifications {
     try {
